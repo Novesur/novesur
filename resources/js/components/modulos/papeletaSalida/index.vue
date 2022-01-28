@@ -24,9 +24,19 @@
               <div class="card-header">
                 <h3 class="card-title">Criterios de Busqueda</h3>
               </div>
+
+
+
+
               <div class="card-body">
                 <form role="form">
-                  <div class="col-md-12">
+
+
+<!--  Por Vendedor  -->
+                         <el-tabs v-model="activeName" >
+  <el-tab-pane label="Por Vendedor" name="first">
+
+         <div class="col-md-12">
                     <div class="row">
                       <template
                         v-if="
@@ -102,19 +112,19 @@
 
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-md-1 col-form-label">Cliente</label>
+                          <label class="col-md-1 col-form-label">Motivo</label>
                           <div class="col-md-8">
                             <el-select
-                              v-model="fillBsqPapeletaSalida.nIdCliente"
+                              v-model="fillBsqPapeletaSalida.nIdMotivo"
                               filterable
                               placeholder="Seleccione un cliente"
                               :style="{ width: '700px' }"
                               clearable
                             >
                               <el-option
-                                v-for="item in listCliente"
+                                v-for="item in listMotivo"
                                 :key="item.id"
-                                :label="item.razonsocial"
+                                :label="item.nombre"
                                 :value="item.id"
                               >
                               </el-option>
@@ -142,41 +152,17 @@
                             </el-date-picker>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-md-1 col-form-label"
-                              >Estado</label
-                            >
-                            <div class="col-md-8">
-                              <el-select
-                                v-model="fillBsqPapeletaSalida.nIdtEstadoCoti2"
-                                filterable
-                                placeholder="Seleccione un estado"
-                                :style="{ width: '700px' }"
-                                clearable
-                              >
-                                <el-option
-                                  v-for="item in listEstadoCoti2"
-                                  :key="item.id"
-                                  :label="item.nombre"
-                                  :value="item.id"
-                                >
-                                </el-option>
-                              </el-select>
-                            </div>
-                          </div>
-                        </div>
+
                       </div>
                     </div>
                   </div>
-                </form>
-              </div>
-              <div class="card-footer">
+
+                   <div class="card-footer">
                 <div class="row">
                   <div class="col-md-4 offset-4">
                     <button
                       class="btn btn-flat btn-info btnWidth"
-                      @click.prevent="getlistCotizacionBy"
+                      @click.prevent="getlistPapeleByVendedor"
                     >
                       Buscar
                     </button>
@@ -189,8 +175,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card card-info">
+
+               <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Bandeja de Resultados</h3>
               </div>
@@ -204,12 +190,10 @@
                 >
                   <thead>
                     <tr>
-                      <th>Codigo</th>
                       <th>Fecha</th>
-                      <th>Cliente</th>
-                      <th>Estado</th>
-                      <th>Observacion</th>
-                      <th>Accion</th>
+                      <th>Vendedor</th>
+                      <th>Hora Salida</th>
+                      <th>Hora Retorno</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -323,6 +307,256 @@
                 </div>
               </div>
             </div>
+  </el-tab-pane>
+  <!-- Fin del tab Panel Por Vendedor  -->
+
+
+
+<!-- Por cliente -->
+   <el-tab-pane label="Por Cliente" name="second">
+
+
+ <div class="col-md-12">
+                    <div class="row">
+                      <template
+                        v-if="
+                          listRolPermisoByUsuario.includes('admin.listado_coti')
+                        "
+                      >
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label"
+                              >Cliente</label
+                            >
+                            <div class="col-md-6">
+                              <el-select
+                                v-model="fillBsqPapeletaSalida.nIdVendedor"
+                                filterable
+                                placeholder="Seleccione una Vendedor"
+                                :style="{ width: '350px' }"
+                                @change="getlistCliente"
+                                clearable
+                              >
+                                <el-option
+                                  v-for="item in listVendedorAdmin"
+                                  :key="item.id"
+                                  :label="
+                                    item.firstname +
+                                    ' ' +
+                                    item.secondname +
+                                    ' ' +
+                                    item.lastname
+                                  "
+                                  :value="item.id"
+                                >
+                                </el-option>
+                              </el-select>
+                            </div>
+                          </div>
+                        </div>
+                      </template>
+
+                      <template v-else>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label"
+                              >Cliente</label
+                            >
+                            <div class="col-md-6">
+                              <el-select
+                                v-model="fillBsqPapeletaSalida.nIdVendedor"
+                                filterable
+                                placeholder="Seleccione una Vendedor"
+                                :style="{ width: '350px' }"
+                                default-value="2010-10-01"
+                                @change="getlistCliente"
+                              >
+                                <el-option
+                                  v-for="item in listVendedorUser"
+                                  :key="item.id"
+                                  :label="
+                                    item.firstname +
+                                    ' ' +
+                                    item.secondname +
+                                    ' ' +
+                                    item.lastname
+                                  "
+                                  :value="item.id"
+                                >
+                                </el-option>
+                              </el-select>
+                            </div>
+                          </div>
+                        </div>
+                      </template>
+
+
+                    </div>
+
+
+                  </div>
+
+                   <div class="card-footer">
+                <div class="row">
+                  <div class="col-md-4 offset-4">
+                    <button
+                      class="btn btn-flat btn-info btnWidth"
+                      @click.prevent="getlistPapeleByCliente"
+                    >
+                      Buscar
+                    </button>
+                    <button
+                      class="btn btn-flat btn-default btnWidth"
+                      @click.prevent="limpiarCriteriosBsq"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+               <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Bandeja de Resultados</h3>
+              </div>
+              <div class="card-body table-responsive">
+                <table
+                  class="
+                    table table-hover table-head-fixed
+                    text-nowrap
+                    projects
+                  "
+                >
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Vendedor</th>
+                      <th>Hora Salida</th>
+                      <th>Hora Retorno</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item, index) in listCotizacionPaginated"
+                      :key="index"
+                    >
+                      <td>
+                          {{item.codigo}}
+                        <!-- {{ item.id | fourchar }} -
+                        {{ item.fecha | moment("YYYY") }} -->
+                      </td>
+                      <td>{{ item.fecha | moment("DD - MM - Y") }}</td>
+                      <td v-text="item.razonsocial"></td>
+                      <td v-text="item.estadopedido"></td>
+
+
+
+                        <template v-if="item.estadopedido == 'ANULADO'">
+                        <td v-text="item.observacion"></td>
+                        </template>
+                        <template v-else>
+                            <td></td>
+                        </template>
+
+
+
+                      <td>
+                        <button
+                          class="btn btn-info btn-sm"
+                          @click="abrirEstado(item.codigo)"
+                        >
+                          <i class="far fa-calendar-check"></i> Estado
+                        </button>
+
+                        <button
+                          class="btn btn-primary btn-sm"
+                          @click="abrirModal(item.codigo)"
+                        >
+                          <i class="far fa-eye"></i> Detalle
+                        </button>
+
+                        <button
+                          @click.prevent="getPdfCotizacion(item.codigo)"
+                          class="btn btn-danger btn-sm"
+                        >
+                          <span><i class="far fa-file-pdf"></i></span> PDF
+                        </button>
+
+                        <!--    <router-link
+                          class="btn btn-danger btn-sm"
+                          :to="{
+                            name: 'cotizacion.reportCotizacionPdf',
+                            params: { id: item.id },
+                          }"
+                        >
+                          <i class="far fa-file-pdf"></i> PDF
+                        </router-link> -->
+
+                        <template v-if="item.estadodias <= 30">
+                          <router-link
+                            class="btn btn-secondary btn-sm"
+                            :to="{
+                              name: 'cotizacion.editar',
+                              params: { id: item.codigo },
+                            }"
+                          >
+                            <i class="far fa-edit" ></i> Editar
+                          </router-link>
+                        </template>
+
+                        <!--         <template v-else>
+                          <button
+                            @click.prevent="getActualizarFecha(item.id)"
+                            class="btn btn-success btn-sm"
+                          >
+                            <i class="far fa-calendar-alt"></i> Actualizar
+                          </button>
+                        </template> -->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="card-footer">
+                  <ul class="pagination pagination-sm m-0 float-right">
+                    <li class="page-item" v-if="pageNumber > 0">
+                      <a href="#" class="page-link" @click.prevent="prevPage"
+                        >Ant</a
+                      >
+                    </li>
+                    <li
+                      class="page-item"
+                      v-for="(page, index) in pagesList"
+                      :key="index"
+                      :class="[page == pageNumber ? 'active' : '']"
+                    >
+                      <a
+                        href="#"
+                        class="page-link"
+                        @click.prevent="selectPage(page)"
+                      >
+                        {{ page + 1 }}</a
+                      >
+                    </li>
+                    <li class="page-item" v-if="pageNumber < pageCount - 1">
+                      <a href="#" class="page-link" @click.prevent="nextPage"
+                        >Post</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+   </el-tab-pane>
+</el-tabs>
+<!-- Fin del tab Panel Por Cliente  -->
+
+
+
+                </form>
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -352,7 +586,7 @@
               >
                 <thead>
                   <tr>
-                    <th>Producto</th>
+                    <th>Fecha</th>
                     <th>Cantidad</th>
                     <th>P.Unit</th>
                     <th>Total</th>
@@ -417,24 +651,7 @@
           </div>
           <div class="modal-body">
             <!-- Listado de Detalle de Cotizaciones -->
-            <div class="col">
-              <el-select
-                v-model="fillBsqPapeletaSalida.nIdtEstadoCoti"
-                filterable
-                placeholder="Seleccione un estado"
-                :style="{ width: '400px' }"
-                 @change="onChange()"
-              >
-                <el-option
-                  v-for="item in listEstadoCoti2"
-                  :key="item.id"
-                  :label="item.nombre"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
 
-            </div>
             <template v-if="fillBsqPapeletaSalida.nIdtEstadoCoti == 1">
               <div class="col" :style="'padding-top : 20px'">
                 <input
@@ -475,12 +692,12 @@ export default {
         itemid: "",
         dFecha: "",
         nIdtEstadoCoti: "",
-        nIdtEstadoCoti2: "",
+        nIdMotivo: "",
         cMotivoRechazo: "",
-
         nIdUser: sessionStorage.getItem("iduser"),
 
       },
+      activeName: 'first',
         EstadoBotonEditar: true,
       txtrechazo: {
         margin: 15,
@@ -490,8 +707,9 @@ export default {
       listVendedorUser: [],
       listPaginacion: [],
       listCliente: [],
-      listEstadoCoti: [],
-      listEstadoCoti2: [],
+      listMotivo: [],
+      listPapeleByVendedor : [],
+
       modalShow: false,
       modalEstado: false,
       mostrarModal: {
@@ -546,7 +764,7 @@ export default {
   mounted() {
     this.getListDetCotizacion();
     this.getlistVendedorAdmin();
-    //this.cargaFechaActual();
+    this.getlistMotivos();
     this.getlistVendedorxUsu();
     this.getlistEstadoPedido();
     this.getlistEstadoPedidoTodos();
@@ -605,7 +823,7 @@ export default {
     limpiarCriteriosBsq() {
       this.fillBsqPapeletaSalida.nIdVendedor = "";
       this.fillBsqPapeletaSalida.nIdCliente = "";
-      this.fillBsqPapeletaSalida.nIdtEstadoCoti2 = "";
+
       this.fillBsqPapeletaSalida.dFecha = "";
     },
     limpiarBandejaMaterial() {
@@ -649,29 +867,50 @@ export default {
         });
     },
 
-    getlistCotizacionBy() {
-      var url = "/administracion/cotizacion/ListCotizacionesby";
+    getlistMotivos() {
+      var url = "/administracion/papeletasalida/ListMotivos";
+      axios.get(url).then((response) => {
+        this.listMotivo = response.data;
+        //this.fillBsqPapeletaSalida.nIdMotivo = this.listMotivo[2].id;
+
+      });
+    },
+
+
+    getlistPapeleByVendedor() {
+      var url = "/administracion/papeletasalida/listPapeleByVendedor";
       axios
         .get(url, {
           params: {
-            nIdCliente: this.fillBsqPapeletaSalida.nIdCliente,
             nIdVendedor: this.fillBsqPapeletaSalida.nIdVendedor,
-            dFechainicio: !this.fillBsqPapeletaSalida.dFecha
-              ? ""
-              : this.fillBsqPapeletaSalida.dFecha[0],
-            dFechafin: !this.fillBsqPapeletaSalida.dFecha
-              ? ""
-              : this.fillBsqPapeletaSalida.dFecha[1],
-            nIdtEstadoCoti2: this.fillBsqPapeletaSalida.nIdtEstadoCoti2,
+            nIdMotivo : this.fillBsqPapeletaSalida.nIdMotivo,
+            dFechainicio: !this.fillBsqPapeletaSalida.dFecha ? "" : this.fillBsqPapeletaSalida.dFecha[0],
+            dFechafin: !this.fillBsqPapeletaSalida.dFecha ? "" : this.fillBsqPapeletaSalida.dFecha[1],
           },
         })
         .then((response) => {
-          this.listPaginacion = response.data;
-
-
-          this.inicializarPaginacion();
+            this.listPapeleByVendedor = response.data
         });
     },
+
+        getlistPapeleByCliente() {
+      var url = "/administracion/papeletasalida/listPapeleByVendedor";
+      axios
+        .get(url, {
+          params: {
+            nIdVendedor: this.fillBsqPapeletaSalida.nIdVendedor,
+            nIdMotivo : this.fillBsqPapeletaSalida.nIdMotivo,
+            dFechainicio: !this.fillBsqPapeletaSalida.dFecha ? "" : this.fillBsqPapeletaSalida.dFecha[0],
+            dFechafin: !this.fillBsqPapeletaSalida.dFecha ? "" : this.fillBsqPapeletaSalida.dFecha[1],
+          },
+        })
+        .then((response) => {
+
+
+        });
+    },
+
+
 
     getlistCliente() {
       var url = "/administracion/cliente/getListarCliente";
@@ -713,12 +952,6 @@ BuscaCotizacionList(item) {
 
       });
     },
-    getlistEstadoPedidoTodos() {
-      var url = "/administracion/detallecotizancion/listEstadoCotizacion";
-      axios.get(url).then((response) => {
-        this.listEstadoCoti2 = response.data;
-      });
-    },
 
     setEditarPedido() {
       var url = "/administracion/cotizacion/editEstadoCotizacion";
@@ -732,7 +965,7 @@ BuscaCotizacionList(item) {
 
             this.fillBsqPapeletaSalida.cMotivoRechazo ="",
           /*   this.listDetPedido = response.data; */
-            this.getlistCotizacionBy();
+            this.getlistPapeleByVendedor();
 
 
         });

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ordencompra extends Model
 {
     const ATENDIDO = 1;
-    const PENDIENTE = 2;
+    const ANULADO = 2;
     protected $table = 'ordencompras';
     protected $fillable =[
         'Femision',
@@ -25,11 +25,6 @@ class Ordencompra extends Model
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class);
-    }
-
-    public function tipordercompra()
-    {
-        return $this->belongsTo(TipOrdencompra::class);
     }
 
     public function user()

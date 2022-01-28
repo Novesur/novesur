@@ -188,7 +188,7 @@
 
         <tr>
           <td width="20%"><strong>Observaciones : </strong></td>
-          <td colspan="2">&nbsp;</td>
+          <td colspan="2">{{$orderCompra->observacion}}</td>
         </tr>
           <tr>
           <td><strong>CONDICIONES:</strong></td>
@@ -232,11 +232,11 @@
     @if ($orderCompra->pago_id == 5)
     <tr >
         <td width="14%">&nbsp;</td>
-        <td style="text-align:center;"> X </td>
+        <td style="border-top-color:rgb(8, 8, 8)">&nbsp;  </td>
         <td colspan="3">&nbsp;</td>
         </tr>
       <tr>
-        <td>Cheque Dif. a 15 dias</td>
+        <td>Cheque Dif. a 30 dias</td>
         <td style="width: 30px"></td>
         <td width="30%" align="center"><strong>Alexander Díaz Vera</strong></td>
         <td width="30%" align="center"><strong>Lusi Principe Bayona</strong></td>
@@ -249,13 +249,24 @@
         <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
         <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
         </tr>
+
+        <tr>
+            <td>Factura a 7 Días</td>
+            <td style="text-align:center;"> X </td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+            </tr>
+
       <tr>
         <td>Trans. Bancaria</td>
         <td>&nbsp;</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td style="text-align: center">&nbsp;</td>
         </tr>
+
+
     @endif
 
     @if ($orderCompra->pago_id == 1)
@@ -265,12 +276,21 @@
         <td colspan="3">&nbsp;</td>
         </tr>
       <tr>
-        <td>Cheque Dif. a 15 dias</td>
+        <td>Cheque Dif. a 30 dias</td>
         <td style="width: 30px ; text-align:center;"> X </td>
         <td width="30%" align="center"><strong>Alexander Díaz Vera</strong></td>
         <td width="30%" align="center"><strong>Lusi Principe Bayona</strong></td>
         <td style="text-align: center"><strong>Joselyn Vera Cieza</strong></td>
         </tr>
+        <tr>
+            <td>Factura a 7 Días</td>
+            <td style="text-align:center;"> &nbsp; </td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+            </tr>
+
+      <tr>
       <tr>
         <td>Factura a 30 Días</td>
         <td>&nbsp;</td>
@@ -279,6 +299,7 @@
         <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
         </tr>
       <tr>
+
         <td>Trans. Bancaria</td>
         <td>&nbsp;</td>
         <td align="center">INVERSIONES NOVESUR S.A.C.</td>
@@ -294,12 +315,21 @@
         <td colspan="3">&nbsp;</td>
         </tr>
       <tr>
-        <td height="30">Cheque Dif. a 15 dias</td>
+        <td height="30">Cheque Dif. a 30 dias</td>
         <td style="width: 30px ">&nbsp;  </td>
         <td width="30%" align="center"><strong>Alexander Díaz Vera</strong></td>
         <td width="30%" align="center"><strong>Lusi Principe Bayona</strong></td>
         <td style="text-align: center"><strong>Joselyn Vera Cieza</strong></td>
         </tr>
+
+        <tr>
+            <td>Factura a 7 Días</td>
+            <td style="text-align:center;"> &nbsp; </td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+            </tr>
+
       <tr>
         <td>Factura a 30 Días</td>
         <td style="text-align:center;"> X </td>
@@ -323,12 +353,21 @@
         <td colspan="3" style="border-top-color:#FFF">&nbsp;</td>
         </tr>
       <tr>
-        <td style="height: 25px">Cheque Dif. a 15 dias</td>
+        <td style="height: 25px">Cheque Dif. a 30 dias</td>
         <td style="width: 30px ">&nbsp;  </td>
         <td width="30%" align="center"><strong>Alexander Díaz Vera</strong></td>
         <td width="30%" align="center"><strong>Lusi Principe Bayona</strong></td>
         <td style="text-align: center"><strong>Joselyn Vera Cieza</strong></td>
         </tr>
+        <tr>
+            <td>Factura a 7 Días</td>
+            <td style="text-align:center;"> &nbsp; </td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+            </tr>
+
+
       <tr>
         <td style="height: 25px">Factura a 30 Días</td>
         <td>&nbsp;  </td>
@@ -352,12 +391,21 @@
         <td colspan="3" style="border-top-color:#FFF">&nbsp;</td>
         </tr>
       <tr>
-        <td style="height: 25px">Cheque Dif. a 15 dias</td>
+        <td style="height: 25px">Cheque Dif. a 30 dias</td>
         <td style="width: 30px ">&nbsp;  </td>
         <td width="30%" align="center"><strong>Alexander Díaz Vera</strong></td>
         <td width="30%" align="center"><strong>Lusi Principe Bayona</strong></td>
         <td style="text-align: center"><strong>Joselyn Vera Cieza</strong></td>
         </tr>
+
+        <tr>
+            <td>Factura a 7 Días</td>
+            <td style="width: 30px ">&nbsp;  </td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+            </tr>
+
       <tr>
         <td style="height: 25px">Factura a 30 Días</td>
         <td>&nbsp;  </td>

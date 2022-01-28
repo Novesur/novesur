@@ -36,4 +36,21 @@ class PapeletaSalidaController extends Controller
         return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
 
     }
+
+    public function listPapeleByVendedor(Request $request){
+
+        $dFechainicio = date("Y-m-d", strtotime($request->dFechainicio));
+        $dFechafin = date("Y-m-d", strtotime($request->dFechafin));
+
+
+        if($request->nIdMotivo == null){
+                $dato = Papeletasalida::where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
+                return $dato;
+            }
+    }
+
+    public function ListMotivos(){
+        $dato = Motivopapeletasalida::all();
+        return $dato;
+    }
 }

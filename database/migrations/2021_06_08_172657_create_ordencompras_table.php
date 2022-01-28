@@ -22,8 +22,6 @@ class CreateOrdencomprasTable extends Migration
             $table->foreign('proveedor_id')->references('id')->on('proveedor');
             $table->date('Fentrega');
             $table->string('LugarEntrega',150);
-            $table->unsignedBigInteger('tipordercompra_id');
-            $table->foreign('tipordercompra_id')->references('id')->on('tipordercompra');
             $table->unsignedBigInteger('pago_id');
             $table->foreign('pago_id')->references('id')->on('pago');
             $table->unsignedBigInteger('user_id');
@@ -31,6 +29,8 @@ class CreateOrdencomprasTable extends Migration
             $table->unsignedBigInteger('estadoordencompra_id');
             $table->foreign('estadoordencompra_id')->references('id')->on('estadoordencompra');
             $table->string('observacion',200)->nullable();
+            $table->unsignedBigInteger('tipocambio_id');
+            $table->foreign('tipocambio_id')->references('id')->on('tipocambio');
             $table->timestamps();
         });
     }

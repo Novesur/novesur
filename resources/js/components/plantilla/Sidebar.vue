@@ -125,7 +125,7 @@
               </li>
 
               <li class="nav-item">
-                <template v-if="listPermisos.includes('ordenCompras.list')">
+                <template v-if="listPermisos.includes('parte_salida.create')">
                   <router-link class="nav-link" :to="'/parte_salida/create'">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Orden de Salida</p>
@@ -142,8 +142,17 @@
                 </template>
               </li>
 
+                    <li class="nav-item">
+                <template v-if="listPermisos.includes('ordenServicio.list')">
+                  <router-link class="nav-link" :to="'/ordenServicio/list'">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Lista Orden de Servicio</p>
+                  </router-link>
+                </template>
+              </li>
+
               <li class="nav-item">
-                <template v-if="listPermisos.includes('ordenCompras.list')">
+                <template v-if="listPermisos.includes('parteingreso.list')">
                   <router-link class="nav-link" :to="'/parteingreso/list'">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Lista Parte de Ingreso</p>
@@ -152,7 +161,7 @@
               </li>
 
               <li class="nav-item">
-                <template v-if="listPermisos.includes('ordenCompras.list')">
+                <template v-if="listPermisos.includes('parte_salida.list')">
                   <router-link class="nav-link" :to="'/parte_salida/list'">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Lista Parte de Salida</p>

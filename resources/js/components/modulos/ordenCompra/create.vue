@@ -110,16 +110,16 @@
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-md-3 col-form-label"
-                            >Tipo de Orden</label
+                            >Tipo de Moneda</label
                           >
                           <div class="col-md-9">
                           <el-select
-                              v-model="fillCrearOrdenCompra.nIdTipoOrdenCompra"
+                              v-model="fillCrearOrdenCompra.nIdTipoMoneda"
                               placeholder="Select"
                               style="width: 70%"
                             >
                               <el-option
-                                v-for="item in listTipoOrdenCompra"
+                                v-for="item in listTipoCambio"
                                 :key="item.id"
                                 :label="item.nombre"
                                 :value="item.id"
@@ -433,7 +433,7 @@ export default {
         cPrecio: "",
         cCantidad: "",
         nIdTipoPago:"",
-        nIdTipoOrdenCompra:"",
+        nIdTipoMoneda:"",
         nIdUser: sessionStorage.getItem("iduser"),
         cObservacion: "",
       },
@@ -442,7 +442,7 @@ export default {
       listProd: [],
       listartempOrder: [],
       listDescripPago: [],
-      listTipoOrdenCompra : [],
+      listTipoCambio : [],
 
       modalShow: false,
       mostrarModal: {
@@ -462,7 +462,7 @@ export default {
     this.getListarproductosByName();
    // this.setListtemOrders();
     this.getlistDescricionPago();
-    this.getlistTipoOrdenCompra()
+    this.getlistTipoCambio()
     this.fillCrearOrdenCompra.cFechaEntrega = new Date();
     this.fillCrearOrdenCompra.cFechaEmision = new Date();
 
@@ -490,11 +490,11 @@ export default {
       });
     },
 
-        getlistTipoOrdenCompra() {
-      var url = "/administracion/ordenCompra/TipoOrderCompra";
+        getlistTipoCambio() {
+      var url = "/administracion/ordenCompra/TipoCambio";
       axios.get(url).then((response) => {
-        this.listTipoOrdenCompra = response.data;
-        this.fillCrearOrdenCompra.nIdTipoOrdenCompra = this.listTipoOrdenCompra[0].id;
+        this.listTipoCambio = response.data;
+        this.fillCrearOrdenCompra.nIdTipoMoneda = this.listTipoCambio[0].id;
       });
     },
 
@@ -540,7 +540,7 @@ export default {
             cFechaEntrega : this.fillCrearOrdenCompra.cFechaEntrega,
             cLEntrega: this.fillCrearOrdenCompra.cLEntrega,
             nIdTipoPago : this.fillCrearOrdenCompra.nIdTipoPago,
-            nIdTipoOrdenCompra : this.fillCrearOrdenCompra.nIdTipoOrdenCompra,
+            nIdTipoMoneda : this.fillCrearOrdenCompra.nIdTipoMoneda,
             nIdUser : this.fillCrearOrdenCompra.nIdUser,
             cObservacion : this.fillCrearOrdenCompra.cObservacion
         })
@@ -616,6 +616,7 @@ export default {
       this.fillCrearOrdenCompra.cReferencia = "";
       this.fillCrearOrdenCompra.cDocumento = "";
       this.fillCrearOrdenCompra.cLEntrega = "";
+      this.fillCrearOrdenCompra.cObservacion = "";
     },
 
     setListtemOrders() {

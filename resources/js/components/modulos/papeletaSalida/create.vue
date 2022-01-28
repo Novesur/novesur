@@ -72,15 +72,16 @@
                         </div>
                       </div>
 
-                                <div class="col-md-4">
+                      <div class="col-md-4">
                         <div class="form-group row">
-                          <label class="col-md-2 col-form-label">Contacto</label>
+                          <label class="col-md-2 col-form-label"
+                            >Contacto</label
+                          >
                           <div class="col-md-10">
-                           <input
+                            <input
                               type="text"
                               class="form-control"
                               v-model="fillPapeletasalida.cContacto"
-
                             />
                           </div>
                         </div>
@@ -97,14 +98,13 @@
                           >
                           <div class="col-md-4">
                             <el-time-picker
-
                               v-model="fillPapeletasalida.tHoraSalida"
                               :picker-options="{
-                                selectableRange: '08:00:00 - 18:00:00'
+                                selectableRange: '08:00:00 - 18:00:00',
                               }"
                               placeholder="Ingrese la Hora"
-                               format="hh:mm:ss A"
-                                value-format="hh:mm:ss A"
+                              format="hh:mm:ss A"
+                              value-format="hh:mm:ss A"
                             >
                             </el-time-picker>
                           </div>
@@ -117,15 +117,14 @@
                             >Fin de Visita</label
                           >
                           <div class="col-md-9">
-                             <el-time-picker
-
+                            <el-time-picker
                               v-model="fillPapeletasalida.tHoraRetorno"
                               :picker-options="{
-                                selectableRange: '08:00:00 - 18:00:00'
+                                selectableRange: '08:00:00 - 18:00:00',
                               }"
                               placeholder="Ingrese la Hora"
-                               format="hh:mm:ss A"
-                                value-format="hh:mm:ss A"
+                              format="hh:mm:ss A"
+                              value-format="hh:mm:ss A"
                             >
                             </el-time-picker>
                           </div>
@@ -162,7 +161,9 @@
                               type="text"
                               class="form-control"
                               v-model="fillPapeletasalida.cReferencia"
-                              @keypress.prevent.enter="setRegistrarPIngreso"
+                              @keypress.prevent.enter="
+                                setRegistrarPapeletaSalida
+                              "
                             />
                           </div>
                         </div>
@@ -172,14 +173,12 @@
                 </form>
               </div>
 
-
-
               <div class="card-footer">
                 <div class="row">
                   <div class="col-md-4 offset-4">
                     <button
                       class="btn btn-flat btn-info btnWidth"
-                      @click.prevent="setGrabarPapeletaSalida"
+                      @click.prevent="setRegistrarPapeletaSalida"
                     >
                       Guardar
                     </button>
@@ -228,42 +227,6 @@
       </div>
     </div>
     <!--  Fin del  Modal de Validacion de campos -->
-
-    <!-- Modal de editar cantidad de Parte de Ingreso -->
-    <div
-      class="modal fade"
-      :class="{ show: modalCantidad }"
-      :style="modalCantidad ? mostrarModal : ocultarModal"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Ingrese la cantidad</h5>
-            <button class="close" @click="abrirModal"></button>
-          </div>
-          <div class="modal-body">
-            <div class="col-md-9">
-              <input
-                type="text"
-                class="form-control"
-                v-model="fillPapeletasalida.cCantidadModal"
-                style="width: 300px"
-              />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" @click="setEditarCantidad()">
-              Editar
-            </button>
-            <button class="btn btn-secondary" @click="abrirModalCantidad()">
-              Cerrar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--Fin del  Modal de editar cantidad de Parte de Ingreso -->
   </div>
 </template>
 
@@ -275,12 +238,11 @@ export default {
         nIdCliente: "",
         nIdUser: sessionStorage.getItem("iduser"),
         tHoraSalida: "",
-        tHoraRetorno : "",
+        tHoraRetorno: "",
         cReferencia: "",
         cContacto: "",
         cFecha: "",
         nIdMotivo: "",
-
 
         cCantidadModal: "",
       },
@@ -309,21 +271,14 @@ export default {
     this.getListarMotivo();
     this.setConfigTime();
 
-
-
-
-    this.setListtempPIngreso();
     this.fillPapeletasalida.cFecha = new Date();
   },
   computed: {},
   methods: {
-
-      setConfigTime(){
-          this.fillPapeletasalida.tHoraSalida = '08:00:00 AM'
-          this.fillPapeletasalida.tHoraRetorno = '05:00:00 PM'
-
-      },
-
+    setConfigTime() {
+      this.fillPapeletasalida.tHoraSalida = "08:00:00 AM";
+      this.fillPapeletasalida.tHoraRetorno = "05:00:00 PM";
+    },
 
     getlistVendedorxUsu() {
       var url = "/administracion/cliente/getListarCliente";
@@ -340,28 +295,26 @@ export default {
     },
 
     limpiarCriteriosBsq() {},
-    setRegistrarPIngreso() {
-      if (this.validaPIngreso()) {
+    setRegistrarPapeletaSalida() {
+      if (this.validaPapeletaSalida()) {
         this.modalShow = true;
         return;
       }
       this.setGrabarPapeletaSalida();
     },
 
-
-
     setGrabarPapeletaSalida() {
       var url = "/administracion/papeletasalida/create";
       axios
         .post(url, {
-            nIdUser: this.fillPapeletasalida.nIdUser,
-            cfecha: this.fillPapeletasalida.cFecha,
-            tHoraSalida: this.fillPapeletasalida.tHoraSalida,
-            tHoraRetorno: this.fillPapeletasalida.tHoraRetorno,
-            nIdMotivo: this.fillPapeletasalida.nIdMotivo,
-            nIdCliente : this.fillPapeletasalida.nIdCliente,
-            cContacto : this.fillPapeletasalida.cContacto,
-            cReferencia : this.fillPapeletasalida.cReferencia,
+          nIdUser: this.fillPapeletasalida.nIdUser,
+          cfecha: this.fillPapeletasalida.cFecha,
+          tHoraSalida: this.fillPapeletasalida.tHoraSalida,
+          tHoraRetorno: this.fillPapeletasalida.tHoraRetorno,
+          nIdMotivo: this.fillPapeletasalida.nIdMotivo,
+          nIdCliente: this.fillPapeletasalida.nIdCliente,
+          cContacto: this.fillPapeletasalida.cContacto,
+          cReferencia: this.fillPapeletasalida.cReferencia,
         })
         .then((response) => {
           Swal.fire({
@@ -372,59 +325,31 @@ export default {
             timer: 1500,
           });
           this.setResetCampos();
-          /* this.setLimpiaCampos();
-          this.eliminarTempitemPIngreso(); */
+          /* this.setLimpiaCampos(); */
         });
     },
     abrirModal() {
       this.modalShow = !this.modalShow;
     },
 
-    setValorCantidadModal(item) {
-      var url =
-        "/administracion/DetalleordenCompra/setMandarValorDetalleParteIngresoXId";
-      axios
-        .post(url, {
-          item: item,
-        })
-        .then((response) => {
-          this.fillPapeletasalida.cCantidadModal = response.data.cantidadKardex;
-          sessionStorage.item = response.data.id;
-          this.abrirModalCantidad();
-        });
-    },
-
-    setEditarCantidad() {
-      var url =
-        "/administracion/DetalleordenCompra/setEditarCantidadParteIngre";
-      axios
-        .post(url, {
-          item: sessionStorage.item,
-          cCantidadModal: this.fillPapeletasalida.cCantidadModal,
-        })
-        .then((response) => {
-          this.abrirModalCantidad();
-
-          sessionStorage.removeItem(item);
-          Swal.fire({
-            position: "center",
-            icon: response.icon,
-            title: response.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
-    },
-
-    abrirModalCantidad() {
-      this.modalCantidad = !this.modalCantidad;
-    },
-    validaPIngreso() {
+    validaPapeletaSalida() {
       this.error = 0;
       this.mensajeError = [];
 
-      if (!this.fillPapeletasalida.nIdMotivo) {
-        this.mensajeError.push("El Campo Motivo es obligatorio");
+      if (!this.fillPapeletasalida.cContacto) {
+        this.mensajeError.push("El Campo contacto es obligatorio");
+      }
+
+      if (!this.fillPapeletasalida.cReferencia) {
+        this.mensajeError.push("El Campo referencia es obligatorio");
+      }
+
+      if (!this.fillPapeletasalida.tHoraSalida) {
+        this.mensajeError.push("La Hora de salida es obligatorio");
+      }
+
+      if (!this.fillPapeletasalida.tHoraRetorno) {
+        this.mensajeError.push("La Hora de retorno es obligatorio");
       }
 
       if (this.mensajeError.length) {
@@ -437,54 +362,6 @@ export default {
     setResetCampos() {
       this.fillPapeletasalida.cReferencia = "";
       this.fillPapeletasalida.nIdMotivo = "";
-    },
-
-    setListtempPIngreso() {
-      var url = "/administracion/parte_ingreso/ListtempParteIngreso";
-      axios.get(url, {}).then((response) => {
-        this.listartempPIngreso = response.data.datos;
-      });
-    },
-
-    eliminarTempitemPIngreso() {
-      var url = "/administracion/parte_ingreso/eliminarTempitemPIngreso";
-      axios.post(url).then((response) => {
-        this.setListtempPIngreso();
-      });
-    },
-
-
-    setCambiarEstadoDetalleOC(op, id) {
-      Swal.fire({
-        title:
-          "Estas seguro de" + (op == 2 ? "Poner Pendiente" : "Poner Atendido"),
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText:
-          op == 2 ? "Si, Poner Pendiente" : "Si, Poner Atendido",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var url = "/administracion/DetalleordenCompra/CambiarEstadoDetalleOC";
-          axios
-            .post(url, {
-              nIdDetalleOC: id,
-              cEstado: op,
-            })
-            .then((response) => {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Se edito el cambio",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-
-
-            });
-        }
-      });
     },
 
     getListarMotivo() {

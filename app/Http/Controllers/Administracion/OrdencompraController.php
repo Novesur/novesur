@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Ordencompra;
 use App\Producto;
 use App\TempOrdenCompra;
-use App\TipOrdencompra;
+use App\Tipocambio;
 use App\UnidMedida;
 use Illuminate\Http\Request;
 use PDF;
@@ -63,9 +63,9 @@ class OrdencompraController extends Controller
 
         $countPIngreso = Ordencompra::count();
         if($countPIngreso == 0){
-            $codpIngreso = '0001'.'-'. Carbon::parse($request->cFechaEmision)->format('Y');
+            $codpIngreso = 'C0001'.'-'. Carbon::parse($request->cFechaEmision)->format('Y');
         }else{
-            $codpIngreso = sprintf('%04d',$countPIngreso +1) .'-'. Carbon::parse($request->cFechaEmision)->format('Y');
+            $codpIngreso = 'C'.sprintf('%04d',$countPIngreso +1) .'-'. Carbon::parse($request->cFechaEmision)->format('Y');
         }
 
         if ($request->session()->has('products')) {
@@ -76,11 +76,11 @@ class OrdencompraController extends Controller
             $ordenCompra->proveedor_id =  $request->nIdProveedor;
             $ordenCompra->Fentrega =  $fentrega;
             $ordenCompra->LugarEntrega =  mb_strtoupper($request->cLEntrega);
-            $ordenCompra->tipordercompra_id =  $request->nIdTipoOrdenCompra;
             $ordenCompra->pago_id =  $request->nIdTipoPago;
             $ordenCompra->user_id =  $request->nIdUser;
             $ordenCompra->estadoordencompra_id = 2;
             $ordenCompra->observacion = $request->cObservacion;
+            $ordenCompra->tipocambio_id = $request->nIdTipoMoneda;
             $ordenCompra->save();
             $detordenCompra = Session::get('products');
             $allProducts = $detordenCompra->map(function ($product) use ($ordenCompra) {
@@ -102,9 +102,9 @@ class OrdencompraController extends Controller
         }
     }
 
-    public function TipoOrderCompra()
+    public function TipoCambio()
     {
-        $data = TipOrdencompra::all();
+        $data = Tipocambio::all();
         return $data;
     }
 
@@ -120,10 +120,10 @@ class OrdencompraController extends Controller
     public function ListXProveedor(Request $request)
     {
         if ($request->nidProveedor == null) {
-            $dato = Ordencompra::with('proveedor', 'tipordercompra', 'user', 'estadoordencompra', 'pago')->get();
+            $dato = Ordencompra::with('proveedor', 'user', 'estadoordencompra', 'pago')->get();
             return $dato;
         }else{
-            $dato = Ordencompra::with('proveedor', 'tipordercompra', 'user', 'estadoordencompra', 'pago')
+            $dato = Ordencompra::with('proveedor', 'user', 'estadoordencompra', 'pago')
             ->where('proveedor_id', $request->nidProveedor)
             ->where('estadoordencompra_id', 2)->get();
             return $dato;
@@ -134,7 +134,7 @@ class OrdencompraController extends Controller
     {
 
         $valor = $request->get("params")['idOrderPedido'];
-        $orderCompra = Ordencompra::with('proveedor', 'tipordercompra', 'user', 'estadoordencompra', 'pago')->where('id', $valor)->first();
+        $orderCompra = Ordencompra::with('proveedor',  'user', 'estadoordencompra', 'pago')->where('id', $valor)->first();
         $DetalleOrderCompra = Detalleordencompra::with('ordencompras', 'unidmedida', 'producto')->where('ordencompras_id', $valor)->get();
 
         $logo = asset('img/logo02.png');
@@ -148,7 +148,7 @@ class OrdencompraController extends Controller
 
     public function ListarDatosOrdenCompraXId(Request $request){
 
-        $dato = Ordencompra::with('proveedor', 'tipordercompra', 'user', 'estadoordencompra', 'pago')->where('id', $request->nIdOrdenCompra)->first();
+        $dato = Ordencompra::with('proveedor', 'user', 'estadoordencompra', 'pago')->where('id', $request->nIdOrdenCompra)->first();
      return $dato;
 
     }
@@ -161,7 +161,7 @@ class OrdencompraController extends Controller
     }
 
     public function CargaDatosOrdenCompra(Request $request){
-        $dato = Detalleordencompra::with('ordencompras', 'ordencompras.proveedor','ordencompras.tipordercompra')->where('ordencompras_id', $request->nidOrdenCompra)->first();
+        $dato = Detalleordencompra::with('ordencompras', 'ordencompras.proveedor')->where('ordencompras_id', $request->nidOrdenCompra)->first();
         return $dato;
 
     }

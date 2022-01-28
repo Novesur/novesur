@@ -583,6 +583,22 @@ export default new Router({
         },
 
 
+        ////   BIENES DE SERVICIO
+
+        {
+            path: '/ordenServicio/create/:id',
+            name: 'ordenServicio.create',
+            component: require('./components/modulos/ordenServicio/create').default,
+            props: true,
+
+        },
+
+        {
+            path: '/ordenServicio/list',
+            name: 'ordenServicio.list',
+            component: require('./components/modulos/ordenServicio/list').default,
+
+        },
 
 
 

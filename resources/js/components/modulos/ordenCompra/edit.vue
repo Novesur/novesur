@@ -107,29 +107,7 @@
 
                   <div class="col-md-12">
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-md-3 col-form-label"
-                            >Tipo de Orden</label
-                          >
-                          <div class="col-md-9">
-                            <el-select
-                              v-model="fillEditOrdenCompra.nIdTipoOrdenCompra"
-                              placeholder="Select"
-                              style="width: 70%"
-                            >
-                              <el-option
-                                v-for="item in listTipoOrdenCompra"
-                                :key="item.id"
-                                :label="item.nombre"
-                                :value="item.id"
-                                disabled
-                              >
-                              </el-option>
-                            </el-select>
-                          </div>
-                        </div>
-                      </div>
+
 
                       <div class="col-md-6">
                         <div class="form-group row">
@@ -142,7 +120,7 @@
                               class="form-control"
                               v-model="fillEditOrdenCompra.cLEntrega"
                               @keypress.prevent.enter="setRegistrarPIngreso"
-                              style="width: 300px"
+
                             />
                           </div>
                         </div>
@@ -590,7 +568,6 @@ export default {
         cPrecio: "",
         cCantidad: "",
         nIdTipoPago: "",
-        nIdTipoOrdenCompra: "",
         nIdUser: sessionStorage.getItem("iduser"),
         cCantidadEdit: "",
         nIdUnidMedEdit: "",
@@ -605,7 +582,6 @@ export default {
       listartempOrder: [],
       listDetalleOrder: [],
       listDescripPago: [],
-      listTipoOrdenCompra: [],
 
       modalShowEditItem: false,
       modalShow: false,
@@ -625,7 +601,7 @@ export default {
     this.getListarUnidadMedida();
     this.getListarproductosByName();
     this.getlistDescricionPago();
-    this.getlistTipoOrdenCompra();
+
   },
   computed: {},
   methods: {
@@ -692,8 +668,7 @@ export default {
             response.data.ordencompras.Femision;
           this.fillEditOrdenCompra.cFechaEntrega =
             response.data.ordencompras.Fentrega;
-          this.fillEditOrdenCompra.nIdTipoOrdenCompra =
-            response.data.ordencompras.tipordercompra.id;
+
           this.fillEditOrdenCompra.cLEntrega =
             response.data.ordencompras.LugarEntrega;
           this.fillEditOrdenCompra.nIdTipoPago =
@@ -737,12 +712,7 @@ export default {
       });
     },
 
-    getlistTipoOrdenCompra() {
-      var url = "/administracion/ordenCompra/TipoOrderCompra";
-      axios.get(url).then((response) => {
-        this.listTipoOrdenCompra = response.data;
-      });
-    },
+
 
     getListarproductosByName() {
       var url = "/administracion/detallecotizancion/listProdByName";
@@ -785,7 +755,6 @@ export default {
           cFechaEntrega: this.fillEditOrdenCompra.cFechaEntrega,
           cLEntrega: this.fillEditOrdenCompra.cLEntrega,
           nIdTipoPago: this.fillEditOrdenCompra.nIdTipoPago,
-          nIdTipoOrdenCompra: this.fillEditOrdenCompra.nIdTipoOrdenCompra,
           nIdUser: this.fillEditOrdenCompra.nIdUser,
 
 

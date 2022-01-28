@@ -295,8 +295,8 @@ Route::post('/administracion/DetalleordenCompra/ModalSaveItemsDetalleOC', 'Admin
 
 
 
-/// Tipo de orden de Compra
-Route::get('/administracion/ordenCompra/TipoOrderCompra', 'Administracion\OrdencompraController@TipoOrderCompra');
+/// Tipo de Cambio
+Route::get('/administracion/ordenCompra/TipoCambio', 'Administracion\OrdencompraController@TipoCambio');
 
 ////  Parte de Salida
 Route::post('/administracion/parte_salida/GrabarPSalida', 'Administracion\ParteSalidaController@GrabarPSalida');
@@ -311,6 +311,31 @@ Route::post('/administracion/parte_salida/reporteParteSalidaPdf', 'Administracio
 ////  Papeleta de Salida
 Route::get('/administracion/PapeletaSalida/Motivo', 'Administracion\PapeletaSalidaController@Motivo');
 Route::post('/administracion/papeletasalida/create', 'Administracion\PapeletaSalidaController@create');
+Route::get('/administracion/papeletasalida/listPapeleByVendedor', 'Administracion\PapeletaSalidaController@listPapeleByVendedor');
+Route::get('/administracion/papeletasalida/ListMotivos', 'Administracion\PapeletaSalidaController@ListMotivos');
+
+/// Orden de Servicio
+
+Route::post('/administracion/OrdenServicio/create', 'Administracion\OrdenServicioController@create');
+Route::get('/administracion/ordenServicio/ListXProveedor', 'Administracion\OrdenServicioController@ListXProveedor');
+Route::post('/administracion/ordenServicio/setGenerarOrderPedidoPdf', 'Administracion\OrdenServicioController@setGenerarOrderPedidoPdf');
+
+
+
+
+
+//Detalle Orden de Servicio
+
+Route::get('/administracion/DetalleOrdenservicio/view', 'Administracion\DetalleOrdenServicioController@view');
+
+
+
+
+
+
+
+
+
 
 
 

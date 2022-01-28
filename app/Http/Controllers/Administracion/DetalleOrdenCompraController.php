@@ -62,11 +62,14 @@ class DetalleOrdenCompraController extends Controller
         $ordenCompra->proveedor_id =  $ordenCompra->proveedor_id;
         $ordenCompra->Fentrega =  $ordenCompra->Fentrega;
         $ordenCompra->LugarEntrega =  $request->cLEntrega;
-        $ordenCompra->tipordercompra_id =  $ordenCompra->tipordercompra_id;
+        $ordenCompra->tipordercompra_id =  1;
         $ordenCompra->pago_id =  $request->nIdTipoPago;
         $ordenCompra->user_id =  $ordenCompra->user_id;
         $ordenCompra->estadoordencompra_id =  $ordenCompra->estadoordencompra_id;
         $ordenCompra->observacion =  $request->cObservacion;
+        $ordenCompra->tipocambio_id =  $ordenCompra->tipocambio_id;
+
+
         $ordenCompra->save();
 
         $detalleOrdenCompra = new Detalleordencompra;

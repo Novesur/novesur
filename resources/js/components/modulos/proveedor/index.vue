@@ -113,7 +113,17 @@
                             params: { id: item.id },
                           }"
                         >
-                          <i class="fas fa-cart-plus"></i> Orden
+                          <i class="fas fa-cart-plus"></i> Orden de Bienes
+                        </router-link>
+
+                             <router-link
+                          class="btn btn-secondary btn-sm"
+                          :to="{
+                            name: 'ordenServicio.create',
+                            params: { id: item.id },
+                          }"
+                        >
+                          <i class="fas fa-hand-holding"></i> Orden de Servicio
                         </router-link>
                       </td>
                       <td v-text="item.nombre"></td>
