@@ -136,7 +136,7 @@
                               </button>
 
 
-                               <router-link class="btn btn-info btn-sm" :to="{name:'ordenCompra.edit' , params:{id:item.codigo}} ">
+                               <router-link class="btn btn-info btn-sm" :to="{name:'ordenServicio.edit' , params:{id:item.codigo}} ">
                               <i class="fas fa-pencil-alt"></i> Editar
                              </router-link>
 
@@ -302,7 +302,7 @@
                         </thead>
                         <tbody>
                           <tr
-                            v-for="(item, index) in listOrdenPedidoXProduct"
+                            v-for="(item, index) in listOrdenServicioXProduct"
                             :key="index"
                           >
                             <td v-text="item.ordencompras.codigo">
@@ -438,7 +438,7 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(item, index) in listDetalleOrdenPedido"
+                    v-for="(item, index) in listDetalleOrdenServicio"
                     :key="index"
                   >
                     <td
@@ -484,10 +484,10 @@ export default {
       },
       listProd: [],
       listProveedor: [],
-      listOrdenPedidoXProduct: [],
-      listOrdenPedidoXProveedor: [],
+      listOrdenServicioXProduct: [],
+      listOrdenServicioXProveedor: [],
 
-      listDetalleOrdenPedido: [],
+      listDetalleOrdenServicio: [],
 
       modalShow: false,
       mostrarModal: {
@@ -515,17 +515,17 @@ export default {
 
   computed: {
     pageCountProveedorxproveedor() {
-      let a = this.listOrdenPedidoXProveedor.length,
+      let a = this.listOrdenServicioXProveedor.length,
         b = this.perPage;
       return Math.ceil(a / b);
     },
     listarOrdenCompraxProveedorPaginated() {
       let inicio = this.pageNumber * this.perPage,
         fin = inicio + this.perPage;
-      return this.listOrdenPedidoXProveedor.slice(inicio, fin);
+      return this.listOrdenServicioXProveedor.slice(inicio, fin);
     },
     pagesListxProvedor() {
-      let a = this.listOrdenPedidoXProveedor.length,
+      let a = this.listOrdenServicioXProveedor.length,
         b = this.perPage;
       let pageCountProveedor = Math.ceil(a / b);
       let count = 0,
@@ -537,7 +537,7 @@ export default {
       return pagesArray;
     },
     pageCountProveedor() {
-      let a = this.listOrdenPedidoXProveedor.length,
+      let a = this.listOrdenServicioXProveedor.length,
         b = this.perPage;
       return Math.ceil(a / b);
     },
@@ -545,10 +545,10 @@ export default {
     listarOrdenCompraProductoPaginated() {
       let inicio = this.pageNumber * this.perPage,
         fin = inicio + this.perPage;
-      return this.listOrdenPedidoXProduct.slice(inicio, fin);
+      return this.listOrdenServicioXProduct.slice(inicio, fin);
     },
     pagesListxProducto() {
-      let a = this.listOrdenPedidoXProduct.length,
+      let a = this.listOrdenServicioXProduct.length,
         b = this.perPage;
       let pageCountProducto = Math.ceil(a / b);
       let count = 0,
@@ -560,7 +560,7 @@ export default {
       return pagesArray;
     },
     pageCountProducto() {
-      let a = this.listOrdenPedidoXProduct.length,
+      let a = this.listOrdenServicioXProduct.length,
         b = this.perPage;
       return Math.ceil(a / b);
     },
@@ -575,14 +575,14 @@ export default {
       this.limpiarBandejaProducto();
     },
     limpiarBandejaProducto() {
-      this.listOrdenPedidoXProduct = [];
+      this.listOrdenServicioXProduct = [];
     },
     limpiarProveedorBsq() {
       this.fillBsqListOrdenServicio.nidProveedor = "";
       this.limpiarBandejaProveedor();
     },
     limpiarBandejaProveedor() {
-      this.listOrdenPedidoXProveedor = [];
+      this.listOrdenServicioXProveedor = [];
     },
 
     getListarproductosByName() {
@@ -613,7 +613,7 @@ export default {
           },
         })
         .then((response) => {
-          this.listOrdenPedidoXProduct = response.data;
+          this.listOrdenServicioXProduct = response.data;
         });
     },
 
@@ -626,7 +626,7 @@ export default {
           },
         })
         .then((response) => {
-          this.listOrdenPedidoXProveedor = response.data;
+          this.listOrdenServicioXProveedor = response.data;
         });
     },
 
@@ -644,7 +644,7 @@ export default {
           },
         })
         .then((response) => {
-          this.listDetalleOrdenPedido = response.data;
+          this.listDetalleOrdenServicio = response.data;
         });
     },
 
@@ -695,14 +695,14 @@ export default {
       }).then((result) => {
 
         if (result.isConfirmed) {
-                var url = "/administracion/ordenCompra/setDarBajaOrderCompra";
+                var url = "/administracion/ordenServicio/setDarBajaOrderServicio";
         axios
           .post(url, {
             codigo: codigo,
           })
           .then((response) => {
             //this.getListarOrdenServicioxProveedor();
-            this.listOrdenPedidoXProveedor = response.data;
+            this.listOrdenServicioXProveedor = response.data;
           });
 
           Swal.fire(

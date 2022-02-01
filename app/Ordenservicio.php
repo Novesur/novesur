@@ -30,4 +30,9 @@ class Ordenservicio extends Model
     {
         return $this->belongsTo(Pago::class);
     }
+
+    public function tipocambio()
+    {
+        return $this->belongsTo(Tipocambio::class);
+    }
 }

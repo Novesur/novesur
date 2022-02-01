@@ -644,6 +644,7 @@ export default {
           },
         })
         .then((response) => {
+
           this.listDetalleOrdenPedido = response.data;
         });
     },

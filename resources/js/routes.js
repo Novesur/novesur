@@ -600,6 +600,14 @@ export default new Router({
 
         },
 
+        {
+            path: '/ordenServicio/edit/:id',
+            name: 'ordenServicio.edit',
+            component: require('./components/modulos/ordenServicio/edit').default,
+            props: true,
+
+        },
+
 
 
 

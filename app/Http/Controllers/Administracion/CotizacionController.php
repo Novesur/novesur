@@ -107,7 +107,7 @@ class CotizacionController extends Controller
                 $cotizacion->fecha =  $formatreq;
                 $cotizacion->cliente_id =  $request->nIdCliente;
                 $cotizacion->user_id =  $request->nIdUsuario;
-                $cotizacion->estadopedido_id =  $request->cEstado;
+                $cotizacion->estadopedido_id =  4;
                 $cotizacion->validezoferta =  $request->cValidez;
                 $cotizacion->Entrega =  mb_strtoupper($request->cEntrega);
                 $cotizacion->tipopago_id =  $request->nIdTipoPago;
@@ -118,7 +118,6 @@ class CotizacionController extends Controller
                 $cotizacion->punto_llegada =  $request->cPuntoLlegada;
                 $cotizacion->transporte =  $request->cTransporte;
                 $cotizacion->consignado =  $request->Cconsignado;
-                $cotizacion->observacion = $request->cObservacion;
                 $cotizacion->observacion = $request->cObservacion;
                 $cotizacion->codigo =$maxidCoti;
                 $cotizacion->save();

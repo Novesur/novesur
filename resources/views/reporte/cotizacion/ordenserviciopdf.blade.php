@@ -56,13 +56,19 @@
 
       <table width="100%" border="0">
         <tr>
-         <td colspan="4" align="center" style="border: 1px; background-color: rgb(175, 243, 166)" ><h3><strong>ORDEN DE SERVICIO  Nº {{str_pad($orderServicio->id,3,'0',STR_PAD_LEFT) }} - {{substr($orderServicio->Femision,0,4)}}</strong></h3></td>
+         <td colspan="5" align="center" style="border: 1px; background-color: rgb(175, 243, 166)" ><h3><strong>ORDEN DE SERVICIO  Nº {{$orderServicio->codigo }} </strong></h3></td>
 
 
 </tr>
             <tr >
-          <td colspan="4" align="center" valign="middle" ><strong>REFERENCIA : </strong>{{$orderServicio->Referencia}} </td>
+          <td colspan="5" align="center" valign="middle" ><strong>REFERENCIA : </strong>{{$orderServicio->Referencia}} </td>
         </tr>
+
+        <tr >
+            <td colspan="2" align="center" valign="middle" >&nbsp;</td>
+            <td align="left" valign="middle" style="margin-left: 50px" ><strong>FECHA EMISION</strong></td>
+            <td  style="padding-right:100px;" >  {{date('d-m-Y', strtotime($orderServicio->Femision))}}</td>
+          </tr>
 
         <tr >
           <td ><strong>PROVEEDOR</strong></td>
@@ -153,9 +159,9 @@
           <td align="center" style="font-size:1em">{{$data->cantidad}}</td>
           <td align="center" style="font-size:1em">{{$data->producto->codigo}}</td>
           <td align="center" style="font-size:1em">  {{$data->producto->familia->nombre .' '. $data->producto->subfamilia->nombre .', MODELO '. $data->producto->modelotipo->nombre .', MATERIAL '. $data->producto->material->nombre .', MARCA '. $data->producto->marca->nombre.', - '. $data->producto->homologacion->nombre}}</td>
-          <td align="center" style="font-size:1em">S/. {{number_format($data->punit,4)  }}</td>
+          <td align="center" style="font-size:1em">{{$orderServicio->tipocambio->signo}} {{number_format($data->punit,4)  }}</td>
 
-          <td align="right" style="font-size:1em">S/. {{number_format($data->cantidad * $data->punit,2)}}</td>
+          <td align="right" style="font-size:1em">{{$orderServicio->tipocambio->signo}} {{number_format($data->cantidad * $data->punit,2)}}</td>
 
         </tr>
         @endforeach @endif
@@ -171,15 +177,15 @@
         <tr>
           <td colspan="4" rowspan="3" align="center">&nbsp;</td>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719)"><strong>SUBTOTAL</strong></td>
-          <td align="right" style="font-size:1em">S/. {{number_format($subtotal,2)}}</td>
+          <td align="right" style="font-size:1em">{{$orderServicio->tipocambio->signo}} {{number_format($subtotal,2)}}</td>
         </tr>
 
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719)"><strong>IGV 18%</strong></td>
-          <td align="right" style="font-size:1em">S/.{{number_format($IGV,2)}}</td>
+          <td align="right" style="font-size:1em">{{$orderServicio->tipocambio->signo}}{{number_format($IGV,2)}}</td>
         </tr>
         <tr>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719)"><strong>TOTAL GENERAL</strong></td>
-          <td align="right" style="background-color: rgba(238, 229, 229, 0.719,font-size:0.8em)">S/. {{number_format($total,2)}}</td>
+          <td align="right" style="background-color: rgba(238, 229, 229, 0.719,font-size:0.8em)">{{$orderServicio->tipocambio->signo}} {{number_format($total,2)}}</td>
         </tr>
 
 </table>
@@ -197,7 +203,7 @@
         <tr>
           <td>&nbsp;</td>
           <td width="30%"><strong>Fecha de Entrega :</strong></td>
-          <td width="78%"> {{$orderServicio->Fentrega}}</td>
+          <td width="78%"> {{date('d-m-Y', strtotime($orderServicio->Fentrega))}}</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -228,6 +234,55 @@
     <td style="border-bottom-color:#FFF; border-right-color:#FFF; border-left-color:#FFF">&nbsp;</td>
     <td style="border-bottom-color:#FFF; border-left-color:#FFF">&nbsp;</td>
     </tr>
+
+    @if ($orderServicio->pago_id == 4)
+    <tr >
+        <td width="14%">&nbsp;</td>
+        <td style="border-top-color:rgb(8, 8, 8)">&nbsp;  </td>
+        <td colspan="3">&nbsp;</td>
+        </tr>
+      <tr>
+        <td>Cheque Dif. a 30 dias</td>
+        <td style="width: 30px"></td>
+        <td width="30%" align="center"><strong>Alexander Díaz Vera</strong></td>
+        <td width="30%" align="center"><strong>Lusi Principe Bayona</strong></td>
+        <td style="text-align: center"><strong>Joselyn Vera Cieza</strong></td>
+        </tr>
+      <tr>
+        <td>Factura a 30 Días</td>
+        <td>&nbsp;</td>
+        <td align="center"><strong>VºBº GERENCIA GENERAL</strong></td>
+        <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
+        <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
+        </tr>
+
+        <tr>
+            <td>Factura a 7 Días</td>
+            <td>&nbsp;</td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td align="center">INVERSIONES NOVESUR S.A.C.</td>
+            <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+            </tr>
+
+      <tr>
+        <td>Trans. Bancaria</td>
+        <td>&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td style="text-align: center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td>50% - 50%</td>
+            <td style="text-align:center;"> X </td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td style="text-align: center">&nbsp;</td>
+            </tr>
+
+
+    @endif
+
 
     @if ($orderServicio->pago_id == 5)
     <tr >
@@ -263,6 +318,15 @@
         <td align="center">INVERSIONES NOVESUR S.A.C.</td>
         <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
         </tr>
+
+        <tr>
+            <td>50% - 50%</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td style="text-align: center">&nbsp;</td>
+        </tr>
+
     @endif
 
     @if ($orderServicio->pago_id == 1)
@@ -302,6 +366,14 @@
         <td align="center">INVERSIONES NOVESUR S.A.C.</td>
         <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
         </tr>
+
+        <tr>
+            <td>50% - 50%</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td style="text-align: center">&nbsp;</td>
+        </tr>
     @endif
 
     @if ($orderServicio->pago_id == 2)
@@ -332,13 +404,21 @@
             <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
             <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
             </tr>
-      <tr>
+
       <tr>
         <td>Trans. Bancaria</td>
         <td>&nbsp;</td>
         <td align="center">INVERSIONES NOVESUR S.A.C.</td>
         <td align="center">INVERSIONES NOVESUR S.A.C.</td>
         <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+        </tr>
+
+        <tr>
+            <td>50% - 50%</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td style="text-align: center">&nbsp;</td>
         </tr>
     @endif
 
@@ -377,6 +457,14 @@
         <td align="center">&nbsp</td>
         <td align="center">&nbsp</td>
         <td style="text-align: center">&nbsp</td>
+        </tr>
+
+        <tr>
+            <td>50% - 50%</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td style="text-align: center">&nbsp;</td>
         </tr>
     @endif
 

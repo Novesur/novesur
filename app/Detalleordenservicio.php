@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Detalleordenservicio extends Model
 {
+    public $timestamps = false;
     protected $table = 'detalleordenservicio';
 
     public function ordenservicio()

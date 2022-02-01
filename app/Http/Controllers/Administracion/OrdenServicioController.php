@@ -117,4 +117,19 @@ class OrdenServicioController extends Controller
         return $pdf->download('invoice.pdf');;
     }
 
+    public function setDarBajaOrderServicio(Request $request){
+
+        $ordencompra = Ordenservicio::where('codigo', $request->codigo)->first();
+        $ordencompra->estadoordencompra_id = '1';
+        $ordencompra->save();
+    }
+
+    public function CargaDatosOrdenServicio(Request $request){
+
+        $codOrderServicio = Ordenservicio::where('codigo', $request->nidOrdenServicio)->first();
+        $dato = Detalleordenservicio::with('ordenservicio', 'ordenservicio.proveedor')->where('id', $codOrderServicio->id)->first();
+        return $dato;
+
+    }
+
 }

@@ -24,7 +24,8 @@ class CreateDetalleordencomprasTable extends Migration
             $table->integer('cantidadKardex');
             $table->unsignedBigInteger('unidmedida_id')->required();
             $table->foreign('unidmedida_id')->references('id')->on('unidmedida');
-            $table->decimal('punit', 8, 4)->required();
+           /*  $table->decimal('punit', 8, 4)->required(); */
+            $table->float('punit');
             $table->enum('estado',[Ordencompra::ATENDIDO,Ordencompra::ANULADO])->default(Ordencompra::ATENDIDO);
 
         });

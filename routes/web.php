@@ -319,6 +319,9 @@ Route::get('/administracion/papeletasalida/ListMotivos', 'Administracion\Papelet
 Route::post('/administracion/OrdenServicio/create', 'Administracion\OrdenServicioController@create');
 Route::get('/administracion/ordenServicio/ListXProveedor', 'Administracion\OrdenServicioController@ListXProveedor');
 Route::post('/administracion/ordenServicio/setGenerarOrderPedidoPdf', 'Administracion\OrdenServicioController@setGenerarOrderPedidoPdf');
+Route::post('/administracion/ordenServicio/setDarBajaOrderServicio', 'Administracion\OrdenServicioController@setDarBajaOrderServicio');
+Route::post('/administracion/ordenServicio/CargaDatosOrdenServicio', 'Administracion\OrdenServicioController@CargaDatosOrdenServicio');
+
 
 
 
@@ -327,6 +330,10 @@ Route::post('/administracion/ordenServicio/setGenerarOrderPedidoPdf', 'Administr
 //Detalle Orden de Servicio
 
 Route::get('/administracion/DetalleOrdenservicio/view', 'Administracion\DetalleOrdenServicioController@view');
+Route::post('/administracion/DetalleOrdenservicio/addOrdenEdit', 'Administracion\DetalleOrdenServicioController@addOrdenEdit');
+Route::post('/administracion/DetalleOrdenservicio/CargaDetalleOrdenServicioEdit', 'Administracion\DetalleOrdenServicioController@CargaDetalleOrdenServicioEdit');
+Route::post('/administracion/DetalleOrdenservicio/ModalSaveItemsDetalleOS', 'Administracion\DetalleOrdenServicioController@ModalSaveItemsDetalleOS');
+Route::post('/administracion/DetalleOrdenservicio/DeleteItemDetalleOrdenServicio', 'Administracion\DetalleOrdenServicioController@DeleteItemDetalleOrdenServicio');
 
 
 

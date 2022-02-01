@@ -11,7 +11,9 @@ class DetalleOrdenCompraController extends Controller
 {
     public function view(Request $request){
 
-        $dato = Detalleordencompra::with('ordencompras','unidmedida','producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('ordencompras_id', $request->item)->get();
+
+        $ordencompra = Ordencompra::where('id', $request->item)->first();
+        $dato = Detalleordencompra::with('ordencompras','unidmedida','producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('ordencompras_id', $ordencompra->id)->get();
         return $dato;
     }
 
@@ -62,7 +64,6 @@ class DetalleOrdenCompraController extends Controller
         $ordenCompra->proveedor_id =  $ordenCompra->proveedor_id;
         $ordenCompra->Fentrega =  $ordenCompra->Fentrega;
         $ordenCompra->LugarEntrega =  $request->cLEntrega;
-        $ordenCompra->tipordercompra_id =  1;
         $ordenCompra->pago_id =  $request->nIdTipoPago;
         $ordenCompra->user_id =  $ordenCompra->user_id;
         $ordenCompra->estadoordencompra_id =  $ordenCompra->estadoordencompra_id;

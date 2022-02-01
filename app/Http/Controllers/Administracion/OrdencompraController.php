@@ -161,7 +161,9 @@ class OrdencompraController extends Controller
     }
 
     public function CargaDatosOrdenCompra(Request $request){
-        $dato = Detalleordencompra::with('ordencompras', 'ordencompras.proveedor')->where('ordencompras_id', $request->nidOrdenCompra)->first();
+
+        $ordencompra = Ordencompra::where('codigo', $request->nidOrdenCompra)->first();
+        $dato = Detalleordencompra::with('ordencompras', 'ordencompras.proveedor')->where('ordencompras_id', $ordencompra->id)->first();
         return $dato;
 
     }

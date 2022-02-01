@@ -180,7 +180,7 @@
                             <div class="card-body">
                               <div class="form-group row">
                                 <label class="col-md-2 col-form-label"
-                                  >DESCRIPCION DEL MEDIDOR</label
+                                  >DESCRIPCION DEL PRODUCTO</label
                                 >
 
                                 <div class="col-md-10">
@@ -700,7 +700,7 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.data);
+
           this.listDetalleOrder = response.data;
         });
     },
