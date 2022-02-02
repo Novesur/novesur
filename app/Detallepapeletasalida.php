@@ -8,18 +8,15 @@ class Detallepapeletasalida extends Model
 {
     protected $table = 'detallepapeletasalida';
 
-    public function ordenservicio()
+
+    public function papeletasalida()
     {
-        return $this->belongsTo(Ordenservicio::class);
+        return $this->belongsTo(Papeletasalida::class);
     }
 
-    public function unidmedida()
+    public function cliente()
     {
-        return $this->belongsTo(UnidMedida::class);
+        return $this->belongsTo(Cliente::class);
     }
 
-    public function producto()
-    {
-        return $this->belongsTo(Producto::class);
-    }
 }

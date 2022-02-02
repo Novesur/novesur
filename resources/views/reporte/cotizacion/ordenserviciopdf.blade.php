@@ -157,8 +157,8 @@
           @endphp</td>
         </td>
           <td align="center" style="font-size:1em">{{$data->cantidad}}</td>
-          <td align="center" style="font-size:1em">{{$data->producto->codigo}}</td>
-          <td align="center" style="font-size:1em">  {{$data->producto->familia->nombre .' '. $data->producto->subfamilia->nombre .', MODELO '. $data->producto->modelotipo->nombre .', MATERIAL '. $data->producto->material->nombre .', MARCA '. $data->producto->marca->nombre.', - '. $data->producto->homologacion->nombre}}</td>
+          <td align="center" style="font-size:1em"></td>
+          <td align="center" style="font-size:1em">  {{$data->producto->familia->nombre }}</td>
           <td align="center" style="font-size:1em">{{$orderServicio->tipocambio->signo}} {{number_format($data->punit,4)  }}</td>
 
           <td align="right" style="font-size:1em">{{$orderServicio->tipocambio->signo}} {{number_format($data->cantidad * $data->punit,2)}}</td>
@@ -307,16 +307,16 @@
         <tr>
             <td>Factura a 7 Días</td>
             <td style="width: 30px ; text-align:center;"> X </td>
-            <td align="center"><strong>VºBº GERENCIA GENERAL</strong></td>
-            <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-            <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
+            <td style="text-align: center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
             </tr>
       <tr>
         <td>Trans. Bancaria</td>
         <td>&nbsp;</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td style="text-align: center">&nbsp;</td>
         </tr>
 
         <tr>
@@ -353,18 +353,18 @@
         <tr>
             <td>Factura a 7 Días</td>
             <td>&nbsp;</td>
-            <td align="center"><strong>VºBº GERENCIA GENERAL</strong></td>
-            <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-            <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C</strong></td>
+            <td style="text-align: center"><strong>INVERSIONES NOVESUR S.A.C</strong></td>
             </tr>
       <tr>
 
       <tr>
         <td>Trans. Bancaria</td>
         <td>&nbsp;</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td style="text-align: center">&nbsp;</td>
         </tr>
 
         <tr>
@@ -400,17 +400,17 @@
         <tr>
             <td>Factura a 7 Días</td>
             <td>&nbsp;</td>
-            <td align="center"><strong>VºBº GERENCIA GENERAL</strong></td>
-            <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-            <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
+            <td style="text-align: center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
             </tr>
 
       <tr>
         <td>Trans. Bancaria</td>
         <td>&nbsp;</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td style="text-align: center">&nbsp;</td>
         </tr>
 
         <tr>
@@ -492,17 +492,17 @@
         <tr>
             <td>Factura a 7 Días</td>
             <td>&nbsp;</td>
-            <td align="center"><strong>VºBº GERENCIA GENERAL</strong></td>
-            <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-            <td style="text-align: center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
+            <td align="center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
+            <td style="text-align: center"><strong>INVERSIONES NOVESUR S.A.C.</strong></td>
             </tr>
       <tr>
       <tr>
         <td>Trans. Bancaria</td>
         <td> &nbsp; </td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td style="text-align: center">&nbsp;</td>
         </tr>
     @endif
 

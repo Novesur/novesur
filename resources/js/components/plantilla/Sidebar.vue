@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3f mb-3 d-flex">
         <div class="info">
           <a href="#" class="d-block" @click.prevent="logout">
             <i class="fas fa-sign-out-alt"> </i> Cerrar Sesión

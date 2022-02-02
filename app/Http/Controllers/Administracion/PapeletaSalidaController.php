@@ -42,15 +42,21 @@ class PapeletaSalidaController extends Controller
         $dFechainicio = date("Y-m-d", strtotime($request->dFechainicio));
         $dFechafin = date("Y-m-d", strtotime($request->dFechafin));
 
-
         if($request->nIdMotivo == null){
-                $dato = Papeletasalida::where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
+                $dato = Papeletasalida::with('user')->where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
                 return $dato;
             }
     }
 
     public function ListMotivos(){
         $dato = Motivopapeletasalida::all();
+        return $dato;
+    }
+
+    public function ListPapeletaSalidabyId(Request $request)
+    {
+
+        $dato = Papeletasalida::where('id', $request->item)->first();
         return $dato;
     }
 }

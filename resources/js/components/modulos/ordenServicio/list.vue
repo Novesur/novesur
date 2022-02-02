@@ -636,6 +636,7 @@ export default {
     },
 
     getListarOrdenCompraxProductoDetalle(item) {
+
       var url = "/administracion/DetalleOrdenservicio/view";
       axios
         .get(url, {

@@ -13,7 +13,7 @@
       <div class="card">
         <div class="card-header">
           <div class="card-tools">
-            <router-link class="btn btn-info btn-sm" :to="'/ordenCompra/list'">
+            <router-link class="btn btn-info btn-sm" :to="'/ordenservicio/list'">
               <i class="fas fa-arrow-left"></i>Regresar
             </router-link>
           </div>
@@ -196,18 +196,7 @@
                                       :label="
                                         item.codigo +
                                         ' - ' +
-                                        item.familia.nombre +
-                                        ' , ' +
-                                        item.subfamilia.nombre +
-                                        ' , Modelo: ' +
-                                        item.modelotipo.nombre +
-                                        ' , Marca : ' +
-                                        item.marca.nombre +
-                                        ' , Material : ' +
-                                        item.material.nombre +
-                                        ' ,' +
-                                        item.homologacion.nombre
-                                      "
+                                        item.familia.nombre  "
                                       :value="item.id"
                                     >
                                     </el-option>
@@ -321,17 +310,7 @@
                         <td v-text="item.unidmedida.nombre"></td>
 
                         <td
-                          v-text="
-                            item.producto.familia.nombre +
-                            ' ' +
-                            item.producto.subfamilia.nombre +
-                            ', MARCA :' +
-                            item.producto.marca.nombre +
-                            ', MODELO/TIPO :' +
-                            item.producto.modelotipo.nombre +
-                            ', MATERIAL :' +
-                            item.producto.material.nombre
-                          "
+                          v-text="item.producto.familia.nombre  "
                         ></td>
 
                         <td>
@@ -482,18 +461,7 @@
                             :label="
                               item.codigo +
                               ' - ' +
-                              item.familia.nombre +
-                              ' , ' +
-                              item.subfamilia.nombre +
-                              ' , Modelo: ' +
-                              item.modelotipo.nombre +
-                              ' , Marca : ' +
-                              item.marca.nombre +
-                              ' , Material : ' +
-                              item.material.nombre +
-                              ' ,' +
-                              item.homologacion.nombre
-                            "
+                              item.familia.nombre"
                             :value="item.id"
                           >
                           </el-option>
@@ -655,6 +623,8 @@ export default {
     },
 
     getCargaDatosOrdenServicio() {
+
+
       var url = "/administracion/ordenServicio/CargaDatosOrdenServicio";
       axios
         .post(url, {
@@ -694,7 +664,8 @@ export default {
     },
 
     getListaDetalleOrdenServicio() {
-      var url = "/administracion/DetalleOrdenservicio/view";
+        //alert(this.fillEditOrdenServicio.nidOrdenServicio)
+      var url = "/administracion/DetalleOrdenservicio/viewDetalleOrdenServicio";
       axios
         .get(url, {
           params: {

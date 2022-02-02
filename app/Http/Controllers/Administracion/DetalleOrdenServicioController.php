@@ -11,8 +11,15 @@ class DetalleOrdenServicioController extends Controller
 {
     public function view(Request $request){
 
-        $codOrderServicio = Ordenservicio::where('codigo', $request->item)->first();
-        $dato = Detalleordenservicio::with('ordenservicio','unidmedida','producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('ordenservicio_id', $codOrderServicio->id)->get();
+
+        $dato = Detalleordenservicio::with('ordenservicio','unidmedida','producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('ordenservicio_id', $request->item)->get();
+        return $dato;
+    }
+
+    public function viewDetalleOrdenServicio(Request $request){
+
+        $ordenServicio = Ordenservicio::where('codigo', $request->item)->first();
+        $dato = Detalleordenservicio::with('ordenservicio','unidmedida','producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('ordenservicio_id', $ordenServicio->id)->get();
         return $dato;
     }
 

@@ -371,9 +371,9 @@
 
         <td>Trans. Bancaria</td>
         <td>&nbsp;</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center">INVERSIONES NOVESUR S.A.C.</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td style="text-align: center">&nbsp;</td>
         </tr>
 
         <tr>

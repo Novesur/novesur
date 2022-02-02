@@ -201,18 +201,14 @@
                       v-for="(item, index) in listCotizacionPaginated"
                       :key="index"
                     >
-                      <td>
-                          {{item.codigo}}
-                        <!-- {{ item.id | fourchar }} -
-                        {{ item.fecha | moment("YYYY") }} -->
-                      </td>
                       <td>{{ item.fecha | moment("DD - MM - Y") }}</td>
-                      <td v-text="item.razonsocial"></td>
-                      <td v-text="item.estadopedido"></td>
+                      <td> {{item.user.fullname}}</td>
+                      <td v-text="item.horasalida"></td>
+                      <td v-text="item.horaretorno"></td>
 
 
 
-                        <template v-if="item.estadopedido == 'ANULADO'">
+                        <template v-if="item.estado_id == '1'">
                         <td v-text="item.observacion"></td>
                         </template>
                         <template v-else>
@@ -222,16 +218,10 @@
 
 
                       <td>
-                        <button
-                          class="btn btn-info btn-sm"
-                          @click="abrirEstado(item.codigo)"
-                        >
-                          <i class="far fa-calendar-check"></i> Estado
-                        </button>
 
                         <button
                           class="btn btn-primary btn-sm"
-                          @click="abrirModal(item.codigo)"
+                          @click.prevent="abrirModalbyVendedor(item.id)"
                         >
                           <i class="far fa-eye"></i> Detalle
                         </button>
@@ -243,6 +233,12 @@
                           <span><i class="far fa-file-pdf"></i></span> PDF
                         </button>
 
+                        <button
+                          class="btn btn-info btn-sm"
+                          @click="abrirEstado(item.codigo)"
+                        >
+                          <i class="far fa-calendar-check"></i> Estado
+                        </button>
                         <!--    <router-link
                           class="btn btn-danger btn-sm"
                           :to="{
@@ -328,7 +324,7 @@
                             <label class="col-md-3 col-form-label"
                               >Cliente</label
                             >
-                            <div class="col-md-6">
+                 <!--            <div class="col-md-6">
                               <el-select
                                 v-model="fillBsqPapeletaSalida.nIdVendedor"
                                 filterable
@@ -351,7 +347,7 @@
                                 >
                                 </el-option>
                               </el-select>
-                            </div>
+                            </div> -->
                           </div>
                         </div>
                       </template>
@@ -463,7 +459,7 @@
                       <td>
                         <button
                           class="btn btn-info btn-sm"
-                          @click="abrirEstado(item.codigo)"
+                          @click="abrirEstadobyVendedor(item.id)"
                         >
                           <i class="far fa-calendar-check"></i> Estado
                         </button>
@@ -586,33 +582,21 @@
               >
                 <thead>
                   <tr>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>P.Unit</th>
-                    <th>Total</th>
-                    <th>Unidad Medida</th>
+                    <th>Cliente</th>
+                    <th>Contacto</th>
+                    <th>Fundamento</th>
+
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in listDetPedido" :key="index">
+                  <tr v-for="(item, index) in this.listModalVendedorAdmin" :key="index">
                     <td
-                      v-text="
-                        item.producto.familia.nombre +
-                        ',' +
-                        item.producto.subfamilia.nombre +
-                        ', MODELO :' +
-                        item.producto.modelotipo.nombre +
-                        ', MATERIAL :' +
-                        item.producto.material.nombre +
-                        ', MARCA :' +
-                        item.producto.marca.nombre
-                      "
+                      v-text="item.cliente.razonsocial"
                     ></td>
 
-                    <td v-text="item.cantidad"></td>
-                    <td v-text="item.punit"></td>
-                    <td>{{ (item.cantidad * item.punit) | formatPrice }}</td>
-                    <td v-text="item.unidmedida.nombre"></td>
+                    <td v-text="item.contacto"></td>
+                    <td v-text="item.fundamento"></td>
+
                   </tr>
                 </tbody>
               </table>
@@ -702,8 +686,8 @@ export default {
       txtrechazo: {
         margin: 15,
       },
-      listDetPedido: [],
-      listVendedorAdmin: [],
+      listDetPapeletaSalida: [],
+      listModalVendedorAdmin: [],
       listVendedorUser: [],
       listPaginacion: [],
       listCliente: [],
@@ -767,23 +751,23 @@ export default {
     this.getlistMotivos();
     this.getlistVendedorxUsu();
     this.getlistEstadoPedido();
-    this.getlistEstadoPedidoTodos();
+    //this.getlistEstadoPedidoTodos();
 
   },
 
   computed: {
     pageCount() {
-      let a = this.listPaginacion.length,
+      let a = this.listPapeleByVendedor.length,
         b = this.perPage;
       return Math.ceil(a / b);
     },
     listCotizacionPaginated() {
       let inicio = this.pageNumber * this.perPage,
         fin = inicio + this.perPage;
-      return this.listPaginacion.slice(inicio, fin);
+      return this.listPapeleByVendedor.slice(inicio, fin);
     },
     pagesList() {
-      let a = this.listPaginacion.length,
+      let a = this.listPapeleByVendedor.length,
         b = this.perPage;
       let PageCount = Math.ceil(a / b);
       let count = 0,
@@ -808,17 +792,29 @@ export default {
         this.EstadoBotonEditar = false;
       }
     },
+    abrirModalbyVendedor(item){
+        this.modalShow = !this.modalShow;
+      this.fillBsqPapeletaSalida.itemid = item;
+this.BuscaDetallePapeletaS(item)
+
+    },
     abrirModal(item) {
       this.modalShow = !this.modalShow;
       this.fillBsqPapeletaSalida.itemid = item;
       this.getListDetCotizacion(item);
     },
 
-    abrirEstado(item) {
+   abrirEstadobyVendedor(item) {
       this.modalEstado = !this.modalEstado;
       this.fillBsqPapeletaSalida.itemid = item;
-      this.BuscaCotizacionList(item);
+      alert(item)
+      this.BuscaDetallePapeletaS(item);
     },
+   abrirEstado(item) {
+
+
+   },
+
 
     limpiarCriteriosBsq() {
       this.fillBsqPapeletaSalida.nIdVendedor = "";
@@ -827,7 +823,7 @@ export default {
       this.fillBsqPapeletaSalida.dFecha = "";
     },
     limpiarBandejaMaterial() {
-      this.listDetPedido = [];
+      this.listDetPapeletaSalida = [];
     },
     getListDetCotizacion(item) {
       var url = "/administracion/detallecotizancion/listDetCotizacionBy";
@@ -838,11 +834,11 @@ export default {
           },
         })
         .then((response) => {
-          this.listDetPedido = response.data;
+          this.listDetPapeletaSalida = response.data;
 
           /*
 
-        this.fillBsqPapeletaSalida.nIdCliente = this.listDetPedido[0].id; */
+        this.fillBsqPapeletaSalida.nIdCliente = this.listDetPapeletaSalida[0].id; */
         });
     },
     getlistVendedorAdmin() {
@@ -925,8 +921,8 @@ export default {
             (this.listCliente = response.data);
         });
     },
-BuscaCotizacionList(item) {
-      var url = " /administracion/cotizacion/ListCotizacionbyId";
+BuscaDetallePapeletaS(item) {
+      var url = "/administracion/DetallePapeletaSalida/BuscaDetallePapeletaS";
       axios
         .get(url, {
           params: {
@@ -934,9 +930,7 @@ BuscaCotizacionList(item) {
           },
         })
         .then((response) => {
-
-          this.getlistEstadoPedido(response.data.id);
-
+            this.listModalVendedorAdmin = response.data
         });
     },
     getlistEstadoPedido(item) {
@@ -964,7 +958,7 @@ BuscaCotizacionList(item) {
         .then((response) => {
 
             this.fillBsqPapeletaSalida.cMotivoRechazo ="",
-          /*   this.listDetPedido = response.data; */
+          /*   this.listDetPapeletaSalida = response.data; */
             this.getlistPapeleByVendedor();
 
 

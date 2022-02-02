@@ -219,17 +219,7 @@
                                       :label="
                                         item.codigo +
                                         ' - ' +
-                                        item.familia.nombre +
-                                        ' , ' +
-                                        item.subfamilia.nombre +
-                                        ' , Modelo: ' +
-                                        item.modelotipo.nombre +
-                                        ' , Marca : ' +
-                                        item.marca.nombre +
-                                        ' , Material : ' +
-                                        item.material.nombre +
-                                        ' ,' +
-                                        item.homologacion.nombre
+                                        item.familia.nombre
                                       "
                                       :value="item.id"
                                     >

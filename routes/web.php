@@ -308,11 +308,19 @@ Route::get('/administracion/parte_salida/getListarPartesalidaFecha', 'Administra
 Route::get('/administracion/parte_salida/getListarPartesalidaCliente', 'Administracion\ParteSalidaController@getListarPartesalidaCliente');
 Route::post('/administracion/parte_salida/reporteParteSalidaPdf', 'Administracion\ParteSalidaController@reporteParteSalidaPdf');
 
+
+
 ////  Papeleta de Salida
 Route::get('/administracion/PapeletaSalida/Motivo', 'Administracion\PapeletaSalidaController@Motivo');
 Route::post('/administracion/papeletasalida/create', 'Administracion\PapeletaSalidaController@create');
 Route::get('/administracion/papeletasalida/listPapeleByVendedor', 'Administracion\PapeletaSalidaController@listPapeleByVendedor');
 Route::get('/administracion/papeletasalida/ListMotivos', 'Administracion\PapeletaSalidaController@ListMotivos');
+Route::get('/administracion/papeletaSalida/ListPapeletaSalidabyId', 'Administracion\PapeletaSalidaController@ListPapeletaSalidabyId');
+
+///// Detalle Papeleta Salida
+
+Route::get('/administracion/DetallePapeletaSalida/BuscaDetallePapeletaS', 'Administracion\DetallePapeletaSalidaController@BuscaDetallePapeletaS');
+
 
 /// Orden de Servicio
 
@@ -334,6 +342,7 @@ Route::post('/administracion/DetalleOrdenservicio/addOrdenEdit', 'Administracion
 Route::post('/administracion/DetalleOrdenservicio/CargaDetalleOrdenServicioEdit', 'Administracion\DetalleOrdenServicioController@CargaDetalleOrdenServicioEdit');
 Route::post('/administracion/DetalleOrdenservicio/ModalSaveItemsDetalleOS', 'Administracion\DetalleOrdenServicioController@ModalSaveItemsDetalleOS');
 Route::post('/administracion/DetalleOrdenservicio/DeleteItemDetalleOrdenServicio', 'Administracion\DetalleOrdenServicioController@DeleteItemDetalleOrdenServicio');
+Route::get('/administracion/DetalleOrdenservicio/viewDetalleOrdenServicio', 'Administracion\DetalleOrdenServicioController@viewDetalleOrdenServicio');
 
 
 
