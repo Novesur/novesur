@@ -10,6 +10,7 @@ use App\TempOrdenServicio;
 use App\UnidMedida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use PDF;
 
@@ -130,6 +131,17 @@ class OrdenServicioController extends Controller
         $dato = Detalleordenservicio::with('ordenservicio', 'ordenservicio.proveedor')->where('id', $codOrderServicio->id)->first();
         return $dato;
 
+    }
+
+    public function ListXProduct(Request $request)
+    {
+               $nIdprod = $request->nIdprod;
+
+               $dato =  Detalleordenservicio::with('ordenservicio','unidmedida','producto','ordenservicio.proveedor')
+                   ->whereHas('ordenservicio', function (Builder $query) use ($nIdprod) {$query->where('producto_id', $nIdprod);
+                   })->get();
+
+                   return $dato;
     }
 
 }

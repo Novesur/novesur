@@ -72,10 +72,18 @@
           <td style="font-size: 11px"><strong>SEÑORES:</strong></td>
           <td style="font-size: 10px"> {{$coti->cliente->razonsocial}} </td>
           <td style="font-size: 11px"><strong>FECHA:</strong></td>
-          <td style="font-size: 10px">  @php
+          <td style="font-size: 10px">
+        @if ($coti->fechacotiupdate == NULL)
+            @php
+            echo date('d-m-Y', strtotime($coti->fecha));
+            @endphp </td>
+        @else
+            @php
+            echo date('d-m-Y', strtotime($coti->fechacotiupdate));
+            @endphp </td>
+        @endif
 
-              echo date('d-m-Y', strtotime($coti->fecha));
-              @endphp </td>
+
         </tr>
 
         <tr>

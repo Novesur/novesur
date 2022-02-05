@@ -37,6 +37,7 @@ class CreateCotizacionTable extends Migration
             $table->string('consignado',100)->nullable();
             $table->string('observacion')->nullable();
             $table->char('codigo',12)->nullable();
+            $table->date('fechacotiupdate')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -266,7 +266,7 @@
                       <div class="col-md-4 offset-4">
                         <button
                           class="btn btn-flat btn-info btnWidth"
-                          @click.prevent="getListarOrdenCompraxProducto"
+                          @click.prevent="getListarOrdenServicioxProducto"
                         >
                           Buscar
                         </button>
@@ -305,24 +305,24 @@
                             v-for="(item, index) in listOrdenServicioXProduct"
                             :key="index"
                           >
-                            <td v-text="item.ordencompras.codigo">
+                            <td v-text="item.ordenservicio.codigo">
                               <!--  {{ item.ordencompras.id | fourchar }} -
                         {{ item.ordencompras.Femision | moment("YYYY") }} -->
                             </td>
                             <td>
                               {{
-                                item.ordencompras.Femision
+                                item.ordenservicio.Femision
                                   | moment("DD - MM - Y")
                               }}
                             </td>
 
                             <td
-                              v-text="item.ordencompras.proveedor.nombre"
+                              v-text="item.ordenservicio.proveedor.nombre"
                             ></td>
                             <td>
                               <button
                                 class="btn btn-info btn-sm"
-                                @click="abrirDetalle(item.ordencompras.id)"
+                                @click="abrirDetalle(item.ordenservicio.id)"
                               >
                                 <i class="fas fa-eye"></i> Detalle
                               </button>
@@ -330,7 +330,7 @@
                               <button
                                 class="btn btn-danger btn-sm"
                                 @click.prevent="
-                                  SetGenerarOrdenPedidoPDF(item.ordencompras.id)
+                                  SetGenerarOrdenPedidoPDF(item.ordenservicio.id)
                                 "
                               >
                                 <i class="fas fa-file-pdf"></i> PDF
@@ -442,17 +442,7 @@
                     :key="index"
                   >
                     <td
-                      v-text="
-                        item.producto.familia.nombre +
-                        ',' +
-                        item.producto.subfamilia.nombre +
-                        ', MODELO :' +
-                        item.producto.modelotipo.nombre +
-                        ', MATERIAL :' +
-                        item.producto.material.nombre +
-                        ', MARCA :' +
-                        item.producto.marca.nombre
-                      "
+                      v-text="item.producto.familia.nombre"
                     ></td>
                     <td v-text="item.cantidad"></td>
                     <td v-text="item.punit"></td>
@@ -604,8 +594,8 @@ export default {
       });
     },
 
-    getListarOrdenCompraxProducto() {
-      var url = "/administracion/ordenCompra/ListXProduct";
+    getListarOrdenServicioxProducto() {
+      var url = "/administracion/ordenServicio/ListXProduct";
       axios
         .get(url, {
           params: {
@@ -632,10 +622,10 @@ export default {
 
     abrirDetalle(item) {
       this.modalShow = true;
-      this.getListarOrdenCompraxProductoDetalle(item);
+      this.getListarOrdenServicioxProductoDetalle(item);
     },
 
-    getListarOrdenCompraxProductoDetalle(item) {
+    getListarOrdenServicioxProductoDetalle(item) {
 
       var url = "/administracion/DetalleOrdenservicio/view";
       axios

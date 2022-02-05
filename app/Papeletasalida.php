@@ -12,4 +12,14 @@ class Papeletasalida extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function motivopapeletasalida()
+    {
+        return $this->belongsTo(Motivopapeletasalida::class);
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estadoprod::class);
+    }
 }

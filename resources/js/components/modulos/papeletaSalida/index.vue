@@ -54,11 +54,10 @@
                                 filterable
                                 placeholder="Seleccione una Vendedor"
                                 :style="{ width: '350px' }"
-                                @change="getlistCliente"
                                 clearable
                               >
                                 <el-option
-                                  v-for="item in listVendedorAdmin"
+                                  v-for="item in this.listVendedorAdmin"
                                   :key="item.id"
                                   :label="
                                     item.firstname +
@@ -89,7 +88,7 @@
                                 placeholder="Seleccione una Vendedor"
                                 :style="{ width: '350px' }"
                                 default-value="2010-10-01"
-                                @change="getlistCliente"
+
                               >
                                 <el-option
                                   v-for="item in listVendedorUser"
@@ -227,7 +226,7 @@
                         </button>
 
                         <button
-                          @click.prevent="getPdfCotizacion(item.codigo)"
+                          @click.prevent="getPdfPSalidabyVendedor(item.id)"
                           class="btn btn-danger btn-sm"
                         >
                           <span><i class="far fa-file-pdf"></i></span> PDF
@@ -235,9 +234,9 @@
 
                         <button
                           class="btn btn-info btn-sm"
-                          @click="abrirEstado(item.codigo)"
+                          @click.prevent="abrirAnularVendedor(item.id)"
                         >
-                          <i class="far fa-calendar-check"></i> Estado
+                          <i class="far fa-calendar-check"></i> Anular
                         </button>
                         <!--    <router-link
                           class="btn btn-danger btn-sm"
@@ -324,17 +323,17 @@
                             <label class="col-md-3 col-form-label"
                               >Cliente</label
                             >
-                 <!--            <div class="col-md-6">
+                          <div class="col-md-6">
                               <el-select
                                 v-model="fillBsqPapeletaSalida.nIdVendedor"
                                 filterable
                                 placeholder="Seleccione una Vendedor"
                                 :style="{ width: '350px' }"
-                                @change="getlistCliente"
+
                                 clearable
                               >
                                 <el-option
-                                  v-for="item in listVendedorAdmin"
+                                  v-for="item in this.listVendedorAdmin"
                                   :key="item.id"
                                   :label="
                                     item.firstname +
@@ -347,7 +346,7 @@
                                 >
                                 </el-option>
                               </el-select>
-                            </div> -->
+                            </div>
                           </div>
                         </div>
                       </template>
@@ -365,7 +364,7 @@
                                 placeholder="Seleccione una Vendedor"
                                 :style="{ width: '350px' }"
                                 default-value="2010-10-01"
-                                @change="getlistCliente"
+
                               >
                                 <el-option
                                   v-for="item in listVendedorUser"
@@ -459,9 +458,9 @@
                       <td>
                         <button
                           class="btn btn-info btn-sm"
-                          @click="abrirEstadobyVendedor(item.id)"
+                          @click.prevent="abrirEstadobyCliente(item.id)"
                         >
-                          <i class="far fa-calendar-check"></i> Estado
+                          <i class="far fa-calendar-check"></i> Estado2
                         </button>
 
                         <button
@@ -472,7 +471,7 @@
                         </button>
 
                         <button
-                          @click.prevent="getPdfCotizacion(item.codigo)"
+                          @click.prevent="getPdfPSalida(item.id)"
                           class="btn btn-danger btn-sm"
                         >
                           <span><i class="far fa-file-pdf"></i></span> PDF
@@ -671,7 +670,7 @@ export default {
     return {
       fillBsqPapeletaSalida: {
         cNombre: "",
-        nIdCliente: "",
+
         nIdVendedor: "",
         itemid: "",
         dFecha: "",
@@ -688,7 +687,8 @@ export default {
       },
       listDetPapeletaSalida: [],
       listModalVendedorAdmin: [],
-      listVendedorUser: [],
+      listVendedorAdmin:[],
+     listVendedorUser: [],
       listPaginacion: [],
       listCliente: [],
       listMotivo: [],
@@ -746,12 +746,12 @@ export default {
 
 
   mounted() {
-    this.getListDetCotizacion();
+
     this.getlistVendedorAdmin();
     this.getlistMotivos();
     this.getlistVendedorxUsu();
     this.getlistEstadoPedido();
-    //this.getlistEstadoPedidoTodos();
+
 
   },
 
@@ -801,51 +801,64 @@ this.BuscaDetallePapeletaS(item)
     abrirModal(item) {
       this.modalShow = !this.modalShow;
       this.fillBsqPapeletaSalida.itemid = item;
-      this.getListDetCotizacion(item);
+
     },
 
    abrirEstadobyVendedor(item) {
       this.modalEstado = !this.modalEstado;
       this.fillBsqPapeletaSalida.itemid = item;
-      alert(item)
       this.BuscaDetallePapeletaS(item);
     },
-   abrirEstado(item) {
+   abrirAnularVendedor(item) {
+     Swal.fire({
+        title: "Desea darle de baja?",
+        text: "No podrás revertir esto.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, dale de baja!",
+      }).then((result) => {
 
+        if (result.isConfirmed) {
+                var url = "/administracion/papeletasalida/setDarBajaPapeletaSalida";
+        axios
+          .post(url, {
+            item: item,
+          })
+          .then((response) => {
+            //this.getListarOrdenServicioxProveedor();
+            this.listOrdenServicioXProveedor = response.data;
+          });
+
+          Swal.fire(
+            "Anulado!",
+            "Tu orden de Compra de Compra fue dado de Baja.",
+            "success"
+          );
+        }
+      });
+   },
+
+
+   abrirEstado(){
 
    },
 
 
     limpiarCriteriosBsq() {
       this.fillBsqPapeletaSalida.nIdVendedor = "";
-      this.fillBsqPapeletaSalida.nIdCliente = "";
-
       this.fillBsqPapeletaSalida.dFecha = "";
     },
     limpiarBandejaMaterial() {
       this.listDetPapeletaSalida = [];
     },
-    getListDetCotizacion(item) {
-      var url = "/administracion/detallecotizancion/listDetCotizacionBy";
-      axios
-        .get(url, {
-          params: {
-            item: item,
-          },
-        })
-        .then((response) => {
-          this.listDetPapeletaSalida = response.data;
 
-          /*
-
-        this.fillBsqPapeletaSalida.nIdCliente = this.listDetPapeletaSalida[0].id; */
-        });
-    },
     getlistVendedorAdmin() {
       var url = "/administracion/usuario/getListarUsusarios";
       axios.get(url).then((response) => {
         this.listVendedorAdmin = response.data;
-        this.getlistCliente();
+        this.fillBsqPapeletaSalida.nIdVendedor = this.listVendedorAdmin[0].id;
       });
     },
     getlistVendedorxUsu() {
@@ -859,7 +872,7 @@ this.BuscaDetallePapeletaS(item)
         .then((response) => {
           this.listVendedorUser = response.data;
           this.fillBsqPapeletaSalida.nIdVendedor = this.listVendedorUser[0].id;
-          this.getlistCliente();
+
         });
     },
 
@@ -908,19 +921,7 @@ this.BuscaDetallePapeletaS(item)
 
 
 
-    getlistCliente() {
-      var url = "/administracion/cliente/getListarCliente";
-      axios
-        .get(url, {
-          params: {
-            nIdVendedor: this.fillBsqPapeletaSalida.nIdVendedor,
-          },
-        })
-        .then((response) => {
-          (this.fillBsqPapeletaSalida.nIdCliente = ""),
-            (this.listCliente = response.data);
-        });
-    },
+
 BuscaDetallePapeletaS(item) {
       var url = "/administracion/DetallePapeletaSalida/BuscaDetallePapeletaS";
       axios
@@ -967,9 +968,9 @@ BuscaDetallePapeletaS(item) {
 
 
 
-    getPdfCotizacion(item) {
+    getPdfPSalidabyVendedor(item) {
       var config = { responseType: "blob" };
-      var url = "/administracion/cotizacion/CotizacionPdf";
+      var url = "/administracion/papeletasalida/PapeletasalidaPdf";
       axios
         .post(
           url,

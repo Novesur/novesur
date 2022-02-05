@@ -111,9 +111,11 @@ class OrdencompraController extends Controller
     public function ListXProduct(Request $request)
     {
                $nIdprod = $request->nIdprod;
+
                $dato =  Detalleordencompra::with('ordencompras','unidmedida','producto','ordencompras.proveedor')
                    ->whereHas('ordencompras', function (Builder $query) use ($nIdprod) {$query->where('producto_id', $nIdprod);
                    })->get();
+
                    return $dato;
     }
 

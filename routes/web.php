@@ -316,6 +316,12 @@ Route::post('/administracion/papeletasalida/create', 'Administracion\PapeletaSal
 Route::get('/administracion/papeletasalida/listPapeleByVendedor', 'Administracion\PapeletaSalidaController@listPapeleByVendedor');
 Route::get('/administracion/papeletasalida/ListMotivos', 'Administracion\PapeletaSalidaController@ListMotivos');
 Route::get('/administracion/papeletaSalida/ListPapeletaSalidabyId', 'Administracion\PapeletaSalidaController@ListPapeletaSalidabyId');
+Route::post('/administracion/papeletasalida/PapeletasalidaPdf', 'Administracion\PapeletaSalidaController@PapeletasalidaPdf');
+Route::post('/administracion/papeletasalida/setDarBajaPapeletaSalida', 'Administracion\PapeletaSalidaController@setDarBajaPapeletaSalida');
+
+
+
+
 
 ///// Detalle Papeleta Salida
 
@@ -329,6 +335,7 @@ Route::get('/administracion/ordenServicio/ListXProveedor', 'Administracion\Orden
 Route::post('/administracion/ordenServicio/setGenerarOrderPedidoPdf', 'Administracion\OrdenServicioController@setGenerarOrderPedidoPdf');
 Route::post('/administracion/ordenServicio/setDarBajaOrderServicio', 'Administracion\OrdenServicioController@setDarBajaOrderServicio');
 Route::post('/administracion/ordenServicio/CargaDatosOrdenServicio', 'Administracion\OrdenServicioController@CargaDatosOrdenServicio');
+Route::get('/administracion/ordenServicio/ListXProduct', 'Administracion\OrdenServicioController@ListXProduct');
 
 
 
