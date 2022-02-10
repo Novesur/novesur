@@ -440,8 +440,44 @@ if($anioSelect == '2021'){
     public function listCotizacionListByVendedor(Request $request)
     {
 
-        $dato = Cotizacion::with('cliente', 'estadopedido', 'user')->where('user_id', $request->nIdVendedor)->get();
-        return $dato;
+    /*     $dato = Cotizacion::on('mysql')->with('cliente', 'estadopedido', 'user', 'detalle')
+        ->whereBetween('fecha', [$request->fecha1, $request->fecha2])->get();
+
+        return collect($dato)->map(function ($item, $key) {
+
+
+            if ($item->detalle) {
+                //$item['detalle_sum'] = collect($item->detalle)->sum('punit') ;  // Para sumar los campos
+
+                $item['detalle_sum'] = collect($item->detalle)->sum(function ($detalle) {
+                    return floatval($detalle['punit']) * $detalle['cantidad'] * 1.18;   // Para calcular los campos
+                });
+            } else {
+                $item['detalle_sum'] = 0;
+            }
+
+            return $item;
+        })->all();
+ */
+
+        $dato = Cotizacion::with('cliente', 'estadopedido', 'user', 'detalle')->where('user_id', $request->nIdVendedor)->get();
+
+
+        return collect($dato)->map(function ($item, $key) {
+
+
+            if ($item->detalle) {
+                //$item['detalle_sum'] = collect($item->detalle)->sum('punit') ;  // Para sumar los campos
+
+                $item['detalle_sum'] = collect($item->detalle)->sum(function ($detalle) {
+                    return floatval($detalle['punit']) * $detalle['cantidad'] * 1.18;   // Para calcular los campos
+                });
+            } else {
+                $item['detalle_sum'] = 0;
+            }
+
+            return $item;
+        })->all();
     }
 
     public function SumaTotalCotizacion(Request $request){

@@ -25,12 +25,20 @@ class PapeletaSalidaController extends Controller
         $PapeletaSalida->horasalida = substr($request->tHoraSalida,0,8);
         $PapeletaSalida->horaretorno = substr($request->tHoraRetorno,0,8);
         $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;
-        $PapeletaSalida->estado_id = '1';
+        $PapeletaSalida->estadopapeletasalida_id = '1';
         $PapeletaSalida->save();
 
         $detallePsalida = new Detallepapeletasalida;
         $detallePsalida->papeletasalida_id = $PapeletaSalida->id;
-        $detallePsalida->cliente_id = $request->nIdCliente;
+
+        if($request->nIdMotivo == 3){
+
+            $detallePsalida->cliente_id = $request->nIdCliente;
+        }else{
+            $detallePsalida->cliente_id = 202;
+        }
+
+
         $detallePsalida->contacto = mb_strtoupper($request->cContacto);
         $detallePsalida->fundamento = mb_strtoupper($request->cReferencia);
         $detallePsalida->save();
@@ -43,10 +51,22 @@ class PapeletaSalidaController extends Controller
         $dFechainicio = date("Y-m-d", strtotime($request->dFechainicio));
         $dFechafin = date("Y-m-d", strtotime($request->dFechafin));
 
+
+        if($request->nIdMotivo == null && $request->dFechafin == null &&  $request->nIdVendedor == null && $request->dFechainicio == null){
+            $dato = Papeletasalida::with('user','estadoPapeletaSalida')->get();
+            return $dato;
+        }
         if($request->nIdMotivo == null){
-                $dato = Papeletasalida::with('user')->where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
+                $dato = Papeletasalida::with('user','estadoPapeletaSalida')->where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
                 return $dato;
             }
+
+            if($request->dFechainicio == null && $request->dFechafin == null  ){
+                $dato = Papeletasalida::with('user','estadoPapeletaSalida')->where('user_id', $request->nIdVendedor)->where('motivopapeletasalida_id', $request->nIdMotivo)->get();
+                return $dato;
+            }
+
+
     }
 
     public function ListMotivos(){
@@ -66,7 +86,7 @@ class PapeletaSalidaController extends Controller
 
         $idPapeletaS = $request->get("params")['item'];
 
-        $parteSalida = Papeletasalida::with('user','motivopapeletasalida','estado')->where('id',$idPapeletaS)->first();
+        $parteSalida = Papeletasalida::with('user','motivopapeletasalida','estadoPapeletaSalida')->where('id',$idPapeletaS)->first();
 
         $detalleParteSalida = Detallepapeletasalida::with('papeletasalida','cliente')->where('papeletasalida_id',$idPapeletaS)->first();
         $logo = asset('img/logo.gif');
@@ -82,6 +102,18 @@ class PapeletaSalidaController extends Controller
         }
 
         public function setDarBajaPapeletaSalida(Request $request){
-            dd($request);
+
+
+        $papeletaS = Papeletasalida::find($request->item);
+           $papeletaS->estadopapeletasalida_id = 2;
+            $papeletaS->save();
+
+        }
+
+        public function setAprobarPapeletaSalida(Request $request){
+            $papeletaS = Papeletasalida::find($request->item);
+            $papeletaS->estadopapeletasalida_id = 3;
+             $papeletaS->save();
+
         }
 }

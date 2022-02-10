@@ -327,7 +327,7 @@
                                 class="btn btn-flat btn-info"
                                 @click.prevent="getlistCotizacionListByVendedor"
                               >
-                                Buscar
+                                Buscar2
                               </button></span
                             >
 

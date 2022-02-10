@@ -636,7 +636,7 @@ export default {
     },
 
     getListarOrdenCompraxProductoDetalle(item) {
-      var url = "/administracion/DetalleordenCompra/view";
+      var url = "/administracion/DetalleordenCompra/viewModal";
       axios
         .get(url, {
           params: {
@@ -702,8 +702,8 @@ export default {
             codigo: codigo,
           })
           .then((response) => {
-            //this.getListarOrdenCompraxProveedor();
-            this.listOrdenPedidoXProveedor = response.data;
+            //this.listOrdenPedidoXProveedor = response.data;
+           this.getListarOrdenCompraxProveedor();
           });
 
           Swal.fire(

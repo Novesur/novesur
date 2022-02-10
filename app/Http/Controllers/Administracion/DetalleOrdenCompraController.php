@@ -12,10 +12,19 @@ class DetalleOrdenCompraController extends Controller
     public function view(Request $request){
 
 
+        $ordencompra = Ordencompra::where('codigo', $request->item)->first();
+        $dato = Detalleordencompra::with('ordencompras','unidmedida','producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('ordencompras_id', $ordencompra->id)->get();
+        return $dato;
+    }
+
+    public function viewModal(Request $request){
+
+
         $ordencompra = Ordencompra::where('id', $request->item)->first();
         $dato = Detalleordencompra::with('ordencompras','unidmedida','producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('ordencompras_id', $ordencompra->id)->get();
         return $dato;
     }
+
 
     public function CambiarEstadoDetalleOC(Request $request){
         $DetalleOC = Detalleordencompra::where('id',$request->nIdDetalleOC)->first();

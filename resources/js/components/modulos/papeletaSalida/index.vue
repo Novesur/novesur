@@ -193,6 +193,8 @@
                       <th>Vendedor</th>
                       <th>Hora Salida</th>
                       <th>Hora Retorno</th>
+                       <th>Estado</th>
+                       <th>Acción</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -206,17 +208,7 @@
                       <td v-text="item.horaretorno"></td>
 
 
-
-                        <template v-if="item.estado_id == '1'">
-                        <td v-text="item.observacion"></td>
-                        </template>
-                        <template v-else>
-                            <td></td>
-                        </template>
-
-
-
-                      <td>
+                        <td v-text="item.estado_papeleta_salida.nombre"></td>
 
                         <button
                           class="btn btn-primary btn-sm"
@@ -225,50 +217,37 @@
                           <i class="far fa-eye"></i> Detalle
                         </button>
 
-                        <button
+
+
+                             <button
                           @click.prevent="getPdfPSalidabyVendedor(item.id)"
                           class="btn btn-danger btn-sm"
                         >
                           <span><i class="far fa-file-pdf"></i></span> PDF
                         </button>
 
-                        <button
+                          <template v-if="listRolPermisoByUsuario.includes('papeleta.admin')">
+
+                                <button
                           class="btn btn-info btn-sm"
                           @click.prevent="abrirAnularVendedor(item.id)"
                         >
                           <i class="far fa-calendar-check"></i> Anular
                         </button>
-                        <!--    <router-link
-                          class="btn btn-danger btn-sm"
-                          :to="{
-                            name: 'cotizacion.reportCotizacionPdf',
-                            params: { id: item.id },
-                          }"
-                        >
-                          <i class="far fa-file-pdf"></i> PDF
-                        </router-link> -->
 
-                        <template v-if="item.estadodias <= 30">
-                          <router-link
-                            class="btn btn-secondary btn-sm"
-                            :to="{
-                              name: 'cotizacion.editar',
-                              params: { id: item.codigo },
-                            }"
-                          >
-                            <i class="far fa-edit" ></i> Editar
-                          </router-link>
+                               <button
+                          class="btn btn-success btn-sm"
+                          @click.prevent="aprobarPartidaSalida(item.id)"
+                        >
+                        <i class="far fa-thumbs-up"></i> Aprobar
+                        </button>
+                          </template>
+
+                        <template v-else>
+                            <td></td>
                         </template>
 
-                        <!--         <template v-else>
-                          <button
-                            @click.prevent="getActualizarFecha(item.id)"
-                            class="btn btn-success btn-sm"
-                          >
-                            <i class="far fa-calendar-alt"></i> Actualizar
-                          </button>
-                        </template> -->
-                      </td>
+
                     </tr>
                   </tbody>
                 </table>
@@ -313,6 +292,7 @@
 
  <div class="col-md-12">
                     <div class="row">
+
                       <template
                         v-if="
                           listRolPermisoByUsuario.includes('admin.listado_coti')
@@ -477,36 +457,7 @@
                           <span><i class="far fa-file-pdf"></i></span> PDF
                         </button>
 
-                        <!--    <router-link
-                          class="btn btn-danger btn-sm"
-                          :to="{
-                            name: 'cotizacion.reportCotizacionPdf',
-                            params: { id: item.id },
-                          }"
-                        >
-                          <i class="far fa-file-pdf"></i> PDF
-                        </router-link> -->
 
-                        <template v-if="item.estadodias <= 30">
-                          <router-link
-                            class="btn btn-secondary btn-sm"
-                            :to="{
-                              name: 'cotizacion.editar',
-                              params: { id: item.codigo },
-                            }"
-                          >
-                            <i class="far fa-edit" ></i> Editar
-                          </router-link>
-                        </template>
-
-                        <!--         <template v-else>
-                          <button
-                            @click.prevent="getActualizarFecha(item.id)"
-                            class="btn btn-success btn-sm"
-                          >
-                            <i class="far fa-calendar-alt"></i> Actualizar
-                          </button>
-                        </template> -->
                       </td>
                     </tr>
                   </tbody>
@@ -610,57 +561,7 @@
       </div>
     </div>
 
-    <!--  MODAL DE ESTADO DE COTIZACION -->
 
-    <div
-      class="modal fade"
-      :class="{ show: modalEstado }"
-      :style="modalEstado ? mostrarModal : ocultarModal"
-      @keydown.esc="dialog = false"
-    >
-      <div
-        class="
-          modal-dialog modal-dialog-center modal-dialog-scrollable
-          d-flex
-          align-items-center
-        "
-        role="document"
-        style="top: 50% !important"
-      >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Cambiar Estado de Cotizacion</h5>
-            <button class="close" @click="abrirEstado()"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Listado de Detalle de Cotizaciones -->
-
-            <template v-if="fillBsqPapeletaSalida.nIdtEstadoCoti == 1">
-              <div class="col" :style="'padding-top : 20px'">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Motivo del Rechazo"
-                  v-model="fillBsqPapeletaSalida.cMotivoRechazo"
-                />
-              </div>
-            </template>
-
-
-
-
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary"  @click="setEditarPedido" :disabled="EstadoBotonEditar" >
-              Editar
-            </button>
-            <button class="btn btn-secondary" @click="abrirEstado">
-              Cerrar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -693,6 +594,9 @@ export default {
       listCliente: [],
       listMotivo: [],
       listPapeleByVendedor : [],
+       listRolPermisoByUsuario: JSON.parse(
+        sessionStorage.getItem("listRolPermisosByUsuario")
+      ),
 
       modalShow: false,
       modalEstado: false,
@@ -828,7 +732,39 @@ this.BuscaDetallePapeletaS(item)
           })
           .then((response) => {
             //this.getListarOrdenServicioxProveedor();
-            this.listOrdenServicioXProveedor = response.data;
+            this.getlistPapeleByVendedor()
+
+          });
+
+          Swal.fire(
+            "Aprobado!",
+            "Tu orden de Compra de Compra fue dado de Baja.",
+            "success"
+          );
+        }
+      });
+   },
+
+   aprobarPartidaSalida(item){
+ Swal.fire({
+        title: "Desea aprobar la papeleta de salida?",
+        text: "No podrás revertir esto.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, quiero aprobarlo!",
+      }).then((result) => {
+
+        if (result.isConfirmed) {
+                var url = "/administracion/papeletasalida/setAprobarPapeletaSalida";
+        axios
+          .post(url, {
+            item: item,
+          })
+          .then((response) => {
+            //this.getListarOrdenServicioxProveedor();
+            this.getlistPapeleByVendedor();
           });
 
           Swal.fire(
@@ -841,9 +777,6 @@ this.BuscaDetallePapeletaS(item)
    },
 
 
-   abrirEstado(){
-
-   },
 
 
     limpiarCriteriosBsq() {
@@ -898,6 +831,7 @@ this.BuscaDetallePapeletaS(item)
           },
         })
         .then((response) => {
+
             this.listPapeleByVendedor = response.data
         });
     },
@@ -943,7 +877,8 @@ BuscaDetallePapeletaS(item) {
       }).then((response) => {
 
         //this.fillBsqPapeletaSalida.nIdtEstadoCoti =  response.data.estadopedido.nombre ;
-        this.fillBsqPapeletaSalida.nIdtEstadoCoti = response.data.estadopedido_id;
+       //this.fillBsqPapeletaSalida.nIdtEstadoCoti = response.data.estadopedido_id;
+         this.listPapeleByVendedor = response.data;
 
       });
     },
@@ -959,8 +894,8 @@ BuscaDetallePapeletaS(item) {
         .then((response) => {
 
             this.fillBsqPapeletaSalida.cMotivoRechazo ="",
-          /*   this.listDetPapeletaSalida = response.data; */
-            this.getlistPapeleByVendedor();
+            this.listPapeleByVendedor = response.data;
+           // this.getlistPapeleByVendedor();
 
 
         });

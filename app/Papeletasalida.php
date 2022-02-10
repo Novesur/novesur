@@ -18,8 +18,8 @@ class Papeletasalida extends Model
         return $this->belongsTo(Motivopapeletasalida::class);
     }
 
-    public function estado()
+    public function estadopapeletasalida()
     {
-        return $this->belongsTo(Estadoprod::class);
+        return $this->belongsTo(EstadoPapeletaSalida::class);
     }
 }

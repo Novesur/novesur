@@ -37,6 +37,7 @@
                               filterable
                               placeholder="Seleccione un cliente"
                               :style="{ width: '300px' }"
+                               :disabled = this.fillPapeletasalida.estadoMotivo
                               clearable
                             >
                               <el-option
@@ -58,13 +59,16 @@
                             <el-select
                               v-model="fillPapeletasalida.nIdMotivo"
                               placeholder="Select"
+                              @change="onChangeMotivo(fillPapeletasalida.nIdMotivo)"
                               :style="{ width: '200px' }"
+
                             >
                               <el-option
                                 v-for="item in listMotivo"
                                 :key="item.id"
                                 :label="item.nombre"
                                 :value="item.id"
+
                               >
                               </el-option>
                             </el-select>
@@ -82,6 +86,7 @@
                               type="text"
                               class="form-control"
                               v-model="fillPapeletasalida.cContacto"
+                              :disabled = this.fillPapeletasalida.estadoMotivo
                             />
                           </div>
                         </div>
@@ -243,6 +248,7 @@ export default {
         cContacto: "",
         cFecha: "",
         nIdMotivo: "",
+        estadoMotivo : true,
 
         cCantidadModal: "",
       },
@@ -253,6 +259,7 @@ export default {
       estadoCliente: false,
 
       modalCantidad: false,
+
 
       modalShow: false,
       mostrarModal: {
@@ -271,10 +278,20 @@ export default {
     this.getListarMotivo();
     this.setConfigTime();
 
+
     this.fillPapeletasalida.cFecha = new Date();
   },
   computed: {},
   methods: {
+
+      onChangeMotivo(event){
+         if(event == 3){
+            this.fillPapeletasalida.estadoMotivo = false
+          }else{
+              this.fillPapeletasalida.estadoMotivo = true
+          }
+      },
+
     setConfigTime() {
       this.fillPapeletasalida.tHoraSalida = "08:00:00 AM";
       this.fillPapeletasalida.tHoraRetorno = "05:00:00 PM";
@@ -335,11 +352,6 @@ export default {
     validaPapeletaSalida() {
       this.error = 0;
       this.mensajeError = [];
-
-      if (!this.fillPapeletasalida.cContacto) {
-        this.mensajeError.push("El Campo contacto es obligatorio");
-      }
-
       if (!this.fillPapeletasalida.cReferencia) {
         this.mensajeError.push("El Campo referencia es obligatorio");
       }
@@ -368,7 +380,8 @@ export default {
       var url = "/administracion/PapeletaSalida/Motivo";
       axios.get(url).then((response) => {
         this.listMotivo = response.data;
-        this.fillPapeletasalida.nIdMotivo = this.listMotivo[0].id;
+        this.fillPapeletasalida.nIdMotivo = this.listMotivo[2].id;
+          this.fillPapeletasalida.estadoMotivo = false
       });
     },
   },

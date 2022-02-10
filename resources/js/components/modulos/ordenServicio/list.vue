@@ -692,8 +692,8 @@ export default {
             codigo: codigo,
           })
           .then((response) => {
-            //this.getListarOrdenServicioxProveedor();
-            this.listOrdenServicioXProveedor = response.data;
+            this.getListarOrdenServicioxProveedor();
+            //this.listOrdenServicioXProveedor = response.data;
           });
 
           Swal.fire(

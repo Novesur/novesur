@@ -283,6 +283,7 @@ Route::post('/administracion/ordenCompra/CargaDatosOrdenCompra', 'Administracion
 
 /// Detalle de Orden de Compra
 Route::get('/administracion/DetalleordenCompra/view', 'Administracion\DetalleOrdenCompraController@view');
+Route::get('/administracion/DetalleordenCompra/viewModal', 'Administracion\DetalleOrdenCompraController@viewModal');
 Route::post('/administracion/DetalleordenCompra/CambiarEstadoDetalleOC', 'Administracion\DetalleOrdenCompraController@CambiarEstadoDetalleOC');
 Route::post('/administracion/DetalleordenCompra/setMandarValorDetalleParteIngresoXId', 'Administracion\DetalleOrdenCompraController@setMandarValorDetalleParteIngresoXId');
 Route::post('/administracion/DetalleordenCompra/setEditarCantidadParteIngre', 'Administracion\DetalleOrdenCompraController@setEditarCantidadParteIngre');
@@ -318,6 +319,8 @@ Route::get('/administracion/papeletasalida/ListMotivos', 'Administracion\Papelet
 Route::get('/administracion/papeletaSalida/ListPapeletaSalidabyId', 'Administracion\PapeletaSalidaController@ListPapeletaSalidabyId');
 Route::post('/administracion/papeletasalida/PapeletasalidaPdf', 'Administracion\PapeletaSalidaController@PapeletasalidaPdf');
 Route::post('/administracion/papeletasalida/setDarBajaPapeletaSalida', 'Administracion\PapeletaSalidaController@setDarBajaPapeletaSalida');
+Route::post('/administracion/papeletasalida/setAprobarPapeletaSalida', 'Administracion\PapeletaSalidaController@setAprobarPapeletaSalida');
+
 
 
 

@@ -22,8 +22,8 @@ class CreatePapeletasalidaTable extends Migration
             $table->time('horaretorno')->required();
             $table->unsignedBigInteger('motivopapeletasalida_id');
             $table->foreign('motivopapeletasalida_id')->references('id')->on('motivopapeletasalida');
-            $table->unsignedBigInteger('estado_id');
-            $table->foreign('estado_id')->references('id')->on('estadoprod');
+            $table->unsignedBigInteger('estadopapeletasalida_id');
+            $table->foreign('estadopapeletasalida_id')->references('id')->on('estadopapeletasalida');
             $table->timestamps();
         });
     }
