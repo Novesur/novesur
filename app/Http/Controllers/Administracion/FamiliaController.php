@@ -42,4 +42,11 @@ class FamiliaController extends Controller
         $listFamilia = json_decode($request->params['listFamilia']);
         return (new FamiliaExport)->setGenerarExcel($listFamilia)->download('invoices.xlsx');
     }
+
+    public function listByIdFamilia(Request $request){
+
+        $dato= Familia::find($request->nIdFamilia);
+        return $dato;
+
+    }
 }

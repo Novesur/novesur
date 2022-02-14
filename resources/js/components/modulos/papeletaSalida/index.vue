@@ -50,7 +50,7 @@
                             >
                             <div class="col-md-6">
                               <el-select
-                                v-model="fillBsqPapeletaSalida.nIdVendedor"
+                                v-model="fillBsqPapeletaSalida.nIdVendedorAdmin"
                                 filterable
                                 placeholder="Seleccione una Vendedor"
                                 :style="{ width: '350px' }"
@@ -87,8 +87,6 @@
                                 filterable
                                 placeholder="Seleccione una Vendedor"
                                 :style="{ width: '350px' }"
-                                default-value="2010-10-01"
-
                               >
                                 <el-option
                                   v-for="item in listVendedorUser"
@@ -291,71 +289,61 @@
 
 
  <div class="col-md-12">
-                    <div class="row">
 
                       <template
                         v-if="
                           listRolPermisoByUsuario.includes('admin.listado_coti')
                         "
                       >
+                    <div class="row">
                         <div class="col-md-6">
+
+
                           <div class="form-group row">
                             <label class="col-md-3 col-form-label"
                               >Cliente</label
                             >
-                          <div class="col-md-6">
+                                         <div class="col-md-6">
                               <el-select
-                                v-model="fillBsqPapeletaSalida.nIdVendedor"
+                                v-model="fillBsqPapeletaSalida.nIdClient"
                                 filterable
-                                placeholder="Seleccione una Vendedor"
+                                placeholder="Seleccione una Cliente"
                                 :style="{ width: '350px' }"
 
                                 clearable
                               >
                                 <el-option
-                                  v-for="item in this.listVendedorAdmin"
+                                  v-for="item in this.listClientAdmin"
                                   :key="item.id"
-                                  :label="
-                                    item.firstname +
-                                    ' ' +
-                                    item.secondname +
-                                    ' ' +
-                                    item.lastname
-                                  "
-                                  :value="item.id"
+                                  :label="item.razonsocial"
+                                 :value="item.id"
                                 >
                                 </el-option>
                               </el-select>
                             </div>
                           </div>
                         </div>
+                    </div>
                       </template>
-
-                      <template v-else>
+                              <template v-else>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-md-3 col-form-label"
                               >Cliente</label
                             >
                             <div class="col-md-6">
-                              <el-select
-                                v-model="fillBsqPapeletaSalida.nIdVendedor"
+                       <el-select
+                                v-model="fillBsqPapeletaSalida.nIdClient"
                                 filterable
-                                placeholder="Seleccione una Vendedor"
+                                placeholder="Seleccione una Cliente"
                                 :style="{ width: '350px' }"
-                                default-value="2010-10-01"
 
+                                clearable
                               >
                                 <el-option
-                                  v-for="item in listVendedorUser"
+                                  v-for="item in this.listClient"
                                   :key="item.id"
-                                  :label="
-                                    item.firstname +
-                                    ' ' +
-                                    item.secondname +
-                                    ' ' +
-                                    item.lastname
-                                  "
+                                  :label="item.razonsocial"
                                   :value="item.id"
                                 >
                                 </el-option>
@@ -366,7 +354,6 @@
                       </template>
 
 
-                    </div>
 
 
                   </div>
@@ -412,53 +399,32 @@
                   </thead>
                   <tbody>
                     <tr
-                      v-for="(item, index) in listCotizacionPaginated"
+                      v-for="(item, index) in listPapeleByClient"
                       :key="index"
                     >
-                      <td>
-                          {{item.codigo}}
-                        <!-- {{ item.id | fourchar }} -
-                        {{ item.fecha | moment("YYYY") }} -->
-                      </td>
-                      <td>{{ item.fecha | moment("DD - MM - Y") }}</td>
-                      <td v-text="item.razonsocial"></td>
-                      <td v-text="item.estadopedido"></td>
 
 
-
-                        <template v-if="item.estadopedido == 'ANULADO'">
-                        <td v-text="item.observacion"></td>
-                        </template>
-                        <template v-else>
-                            <td></td>
-                        </template>
-
-
-
-                      <td>
-                        <button
-                          class="btn btn-info btn-sm"
-                          @click.prevent="abrirEstadobyCliente(item.id)"
-                        >
-                          <i class="far fa-calendar-check"></i> Estado2
-                        </button>
+                      <td>{{ item.papeletasalida.fecha | moment("DD - MM - Y") }}</td>
+                      <td v-text="item.papeletasalida.user.fullname"></td>
+                      <td v-text="item.papeletasalida.horaretorno"></td>
+                       <td v-text="item.papeletasalida.horasalida"></td>
 
                         <button
                           class="btn btn-primary btn-sm"
-                          @click="abrirModal(item.codigo)"
+                          @click.prevent="abrirModalbyVendedor(item.papeletasalida.id)"
                         >
                           <i class="far fa-eye"></i> Detalle
                         </button>
 
                         <button
-                          @click.prevent="getPdfPSalida(item.id)"
+                          @click.prevent="getPdfPSalidabyVendedor(item.papeletasalida.id)"
                           class="btn btn-danger btn-sm"
                         >
                           <span><i class="far fa-file-pdf"></i></span> PDF
                         </button>
 
 
-                      </td>
+
                     </tr>
                   </tbody>
                 </table>
@@ -579,6 +545,8 @@ export default {
         nIdMotivo: "",
         cMotivoRechazo: "",
         nIdUser: sessionStorage.getItem("iduser"),
+        nIdClient: "",
+        nIdVendedorAdmin :"",
 
       },
       activeName: 'first',
@@ -593,7 +561,10 @@ export default {
       listPaginacion: [],
       listCliente: [],
       listMotivo: [],
+      listClientAdmin:[],
+      listClient:[],
       listPapeleByVendedor : [],
+      listPapeleByClient:[],
        listRolPermisoByUsuario: JSON.parse(
         sessionStorage.getItem("listRolPermisosByUsuario")
       ),
@@ -655,6 +626,8 @@ export default {
     this.getlistMotivos();
     this.getlistVendedorxUsu();
     this.getlistEstadoPedido();
+    this.getlistClientAdmin();
+    this.getlistClient();
 
 
   },
@@ -791,7 +764,7 @@ this.BuscaDetallePapeletaS(item)
       var url = "/administracion/usuario/getListarUsusarios";
       axios.get(url).then((response) => {
         this.listVendedorAdmin = response.data;
-        this.fillBsqPapeletaSalida.nIdVendedor = this.listVendedorAdmin[0].id;
+        this.fillBsqPapeletaSalida.nIdVendedorAdmin = this.listVendedorAdmin[0].id;
       });
     },
     getlistVendedorxUsu() {
@@ -837,18 +810,16 @@ this.BuscaDetallePapeletaS(item)
     },
 
         getlistPapeleByCliente() {
-      var url = "/administracion/papeletasalida/listPapeleByVendedor";
+      var url = "/administracion/papeletasalida/listPapeleByCliente";
       axios
         .get(url, {
           params: {
-            nIdVendedor: this.fillBsqPapeletaSalida.nIdVendedor,
-            nIdMotivo : this.fillBsqPapeletaSalida.nIdMotivo,
-            dFechainicio: !this.fillBsqPapeletaSalida.dFecha ? "" : this.fillBsqPapeletaSalida.dFecha[0],
-            dFechafin: !this.fillBsqPapeletaSalida.dFecha ? "" : this.fillBsqPapeletaSalida.dFecha[1],
+            nIdClient: this.fillBsqPapeletaSalida.nIdClient,
           },
         })
         .then((response) => {
-
+            console.log(response.data)
+            this.listPapeleByClient = response.data
 
         });
     },
@@ -901,8 +872,6 @@ BuscaDetallePapeletaS(item) {
         });
     },
 
-
-
     getPdfPSalidabyVendedor(item) {
       var config = { responseType: "blob" };
       var url = "/administracion/papeletasalida/PapeletasalidaPdf";
@@ -924,28 +893,30 @@ BuscaDetallePapeletaS(item) {
         });
     },
 
-    getActualizarFecha(item) {
-      Swal.fire({
-        title: "Esta usted Seguro?",
-        text: "La fecha de la cotizacion se cambiara a la actual",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, Edita la fecha de la cotización!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var url = "/administracion/cotizacion/updateFechaCotizacion";
-          axios
-            .post(url, {
-              item: item,
-            })
-            .then((response) => {
-              this.listPaginacion = response.data;
-            });
-        }
+
+
+        getlistClientAdmin() {
+      var url = "/administracion/cliente/getListarAllCliente";
+      axios.get(url).then((response) => {
+         this.listClientAdmin = response.data;
+
       });
     },
+
+        getlistClient() {
+      var url = "/administracion/cliente/getListarCliente";
+      axios.get(url,{
+          params:{
+              nIdVendedor : this.fillBsqPapeletaSalida.nIdUser,
+          }
+      }).then((response) => {
+         this.listClient = response.data;
+
+      });
+    },
+
+
+
 
     nextPage() {
       this.pageNumber++;

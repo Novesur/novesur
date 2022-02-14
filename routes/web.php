@@ -320,6 +320,9 @@ Route::get('/administracion/papeletaSalida/ListPapeletaSalidabyId', 'Administrac
 Route::post('/administracion/papeletasalida/PapeletasalidaPdf', 'Administracion\PapeletaSalidaController@PapeletasalidaPdf');
 Route::post('/administracion/papeletasalida/setDarBajaPapeletaSalida', 'Administracion\PapeletaSalidaController@setDarBajaPapeletaSalida');
 Route::post('/administracion/papeletasalida/setAprobarPapeletaSalida', 'Administracion\PapeletaSalidaController@setAprobarPapeletaSalida');
+Route::get('/administracion/papeletasalida/listPapeleByCliente', 'Administracion\PapeletaSalidaController@listPapeleByCliente');
+Route::get('/administracion/papeletasalida/getListarCliente', 'Administracion\PapeletaSalidaController@getListarCliente');
+
 
 
 

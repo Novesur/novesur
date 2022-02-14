@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administracion;
 
+use App\Cliente;
 use App\Detallepapeletasalida;
 use App\Http\Controllers\Controller;
 use App\Motivopapeletasalida;
@@ -69,6 +70,12 @@ class PapeletaSalidaController extends Controller
 
     }
 
+    public function listPapeleByCliente(Request $request){
+
+            $dato = Detallepapeletasalida::with('papeletasalida','cliente','papeletasalida.user')->where('cliente_id', $request->nIdClient)->get();
+            return $dato;
+    }
+
     public function ListMotivos(){
         $dato = Motivopapeletasalida::all();
         return $dato;
@@ -115,5 +122,11 @@ class PapeletaSalidaController extends Controller
             $papeletaS->estadopapeletasalida_id = 3;
              $papeletaS->save();
 
+        }
+
+        public function getListarCliente(Request $request)
+        {
+            $dato = Cliente::where('usuario_id', $request->nIdVendedor)->orWhere('usuario_id', 1)->get();
+            return $dato;
         }
 }

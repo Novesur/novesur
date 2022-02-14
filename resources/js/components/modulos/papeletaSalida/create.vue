@@ -38,6 +38,7 @@
                               placeholder="Seleccione un cliente"
                               :style="{ width: '300px' }"
                                :disabled = this.fillPapeletasalida.estadoMotivo
+
                               clearable
                             >
                               <el-option
@@ -45,6 +46,8 @@
                                 :key="item.id"
                                 :label="item.razonsocial"
                                 :value="item.id"
+                                :disabled="item.razonsocial === 'NINGUNO'"
+
                               >
                               </el-option>
                             </el-select>
@@ -298,7 +301,7 @@ export default {
     },
 
     getlistVendedorxUsu() {
-      var url = "/administracion/cliente/getListarCliente";
+      var url = "/administracion/papeletasalida/getListarCliente";
       axios
         .get(url, {
           params: {

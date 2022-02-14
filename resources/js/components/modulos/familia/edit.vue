@@ -134,7 +134,8 @@ export default {
           },
         })
         .then((response) => {
-          this.fillEditarFamilia.cNombre = response.data[0].nombre;
+            console.log(response.data)
+          this.fillEditarFamilia.cNombre = response.data.nombre;
         });
     },
 

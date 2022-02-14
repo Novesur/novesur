@@ -758,7 +758,7 @@ export default {
       var url = "/administracion/KardexDetalle/listUnidMed";
       axios.get(url).then((response) => {
         this.listUnidMed = response.data;
-        this.fillregistrarCotizacion.nIdUnidMed = this.listUnidMed[3].id;
+        this.fillregistrarCotizacion.nIdUnidMed = this.listUnidMed[5].id;
       });
     },
 
