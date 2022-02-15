@@ -45,12 +45,21 @@
     <td width="87%"> {{$parteSalida->motivopapeletasalida->nombre}}</td>
   </tr>
 </table>
+<table width="100%" border="0">
+    <tr>
+      <td width="20%"><b>DIRECCION :</b></td>
+      <td width="80%"> {{$detalleParteSalida->direccion}}</td>
+    </tr>
+  </table>
 <table width="100%" border="1">
   <tr>
     <td bgcolor="#FFFFFF"><b>FUNDAMENTO :</b></td>
   </tr>
   <tr>
-    <td>{{$detalleParteSalida->fundamento}}</td>
+    <td>
+        @php
+            echo $detalleParteSalida->fundamento
+        @endphp</td></td>
   </tr>
 </table>
 <p>&nbsp;</p>
@@ -115,14 +124,29 @@
         <td width="87%"> {{$parteSalida->motivopapeletasalida->nombre}}</td>
       </tr>
     </table>
+    <table width="100%" border="0">
+        <tr>
+          <td width="20%"><b>DIRECCION :</b></td>
+          <td width="80%"> {{$detalleParteSalida->direccion}}</td>
+        </tr>
+      </table>
+
+
     <table width="100%" border="1">
       <tr>
         <td bgcolor="#FFFFFF"><b>FUNDAMENTO :</b></td>
       </tr>
       <tr>
-        <td>{{$detalleParteSalida->fundamento}}</td>
-      </tr>
+        <td>
+             @php
+                echo $detalleParteSalida->fundamento
+                @endphp</td>
+        </tr>
     </table>
+
+
+
+
     <p>&nbsp;</p>
     <table width="100%" border="0">
       <tr>

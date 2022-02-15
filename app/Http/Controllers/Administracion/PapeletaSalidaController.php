@@ -20,6 +20,7 @@ class PapeletaSalidaController extends Controller
 
     public function create( Request $request){
 
+
         $PapeletaSalida = new Papeletasalida;
         $PapeletaSalida->user_id = $request->nIdUser;
         $PapeletaSalida->fecha = Carbon::parse($request->cFecha)->format('Y-m-d');
@@ -41,7 +42,8 @@ class PapeletaSalidaController extends Controller
 
 
         $detallePsalida->contacto = mb_strtoupper($request->cContacto);
-        $detallePsalida->fundamento = mb_strtoupper($request->cReferencia);
+        $detallePsalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
+        $detallePsalida->direccion = mb_strtoupper($request->cDireccion);
         $detallePsalida->save();
         return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
 

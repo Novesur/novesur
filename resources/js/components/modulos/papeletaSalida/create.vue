@@ -28,9 +28,11 @@
                 <form role="form">
                   <div class="col-md-12">
                     <div class="row">
+
+
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label class="col-md-2 col-form-label">Cliente</label>
+                          <label class="col-md-3 col-form-label">Cliente</label>
                           <div class="col-md-9">
                             <el-select
                               v-model="fillPapeletasalida.nIdCliente"
@@ -142,7 +144,7 @@
                       <div class="col-md-4">
                         <div class="form-group row">
                           <label class="col-md-2 col-form-label">Fecha</label>
-                          <div class="col-md-9">
+                          <div class="col-md-4">
                             <el-date-picker
                               v-model="fillPapeletasalida.cFecha"
                               type="date"
@@ -164,20 +166,38 @@
                           <label class="col-md-1 col-form-label"
                             >Referencia</label
                           >
-                          <div class="col-md-10">
-                            <input
-                              type="text"
-                              class="form-control"
+                          <div class="col-md-5">
+                            <el-input
+                              type="textarea"
+                                :autosize="{ minRows: 2, maxRows: 4}"
+
                               v-model="fillPapeletasalida.cReferencia"
-                              @keypress.prevent.enter="
-                                setRegistrarPapeletaSalida
-                              "
+
                             />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
+
+                            <div class="col-md-12">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label"
+                            >Direccion</label
+                          >
+                          <div class="col-md-10">
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-model="fillPapeletasalida.cDireccion"
+                              :disabled = this.fillPapeletasalida.estadoMotivo
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+
                 </form>
               </div>
 
@@ -251,6 +271,7 @@ export default {
         cContacto: "",
         cFecha: "",
         nIdMotivo: "",
+        cDireccion:"",
         estadoMotivo : true,
 
         cCantidadModal: "",
@@ -335,6 +356,7 @@ export default {
           nIdCliente: this.fillPapeletasalida.nIdCliente,
           cContacto: this.fillPapeletasalida.cContacto,
           cReferencia: this.fillPapeletasalida.cReferencia,
+          cDireccion :  this.fillPapeletasalida.cDireccion,
         })
         .then((response) => {
           Swal.fire({

@@ -21,6 +21,7 @@ class CreateDetallepapeletasalidaTable extends Migration
             $table->foreign('cliente_id')->references('id')->on('cliente');
             $table->string('contacto',150)->required();
             $table->string('fundamento',150)->required();
+            $table->text('direccion')->nullable();
             $table->timestamps();
         });
     }

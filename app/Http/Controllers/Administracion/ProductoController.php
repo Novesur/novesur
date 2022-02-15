@@ -75,12 +75,13 @@ class ProductoController extends Controller
     public function create(Request $request)
     {
         $producto = new Producto;
-        if ($request->nIdHomologado == 2) {
+  /*       if ($request->nIdHomologado == 2) {
             $codiprod = $request->codiprodcert;
         } else {
             $codiprod = $request->codiprod;
-        }
-        $cons = Producto::where('codigo', '=', $codiprod)->exists();
+        } */
+
+        $cons = Producto::where('codigo', '=', $request->nIdCodigo)->exists();
         if ($cons) {
             return response()->json(['message' => 'Ya fue agregado anteriormente', 'icon' => 'error'], 200);
         } else {
