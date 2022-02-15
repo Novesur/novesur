@@ -237,8 +237,8 @@
           <td colspan="2"><strong>Condiciones Comerciales :</strong></td>
         </tr>
         <tr>
-          <td style="font-size: 11px"><strong>Validez de Oferta  :</strong></td>
-          <td style="font-size: 10px">{{$coti->validezoferta}}</td>
+          <td width="13%" style="font-size: 11px"><strong>Validez de Oferta  :</strong></td>
+          <td width="90%" style="font-size: 10px">{{$coti->validezoferta}}</td>
         </tr>
         <tr>
           <td style="font-size: 11px"><strong>Entrega :</strong></td>
@@ -265,8 +265,8 @@
           <td style="font-size: 10px">{{$coti->garantia->nombre}} por defectos de fabricaciòn (no cubre los originados por mala manipulaciòn, vandalismo, golpes, mala instalaciòn POR TERCEROS, mala operaciòn, exceso de presiòn y temperaturas)</td>
         </tr>
         <tr>
-            <td style="font-size: 11px"><strong>Observación : </strong></td>
-            <td style="font-size: 10px">{{$coti->observacion}} </td>
+            <td style="font-size: 12px"><strong>Observación : </strong></td>
+            <td style="font-size: 14px"><strong>{{$coti->observacion}}</strong> </td>
         </tr>
 
       </table>
