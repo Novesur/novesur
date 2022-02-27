@@ -50,7 +50,7 @@
                             >
                             <div class="col-md-6">
                               <el-select
-                                v-model="fillBsqPapeletaSalida.nIdVendedorAdmin"
+                                v-model="fillBsqPapeletaSalida.nIdVendedor"
                                 filterable
                                 placeholder="Seleccione una Vendedor"
                                 :style="{ width: '350px' }"
@@ -546,7 +546,7 @@ export default {
         cMotivoRechazo: "",
         nIdUser: sessionStorage.getItem("iduser"),
         nIdClient: "",
-        nIdVendedorAdmin :"",
+
 
       },
       activeName: 'first',
@@ -710,8 +710,8 @@ this.BuscaDetallePapeletaS(item)
           });
 
           Swal.fire(
-            "Aprobado!",
-            "Tu orden de Compra de Compra fue dado de Baja.",
+            "Anulado!",
+            "Tu Papeleta de Salida fue dado de Baja.",
             "success"
           );
         }
@@ -741,8 +741,8 @@ this.BuscaDetallePapeletaS(item)
           });
 
           Swal.fire(
-            "Anulado!",
-            "Tu orden de Compra de Compra fue dado de Baja.",
+            "Aprobado!",
+            "Tu Papeleta de Salida fue  aprobado.",
             "success"
           );
         }
@@ -764,7 +764,7 @@ this.BuscaDetallePapeletaS(item)
       var url = "/administracion/usuario/getListarUsusarios";
       axios.get(url).then((response) => {
         this.listVendedorAdmin = response.data;
-        this.fillBsqPapeletaSalida.nIdVendedorAdmin = this.listVendedorAdmin[0].id;
+        this.fillBsqPapeletaSalida.nIdVendedor = this.listVendedorAdmin[0].id;
       });
     },
     getlistVendedorxUsu() {

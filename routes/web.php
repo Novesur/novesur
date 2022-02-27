@@ -322,9 +322,9 @@ Route::post('/administracion/papeletasalida/setDarBajaPapeletaSalida', 'Administ
 Route::post('/administracion/papeletasalida/setAprobarPapeletaSalida', 'Administracion\PapeletaSalidaController@setAprobarPapeletaSalida');
 Route::get('/administracion/papeletasalida/listPapeleByCliente', 'Administracion\PapeletaSalidaController@listPapeleByCliente');
 Route::get('/administracion/papeletasalida/getListarCliente', 'Administracion\PapeletaSalidaController@getListarCliente');
-
-
-
+Route::post('/administracion/papeletasalida/AddTempClient', 'Administracion\PapeletaSalidaController@AddTempClient');
+Route::post('/administracion/papeletasalida/CleanTempClient', 'Administracion\PapeletaSalidaController@CleanTempClient');
+Route::post('/administracion/papeletasalida/EliminarClientTemp', 'Administracion\PapeletaSalidaController@EliminarClientTemp');
 
 
 

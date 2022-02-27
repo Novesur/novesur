@@ -291,9 +291,7 @@ export default new Router({
             path: '/roles/crear',
             name: 'roles.crear',
             component: require('./components/modulos/rol/create').default,
-            beforeEnter:(to, from, next)=>{
-                verificarAcceso(to, from, next);
-            }
+
         },
 
         {

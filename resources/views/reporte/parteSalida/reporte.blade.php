@@ -134,7 +134,7 @@
 
     <table width="100%" border="1">
       <tr>
-        <td bgcolor="#FFFFFF"><b>FUNDAMENTO :</b></td>
+        <td bgcolor="#FFFFFF"><b>REFERENCIA :</b></td>
       </tr>
       <tr>
         <td>

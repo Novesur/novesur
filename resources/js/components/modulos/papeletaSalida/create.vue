@@ -30,37 +30,12 @@
                     <div class="row">
 
 
-                      <div class="col-md-4">
-                        <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Cliente</label>
-                          <div class="col-md-9">
-                            <el-select
-                              v-model="fillPapeletasalida.nIdCliente"
-                              filterable
-                              placeholder="Seleccione un cliente"
-                              :style="{ width: '300px' }"
-                               :disabled = this.fillPapeletasalida.estadoMotivo
 
-                              clearable
-                            >
-                              <el-option
-                                v-for="item in listVendedorUser"
-                                :key="item.id"
-                                :label="item.razonsocial"
-                                :value="item.id"
-                                :disabled="item.razonsocial === 'NINGUNO'"
-
-                              >
-                              </el-option>
-                            </el-select>
-                          </div>
-                        </div>
-                      </div>
 
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label class="col-md-2 col-form-label">Motivo</label>
-                          <div class="col-md-10">
+                          <label class="col-md-3 col-form-label">Motivo</label>
+                          <div class="col-md-8">
                             <el-select
                               v-model="fillPapeletasalida.nIdMotivo"
                               placeholder="Select"
@@ -81,21 +56,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-4">
-                        <div class="form-group row">
-                          <label class="col-md-2 col-form-label"
-                            >Contacto</label
-                          >
-                          <div class="col-md-10">
-                            <input
-                              type="text"
-                              class="form-control"
-                              v-model="fillPapeletasalida.cContacto"
-                              :disabled = this.fillPapeletasalida.estadoMotivo
-                            />
-                          </div>
-                        </div>
-                      </div>
+
                     </div>
                   </div>
 
@@ -180,13 +141,75 @@
                     </div>
                   </div>
 
+                 <div class="card card-info">
+                       <div class="card-header">
+                <h3 class="card-title">Agregar Clientes</h3>
+              </div>
+                 <div class="card-body">
+                     <div class="row">
 
-                            <div class="col-md-12">
+                             <div class="col-md-12">
+                        <div class="form-group row">
+
+
+                          <label class="col-md-1 col-form-label">Cliente</label>
+                          <div class="col-md-6">
+                            <el-select
+                              v-model="fillPapeletasalida.nIdCliente"
+                              filterable
+                              placeholder="Seleccione un cliente"
+                              :style="{ width: '300px' }"
+                               :disabled = this.fillPapeletasalida.estadoMotivo
+
+                              clearable
+                            >
+                              <el-option
+                                v-for="item in listVendedorUser"
+                                :key="item.id"
+                                :label="item.razonsocial"
+                                :value="item.id"
+                                :disabled="item.razonsocial === 'NINGUNO'"
+
+                              >
+                              </el-option>
+                            </el-select>
+                          </div>
+
+                        </div>
+
+
+
+
+                      </div>
+
+
+                        <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-md-2 col-form-label"
+                            >Contacto</label
+                          >
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-model="fillPapeletasalida.cContacto"
+                              :disabled = this.fillPapeletasalida.estadoMotivo
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                     </div>
+
+
+
+
+                            <div class="col-md-11">
                         <div class="form-group row">
                           <label class="col-md-1 col-form-label"
                             >Direccion</label
                           >
-                          <div class="col-md-10">
+                          <div class="col-md-8">
                             <input
                               type="text"
                               class="form-control"
@@ -194,10 +217,71 @@
                               :disabled = this.fillPapeletasalida.estadoMotivo
                             />
                           </div>
+                     <span>   <button
+                      class="btn btn-flat btn-success "
+                      @click.prevent="setAddTempClient"
+                    >
+                      Agregar
+                    </button>
+
+                     <button
+                      class="btn btn-flat btn-info "
+                      @click.prevent="setResetCamposClientTemp"
+                    >
+                      Limpiar
+                    </button>
+                    </span>
                         </div>
+
                       </div>
+                 </div>
 
 
+        <div class="card-body table-responsive">
+                <table
+                  class="
+                    table table-hover table-head-fixed
+                    text-nowrap
+                    projects
+                  "
+                >
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Direccion</th>
+                      <th>Contacto</th>
+                      <th>Acción</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item, index) in listTempClientPSalida"
+                      :key="index"
+                    >
+
+
+                      <td>{{ item.razonsocial  }}</td>
+                      <td v-text="item.direccion"></td>
+                       <td v-text="item.contacto"></td>
+
+
+                        <button
+                          @click.prevent="getEliminarClientTemp(item.id)"
+                          class="btn btn-danger btn-sm"
+                        >
+                          <span><i class="far fa-file-pdf"></i></span> Eliminar
+                        </button>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+
+
+                 </div>
                 </form>
               </div>
 
@@ -278,6 +362,7 @@ export default {
       },
       listVendedorUser: [],
       listarDetalleOrdeCompra: [],
+      listTempClientPSalida: [],
       listMotivo: [],
       estadoProv: false,
       estadoCliente: false,
@@ -308,12 +393,52 @@ export default {
   computed: {},
   methods: {
 
+
+
+      setResetCamposClientTemp(){
+                    var url = "/administracion/papeletasalida/CleanTempClient";
+      axios
+        .post(url)
+        .then((response) => {
+            this.listTempClientPSalida = response.data.datos
+        });
+
+      },
+
+      getEliminarClientTemp(id){
+           var url = "/administracion/papeletasalida/EliminarClientTemp";
+      axios
+        .post(url, {
+          id: id,
+        })
+        .then((response) => {
+            this.listTempClientPSalida = response.data.datos
+        });
+
+      },
+
       onChangeMotivo(event){
          if(event == 3){
             this.fillPapeletasalida.estadoMotivo = false
           }else{
               this.fillPapeletasalida.estadoMotivo = true
           }
+      },
+
+      setAddTempClient(){
+             var url = "/administracion/papeletasalida/AddTempClient";
+      axios
+        .post(url, {
+          nIdCliente: this.fillPapeletasalida.nIdCliente,
+          cDireccion :  this.fillPapeletasalida.cDireccion,
+          cContacto : this.fillPapeletasalida.cContacto
+        })
+        .then((response) => {
+            this.listTempClientPSalida = response.data.datos
+            this.fillPapeletasalida.cDireccion = ''
+            this.fillPapeletasalida.cContacto = ''
+        });
+
       },
 
     setConfigTime() {
@@ -353,10 +478,8 @@ export default {
           tHoraSalida: this.fillPapeletasalida.tHoraSalida,
           tHoraRetorno: this.fillPapeletasalida.tHoraRetorno,
           nIdMotivo: this.fillPapeletasalida.nIdMotivo,
-          nIdCliente: this.fillPapeletasalida.nIdCliente,
-          cContacto: this.fillPapeletasalida.cContacto,
           cReferencia: this.fillPapeletasalida.cReferencia,
-          cDireccion :  this.fillPapeletasalida.cDireccion,
+
         })
         .then((response) => {
           Swal.fire({
@@ -367,6 +490,8 @@ export default {
             timer: 1500,
           });
           this.setResetCampos();
+          this.setResetCamposClientTemp();
+
           /* this.setLimpiaCampos(); */
         });
     },

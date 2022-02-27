@@ -31,7 +31,7 @@ class CotizacionController extends Controller
         $product = Producto::where(['id' => $request->nIdprod])->with('familia', 'marca', 'material', 'modelotipo', 'subfamilia', 'homologacion')->first();
         $products = Session::get('products');
         $products = ($products != null) ? collect($products) : collect([]);
-        $exists = $products->firstWhere("producto_id", $product->id);
+       // $exists = $products->firstWhere("producto_id", $product->id);
         /*      if (!empty($exists)) :
             // return response()->json(['message' => "Ya fue agregado anteriormente"], 422);
             return response()->json(['datos' => $products, 'message' => 'Ya fue agregado anteriormente', 'icon' => 'error'], 200);
@@ -43,6 +43,7 @@ class CotizacionController extends Controller
         $tempcotizacion->fill(['cantidad' => $request->cCantidad, 'unidmedida_id' => $request->nIdUnidMed, 'codigo' => $product->codigo, 'producto_id' => $request->nIdprod, 'punit' => $request->cPUnit, 'total' => $request->cTotal, 'productoFamilia' => $articulo->familia->nombre, 'productoSubfamilia' => $articulo->subfamilia->nombre, 'productoModelotipo' => $articulo->modelotipo->nombre, 'productoMarca' => $articulo->marca->nombre, 'unidmedNombre' => $unidmed->nombre, 'material' => $product->material->nombre, 'homologacion' => $product->homologacion->nombre]);
         $products->push($tempcotizacion);
         Session::put('products', $products);
+
         //return response()->json("Grabado");
         return response()->json(['datos' => $products, 'message' => NULL]);
 
@@ -296,7 +297,7 @@ class CotizacionController extends Controller
     public function editEstadoCotizacion(Request $request)
     {
 
-        $cotizacion = Cotizacion::where('id', $request->itemid)->first();
+        $cotizacion = Cotizacion::where('codigo', $request->itemid)->first();
         $cotizacion->fecha =  $cotizacion->fecha ;
         $cotizacion->cliente_id =  $cotizacion->cliente_id;
         $cotizacion->user_id =  $cotizacion->user_id;

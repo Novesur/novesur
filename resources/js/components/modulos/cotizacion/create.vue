@@ -251,6 +251,7 @@
                               type="text"
                               class="form-control"
                               v-model="fillregistrarCotizacion.cFlete"
+                              maxlength = "20"
                             />
                           </div>
                         </div>

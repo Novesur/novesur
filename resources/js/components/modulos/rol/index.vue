@@ -132,7 +132,12 @@
                       :key="index"
                       :class="[page == pageNumber ? 'active' : '']"
                     >
-                      <a href="" class="page-link">{{ page + 1 }}</a>
+                            <a
+                          href=""
+                          class="page-link"
+                          @click.prevent="selectPage(page)"
+                          >{{ page + 1 }}</a
+                        >
                     </li>
                     <li class="page-item" v-if="pageNumber < pageCount - 1">
                       <a href="" class="page-link" @click.prevent="nextPage"
@@ -215,6 +220,9 @@ export default {
     },
     prevPage() {
       this.pageNumber--;
+    },
+       selectPage(page) {
+      this.pageNumber = page;
     },
     inicializarPaginacion() {
       this.pageNumber = 0;

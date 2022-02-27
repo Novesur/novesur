@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Administracion;
 
 use App\Cliente;
+use App\ClientsPapeletaSalida;
 use App\Detallepapeletasalida;
 use App\Http\Controllers\Controller;
 use App\Motivopapeletasalida;
 use App\Papeletasalida;
+use App\TempClientPapeletaSalida;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use PDF;
 
 class PapeletaSalidaController extends Controller
@@ -28,9 +31,10 @@ class PapeletaSalidaController extends Controller
         $PapeletaSalida->horaretorno = substr($request->tHoraRetorno,0,8);
         $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;
         $PapeletaSalida->estadopapeletasalida_id = '1';
+        $PapeletaSalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
         $PapeletaSalida->save();
 
-        $detallePsalida = new Detallepapeletasalida;
+/*         $detallePsalida = new Detallepapeletasalida;
         $detallePsalida->papeletasalida_id = $PapeletaSalida->id;
 
         if($request->nIdMotivo == 3){
@@ -41,10 +45,25 @@ class PapeletaSalidaController extends Controller
         }
 
 
-        $detallePsalida->contacto = mb_strtoupper($request->cContacto);
-        $detallePsalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
-        $detallePsalida->direccion = mb_strtoupper($request->cDireccion);
-        $detallePsalida->save();
+        $detallePsalida->save(); */
+
+
+        $clientPapeletaSalida = Session::get('clients');
+        $allclients = $clientPapeletaSalida->map(function ($PS) use ($PapeletaSalida) {
+            return [
+                'papeletasalida_id' => $PapeletaSalida->id,
+                'cliente_id'      => $PS->id,
+                'contacto' => $PS->contacto,
+                'direccion'   => $PS->direccion,
+
+            ];
+        });
+        ClientsPapeletaSalida::insert($allclients->toArray());
+
+
+
+
+
         return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
 
     }
@@ -130,5 +149,35 @@ class PapeletaSalidaController extends Controller
         {
             $dato = Cliente::where('usuario_id', $request->nIdVendedor)->orWhere('usuario_id', 1)->get();
             return $dato;
+        }
+
+        public function AddTempClient(Request $request){
+
+            $client = Cliente::where(['id' => $request->nIdCliente])->first();
+            $clients = Session::get('clients');
+            $clients = ($clients != null) ? collect($clients) : collect([]);
+            $TempClientPapeletaSalida = new TempClientPapeletaSalida();
+            $TempClientPapeletaSalida->fill(['direccion' => $request->cDireccion,  'id' => $client->id,'razonsocial' => $client->razonsocial,'contacto' => $request->cContacto]);
+            $clients->push($TempClientPapeletaSalida);
+            Session::put('clients', $clients);
+            return response()->json(['datos' => $clients, 'message' => NULL]);
+        }
+
+        public function CleanTempClient(){
+            Session::put('clients', null);
+            $dato = session()->get('clients') ?? collect([]);
+            return response()->json(['datos' => $dato]);
+        }
+
+        public function EliminarClientTemp(Request $request){
+            $id = (int)trim($request->id);
+            $items = session()->get('clients') ?? collect([]);
+            $exits = $items->firstWhere("id", $id);
+            if (!empty($exits)) :
+                $items =  $items->whereNotIn("id", [$id]);
+                session()->put('clients', $items);
+                return response()->json(['datos' => $items]);
+            endif;
+            return response()->json(['message' => 'El item no existe'], 422);
         }
 }

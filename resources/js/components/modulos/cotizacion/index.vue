@@ -451,10 +451,10 @@
 
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary"  @click="setEditarPedido" :disabled="EstadoBotonEditar" >
+            <button class="btn btn-primary"  @click.prevent="setEditarPedido" :disabled="EstadoBotonEditar" >
               Editar
             </button>
-            <button class="btn btn-secondary" @click="abrirEstado">
+            <button class="btn btn-secondary" @click.prevent="abrirEstado">
               Cerrar
             </button>
           </div>
@@ -731,7 +731,7 @@ BuscaCotizacionList(item) {
         .then((response) => {
 
             this.fillBsqCotizacion.cMotivoRechazo ="",
-          /*   this.listDetPedido = response.data; */
+           //this.listPaginacion = response.data;
             this.getlistCotizacionBy();
 
 
