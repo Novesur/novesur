@@ -108,8 +108,7 @@ class OrdenServicioController extends Controller
         $orderServicio = Ordenservicio::with('proveedor',  'user', 'estadoordencompra', 'pago')->where('id', $valor)->first();
         $DetalleOrderServicio = Detalleordenservicio::with('ordenservicio', 'unidmedida', 'producto')->where('ordenservicio_id', $valor)->get();
 
-
-        $logo = asset('img/logo02.png');
+        $logo = asset('img/logo.gif');
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reporte.cotizacion.ordenserviciopdf', [
             'logo' => $logo,
             'orderServicio' => $orderServicio,

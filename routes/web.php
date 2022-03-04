@@ -329,9 +329,9 @@ Route::post('/administracion/papeletasalida/EliminarClientTemp', 'Administracion
 
 
 
-///// Detalle Papeleta Salida
+///// Cliente Papeleta Salida
 
-Route::get('/administracion/DetallePapeletaSalida/BuscaDetallePapeletaS', 'Administracion\DetallePapeletaSalidaController@BuscaDetallePapeletaS');
+Route::get('/administracion/ClientePapeletaSalida/BuscaClientePapeletaS', 'Administracion\ClientePapeletaSalidaController@BuscaClientePapeletaS');
 
 
 /// Orden de Servicio
