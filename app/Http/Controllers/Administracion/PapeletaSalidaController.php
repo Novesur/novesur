@@ -34,36 +34,28 @@ class PapeletaSalidaController extends Controller
         $PapeletaSalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
         $PapeletaSalida->save();
 
-/*         $detallePsalida = new Detallepapeletasalida;
-        $detallePsalida->papeletasalida_id = $PapeletaSalida->id;
-
         if($request->nIdMotivo == 3){
+            $clientPapeletaSalida = Session::get('clients');
+            $allclients = $clientPapeletaSalida->map(function ($PS) use ($PapeletaSalida) {
+                return [
+                    'papeletasalida_id' => $PapeletaSalida->id,
+                    'cliente_id'      => $PS->id,
+                    'contacto' => $PS->contacto,
+                    'direccion'   => $PS->direccion,
 
-            $detallePsalida->cliente_id = $request->nIdCliente;
+                ];
+            });
+            ClientsPapeletaSalida::insert($allclients->toArray());
+
         }else{
-            $detallePsalida->cliente_id = 202;
+            $clientsPapeletaSalida = new ClientsPapeletaSalida;
+            $clientsPapeletaSalida->papeletasalida_id = $PapeletaSalida->id;
+            $clientsPapeletaSalida->cliente_id = 202;
+            $clientsPapeletaSalida->contacto = NULL;
+            $clientsPapeletaSalida->direccion = NULL;
+            $clientsPapeletaSalida->save();
+
         }
-
-
-        $detallePsalida->save(); */
-
-
-        $clientPapeletaSalida = Session::get('clients');
-        $allclients = $clientPapeletaSalida->map(function ($PS) use ($PapeletaSalida) {
-            return [
-                'papeletasalida_id' => $PapeletaSalida->id,
-                'cliente_id'      => $PS->id,
-                'contacto' => $PS->contacto,
-                'direccion'   => $PS->direccion,
-
-            ];
-        });
-        ClientsPapeletaSalida::insert($allclients->toArray());
-
-
-
-
-
         return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
 
     }
@@ -75,16 +67,16 @@ class PapeletaSalidaController extends Controller
 
 
         if($request->nIdMotivo == null && $request->dFechafin == null &&  $request->nIdVendedor == null && $request->dFechainicio == null){
-            $dato = Papeletasalida::with('user','estadoPapeletaSalida')->get();
+            $dato = Papeletasalida::with('user','estadoPapeletaSalida','motivopapeletasalida')->get();
             return $dato;
         }
         if($request->nIdMotivo == null){
-                $dato = Papeletasalida::with('user','estadoPapeletaSalida')->where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
+                $dato = Papeletasalida::with('user','estadoPapeletaSalida','motivopapeletasalida')->where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
                 return $dato;
             }
 
             if($request->dFechainicio == null && $request->dFechafin == null  ){
-                $dato = Papeletasalida::with('user','estadoPapeletaSalida')->where('user_id', $request->nIdVendedor)->where('motivopapeletasalida_id', $request->nIdMotivo)->get();
+                $dato = Papeletasalida::with('user','estadoPapeletaSalida','motivopapeletasalida')->where('user_id', $request->nIdVendedor)->where('motivopapeletasalida_id', $request->nIdMotivo)->get();
                 return $dato;
             }
 
@@ -92,10 +84,9 @@ class PapeletaSalidaController extends Controller
     }
 
     public function listPapeleByCliente(Request $request){
-
-            $dato = Detallepapeletasalida::with('papeletasalida','cliente','papeletasalida.user')->where('cliente_id', $request->nIdClient)->get();
+            $dato= ClientsPapeletaSalida::with('papeletasalida','papeletasalida.user')->where('cliente_id', $request->nIdClient)->get();
             return $dato;
-    }
+        }
 
     public function ListMotivos(){
         $dato = Motivopapeletasalida::all();
@@ -111,21 +102,20 @@ class PapeletaSalidaController extends Controller
 
     public function PapeletasalidaPdf(Request $request)
     {
-
         $idPapeletaS = $request->get("params")['item'];
-
-        $parteSalida = Papeletasalida::with('user','motivopapeletasalida','estadoPapeletaSalida')->where('id',$idPapeletaS)->first();
-
-        $detalleParteSalida = Detallepapeletasalida::with('papeletasalida','cliente')->where('papeletasalida_id',$idPapeletaS)->first();
+        $Papeletasalida = Papeletasalida::with('user','motivopapeletasalida','estadoPapeletaSalida')->where('id',$idPapeletaS)->first();
+        $clientpapeletasalida = ClientsPapeletaSalida::with('cliente','papeletasalida')->where('papeletasalida_id',$idPapeletaS)->get();
         $logo = asset('img/logo.gif');
         $productos01 = asset('img/banner01.png');
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reporte.parteSalida.reporte', [
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reporte.papeletaSalida.reporte', [
             'logo' => $logo,
             'productos01' => $productos01,
-            'parteSalida' => $parteSalida,
-            'detalleParteSalida' => $detalleParteSalida,
+            'Papeletasalida' => $Papeletasalida,
+            'clientpapeletasalida' => $clientpapeletasalida,
         ]);
         return $pdf->download('invoice.pdf');
+
+
 
         }
 

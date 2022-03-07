@@ -138,8 +138,7 @@ class OrdencompraController extends Controller
         $valor = $request->get("params")['idOrderPedido'];
         $orderCompra = Ordencompra::with('proveedor',  'user', 'estadoordencompra', 'pago')->where('id', $valor)->first();
         $DetalleOrderCompra = Detalleordencompra::with('ordencompras', 'unidmedida', 'producto')->where('ordencompras_id', $valor)->get();
-
-        $logo = asset('img/logo02.png');
+        $logo = asset('img/logo.gif');
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reporte.cotizacion.ordencomprapdf', [
             'logo' => $logo,
             'orderCompra' => $orderCompra,

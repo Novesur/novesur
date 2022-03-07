@@ -192,6 +192,7 @@
                       <th>Hora Salida</th>
                       <th>Hora Retorno</th>
                        <th>Estado</th>
+                      <th>Motivo</th>
                        <th>Acción</th>
                     </tr>
                   </thead>
@@ -204,9 +205,10 @@
                       <td> {{item.user.fullname}}</td>
                       <td v-text="item.horasalida"></td>
                       <td v-text="item.horaretorno"></td>
+                    <td v-text="item.estado_papeleta_salida.nombre"></td>
 
 
-                        <td v-text="item.estado_papeleta_salida.nombre"></td>
+                        <td v-text="item.motivopapeletasalida.nombre"></td>
 
                         <button
                           class="btn btn-primary btn-sm"
@@ -395,6 +397,7 @@
                       <th>Vendedor</th>
                       <th>Hora Salida</th>
                       <th>Hora Retorno</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -408,6 +411,7 @@
                       <td v-text="item.papeletasalida.user.fullname"></td>
                       <td v-text="item.papeletasalida.horaretorno"></td>
                        <td v-text="item.papeletasalida.horasalida"></td>
+
 
                         <button
                           class="btn btn-primary btn-sm"
@@ -511,7 +515,7 @@
                     ></td>
 
                     <td v-text="item.contacto"></td>
-                    <td v-text="item.fundamento"></td>
+                    <td v-text="item.papeletasalida.fundamento"></td>
 
                   </tr>
                 </tbody>
@@ -672,7 +676,7 @@ export default {
     abrirModalbyVendedor(item){
         this.modalShow = !this.modalShow;
       this.fillBsqPapeletaSalida.itemid = item;
-this.BuscaDetallePapeletaS(item)
+this.BuscaClientePapeletaS(item)
 
     },
     abrirModal(item) {
@@ -684,7 +688,7 @@ this.BuscaDetallePapeletaS(item)
    abrirEstadobyVendedor(item) {
       this.modalEstado = !this.modalEstado;
       this.fillBsqPapeletaSalida.itemid = item;
-      this.BuscaDetallePapeletaS(item);
+      this.BuscaClientePapeletaS(item);
     },
    abrirAnularVendedor(item) {
      Swal.fire({
@@ -804,7 +808,6 @@ this.BuscaDetallePapeletaS(item)
           },
         })
         .then((response) => {
-
             this.listPapeleByVendedor = response.data
         });
     },
@@ -827,8 +830,8 @@ this.BuscaDetallePapeletaS(item)
 
 
 
-BuscaDetallePapeletaS(item) {
-      var url = "/administracion/DetallePapeletaSalida/BuscaDetallePapeletaS";
+BuscaClientePapeletaS(item) {
+      var url = "/administracion/ClientePapeletaSalida/BuscaClientePapeletaS";
       axios
         .get(url, {
           params: {
@@ -837,6 +840,7 @@ BuscaDetallePapeletaS(item) {
         })
         .then((response) => {
             this.listModalVendedorAdmin = response.data
+
         });
     },
     getlistEstadoPedido(item) {

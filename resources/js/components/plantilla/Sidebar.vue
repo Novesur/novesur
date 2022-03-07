@@ -323,6 +323,37 @@
               </li>
             </ul>
           </li>
+
+                <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+         <i class="fas fa-solid fa-utensils"></i>
+              <p>
+                 Menu
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <template v-if="listPermisos.includes('crear.menu')">
+                  <router-link class="nav-link" :to="'/Menu/create'">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Crear Menu</p>
+                  </router-link>
+                </template>
+              </li>
+              <li class="nav-item">
+                <template v-if="listPermisos.includes('tipo.tienda')">
+                  <router-link class="nav-link" :to="'/tipo/index'">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tipo</p>
+                  </router-link>
+                </template>
+              </li>
+            </ul>
+          </li>
+
+
+
           <li class="nav-header">MISCELLANEOUS</li>
           <li class="nav-item">
             <a href="https://adminlte.io/docs/3.0" class="nav-link">
