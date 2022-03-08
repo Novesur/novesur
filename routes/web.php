@@ -327,8 +327,6 @@ Route::post('/administracion/papeletasalida/CleanTempClient', 'Administracion\Pa
 Route::post('/administracion/papeletasalida/EliminarClientTemp', 'Administracion\PapeletaSalidaController@EliminarClientTemp');
 
 
-
-
 ///// Cliente Papeleta Salida
 
 Route::get('/administracion/ClientePapeletaSalida/BuscaClientePapeletaS', 'Administracion\ClientePapeletaSalidaController@BuscaClientePapeletaS');
@@ -344,10 +342,6 @@ Route::post('/administracion/ordenServicio/CargaDatosOrdenServicio', 'Administra
 Route::get('/administracion/ordenServicio/ListXProduct', 'Administracion\OrdenServicioController@ListXProduct');
 
 
-
-
-
-
 //Detalle Orden de Servicio
 
 Route::get('/administracion/DetalleOrdenservicio/view', 'Administracion\DetalleOrdenServicioController@view');
@@ -356,26 +350,6 @@ Route::post('/administracion/DetalleOrdenservicio/CargaDetalleOrdenServicioEdit'
 Route::post('/administracion/DetalleOrdenservicio/ModalSaveItemsDetalleOS', 'Administracion\DetalleOrdenServicioController@ModalSaveItemsDetalleOS');
 Route::post('/administracion/DetalleOrdenservicio/DeleteItemDetalleOrdenServicio', 'Administracion\DetalleOrdenServicioController@DeleteItemDetalleOrdenServicio');
 Route::get('/administracion/DetalleOrdenservicio/viewDetalleOrdenServicio', 'Administracion\DetalleOrdenServicioController@viewDetalleOrdenServicio');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

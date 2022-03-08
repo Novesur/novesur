@@ -403,17 +403,21 @@
                         >DESCRIPCION DEL MEDIDOR</label
                       >
 
-                      <div class="col-md-9">
+                      <div class="col-md-10">
                         <el-select
                           v-model="fillregistrarCotizacion.nIdprod"
                           style="width: 90%"
                           filterable
                           placeholder="Select"
                         @change="setBuscaPrecioXProducto()"
+
                         >
+
+                            <v-row   align="right" >
                           <el-option
                             v-for="item in listProd"
                             :key="item.id"
+
                             :label="
                               item.codigo +
                               ' - ' +
@@ -432,6 +436,8 @@
                             :value="item.id"
                           >
                           </el-option>
+                            </v-row>
+
                         </el-select>
                       </div>
                     </div>

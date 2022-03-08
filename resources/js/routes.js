@@ -609,16 +609,11 @@ export default new Router({
         /// Menus ///////////
 
         {
-            path: '/Menu/create',
+            path: '/menu/create',
             name: 'menu.create',
             component: require('./components/modulos/menu/create').default,
-            props: true,
 
         },
-
-
-
-
 
 
     ],

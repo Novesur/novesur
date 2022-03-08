@@ -334,7 +334,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <template v-if="listPermisos.includes('crear.menu')">
+                <template v-if="listPermisos.includes('menu.create')">
                   <router-link class="nav-link" :to="'/Menu/create'">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Crear Menu</p>
