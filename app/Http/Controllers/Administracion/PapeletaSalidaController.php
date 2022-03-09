@@ -26,7 +26,7 @@ class PapeletaSalidaController extends Controller
 
         $PapeletaSalida = new Papeletasalida;
         $PapeletaSalida->user_id = $request->nIdUser;
-        $PapeletaSalida->fecha = Carbon::parse($request->cFecha)->format('Y-m-d');
+        $PapeletaSalida->fecha = Carbon::parse($request->cfecha)->format('Y-m-d');
         $PapeletaSalida->horasalida = substr($request->tHoraSalida,0,8);
         $PapeletaSalida->horaretorno = substr($request->tHoraRetorno,0,8);
         $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;

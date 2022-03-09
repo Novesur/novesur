@@ -67,11 +67,7 @@
             <td colspan="2" align="center" valign="middle" >&nbsp;</td>
             <td align="left" valign="middle" style="margin-left: 50px" style="font-size: 10px"><strong>FECHA EMISION</strong></td>
             <td  style="padding-right:100px; font-size: 10px">  {{date('d-m-Y', strtotime($orderCompra->Femision))}}</td>
-<<<<<<< HEAD
         </tr>
-=======
-          </tr>
->>>>>>> 4a13a460a41f87b9f2c5aaced676425237f8ef8b
 
         <tr >
           <td style="font-size: 11px"><strong>PROVEEDOR</strong></td>
@@ -203,7 +199,6 @@
           <td style="font-size: 11px"><strong>CONDICIONES:</strong></td>
           <td colspan="2">&nbsp;</td>
         </tr>
-<<<<<<< HEAD
 
 
         <tr>
@@ -224,364 +219,35 @@
             <td width="30%" style="font-size: 11px"><strong>Forma de pago :</strong></td>
             <td width="78%" style="font-size: 10px"> {{$orderCompra->pago->nombre}}
             </td>
-=======
-        <tr>
-          <td>&nbsp;</td>
-          <td width="30%" style="font-size: 11px"><strong>Fecha de Entrega :</strong></td>
-          <td width="78%" style="font-size: 10px"> {{date('d-m-Y', strtotime($orderCompra->Fentrega))}}
-          </td>
         </tr>
         <tr>
+            <td style="font-size: 11px"><b>NOTA</b> :</td>
+            <td colspan="2">En la GUIAS DE REMISIÓN y FACTURAS, deberán indicar el número de esta Orden de Compra.</td>
+          </tr>
+          <tr>
             <td>&nbsp;</td>
-            <td style="font-size: 11px"><strong>Lugar de Entrega  : </strong></td>
-            <td style="font-size: 10px"> {{$orderCompra->LugarEntrega}} </td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td colspan="2" style="font-size: 10px">En la GUIAS DE REMISIÓN y FACTURAS, deberán indicar el número de esta Orden de Compra.</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td colspan="2" style="font-size: 10px">La presente Orden de Compra carece de valor si no esta refenciada con sello y firma autorizada.</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td colspan="2" style="font-size: 10px">Cualquier enmienda o corrección invalida esta Orden de Compra.</td>
-        </tr>
+            <td colspan="2">La presente Orden de Compra carece de valor si no esta refenciada con sello y firma autorizada.</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Cualquier enmienda o corrección invalida esta Orden de Compra.</td>
+          </tr>
 
-      </table>
+        </table>
 
-<br>
-
-   <table width="100%" border="1" align="center">
-  <tr >
-    <td colspan="2" style="text-align: center; font-size: 10px"><strong>PREFERENCIA DE PAGO :</strong></td>
-    <td style="border-bottom:hidden; border-right-color:#FFF">&nbsp;</td>
-    <td style="border-bottom-color:#FFF; border-right-color:#FFF; border-left-color:#FFF">&nbsp;</td>
-    <td style="border-bottom-color:#FFF; border-left-color:#FFF">&nbsp;</td>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <table width="100%" border="0">
+    <tr>
+      <td align="center"><strong>Joselyn Vera Cieza</strong></td>
+      <td align="center"><strong>Lusi Principe Bayona</strong></td>
+      <td align="center"><strong>Alexander Díaz Vera</strong></td>
     </tr>
-
-
-    @if ($orderCompra->pago_id == 4)
-    <tr >
-        <td width="14%">&nbsp;</td>
-        <td style="border-top-color:rgb(8, 8, 8)">&nbsp;  </td>
-        <td colspan="3">&nbsp;</td>
-        </tr>
-      <tr>
-        <td style="font-size: 11px">Cheque Dif. a 30 dias</td>
-        <td style="width: 30px"></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Alexander Díaz Vera</strong></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Lusi Principe Bayona</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>Joselyn Vera Cieza</strong></td>
-        </tr>
-      <tr>
-        <td style="font-size: 11px">Factura a 30 Días</td>
-        <td>&nbsp;</td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA GENERAL</strong></td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-        <td style="text-align: center ;font-size: 10px" ><strong>VºBº DPTO. DE LOGISTICA</strong></td>
-        </tr>
-
-        <tr>
-            <td style="font-size: 11px">Factura a 7 Días</td>
-            <td>&nbsp;</td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td style="text-align: center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            </tr>
-
-      <tr>
-        <td style="font-size: 11px">Trans. Bancaria</td>
-        <td>&nbsp;</td>
-        <td align="center" >&nbsp;</td>
-        <td align="center">&nbsp;</td>
-        <td style="text-align: center">&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td style="font-size: 11px">50% - 50%</td>
-            <td style="text-align:center;"> X </td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td style="text-align: center">&nbsp;</td>
-            </tr>
-
-
-    @endif
-
-
-
-
-
-    @if ($orderCompra->pago_id == 5)
-    <tr >
-        <td width="14%">&nbsp;</td>
-        <td style="border-top-color:rgb(8, 8, 8)">&nbsp;  </td>
-        <td colspan="3">&nbsp;</td>
-        </tr>
-      <tr>
-        <td style="font-size: 11px">Cheque Dif. a 30 dias</td>
-        <td style="width: 30px"></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Alexander Díaz Vera</strong></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Lusi Principe Bayona</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>Joselyn Vera Cieza</strong></td>
-        </tr>
-      <tr>
-        <td style="font-size: 11px">Factura a 30 Días</td>
-        <td>&nbsp;</td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA GENERAL</strong></td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
-        </tr>
-
-        <tr>
-            <td style="font-size: 11px">Factura a 7 Días</td>
-            <td style="text-align:center;"> X </td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td style="text-align: center ;font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            </tr>
-
-      <tr>
-        <td style="font-size: 11px">Trans. Bancaria</td>
-        <td>&nbsp;</td>
-        <td align="center">&nbsp;</td>
-        <td align="center">&nbsp;</td>
-        <td style="text-align: center">&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td style="font-size: 11px">50% - 50%</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td style="text-align: center">&nbsp;</td>
-        </tr>
-
-
-
-
-    @endif
-
-    @if ($orderCompra->pago_id == 1)
     <tr>
-        <td height="30" style="font-size: 11px">Contado</td>
-        <td style="border-top-color:rgb(8, 8, 8)">&nbsp;  </td>
-        <td colspan="3">&nbsp;</td>
-        </tr>
-      <tr>
-        <td>Cheque Dif. a 30 dias</td>
-        <td style="width: 30px ; text-align:center;"> X </td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Alexander Díaz Vera</strong></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Lusi Principe Bayona</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>Joselyn Vera Cieza</strong></td>
-        </tr>
-        <tr>
-            <td>Factura a 7 Días</td>
-            <td style="text-align:center;"> &nbsp; </td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td style="text-align: center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            </tr>
-
-      <tr>
-      <tr>
-        <td>Factura a 30 Días</td>
-        <td>&nbsp;</td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA GENERAL</strong></td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
-        </tr>
-      <tr>
-
-        <td style="font-size: 11px">Trans. Bancaria</td>
-        <td>&nbsp;</td>
-        <td align="center">&nbsp;</td>
-        <td align="center">&nbsp;</td>
-        <td style="text-align: center">&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td style="font-size: 11px">50% - 50%</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td style="text-align: center">&nbsp;</td>
-        </tr>
-    @endif
-
-    @if ($orderCompra->pago_id == 2)
-    <tr>
-        <td style="width: 1px ;font-size: 10px">Contado</td>
-        <td>&nbsp;  </td>
-        <td colspan="3">&nbsp;</td>
-        </tr>
-      <tr>
-        <td height="30" style="font-size: 10px">Cheque Dif. a 30 dias</td>
-        <td style="width: 30px ">&nbsp;  </td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Alexander Díaz Vera</strong></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Lusi Principe Bayona</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>Joselyn Vera Cieza</strong></td>
->>>>>>> 4a13a460a41f87b9f2c5aaced676425237f8ef8b
-        </tr>
-        <tr>
-<<<<<<< HEAD
-          <td style="font-size: 11px"><b>NOTA :</b></td>
-          <td colspan="2" style="font-size: 10px">En la GUIAS DE REMISIÓN y FACTURAS, deberán indicar el número de esta Orden de Compra.</td>
-=======
-            <td style="font-size: 11px">Factura a 7 Días</td>
-            <td style="text-align:center;"> &nbsp; </td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td style="text-align: center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            </tr>
-
-      <tr>
-        <td style="font-size: 11px">Factura a 30 Días</td>
-        <td style="text-align:center;"> X </td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA GENERAL</strong></td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
-        </tr>
-      <tr>
-        <td style="font-size: 11px">Trans. Bancaria</td>
-        <td>&nbsp;</td>
-        <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
->>>>>>> 4a13a460a41f87b9f2c5aaced676425237f8ef8b
-        </tr>
-        <tr>
-<<<<<<< HEAD
-          <td>&nbsp;</td>
-          <td colspan="2" style="font-size: 10px">La presente Orden de Compra carece de valor si no esta refenciada con sello y firma autorizada.</td>
-=======
-            <td style="font-size: 11px">50% - 50%</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td style="text-align: center">&nbsp;</td>
-        </tr>
-    @endif
-
-    @if ($orderCompra->pago_id == 7)
-    <tr>
-        <td height="30" style="height: 25px ;font-size: 11px">Contado</td>
-        <td >&nbsp;  </td>
-        <td colspan="3" style="border-top-color:#FFF">&nbsp;</td>
-        </tr>
-      <tr>
-        <td style="height: 25px ;font-size: 10px">Cheque Dif. a 30 dias</td>
-        <td style="width: 30px ">&nbsp;  </td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Alexander Díaz Vera</strong></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Lusi Principe Bayona</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>Joselyn Vera Cieza</strong></td>
-        </tr>
-        <tr>
-            <td style="font-size: 11px">Factura a 7 Días</td>
-            <td style="text-align:center;"> &nbsp; </td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td style="text-align: center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            </tr>
-
-
-      <tr>
-        <td style="height: 25px ;font-size: 11px">Factura a 30 Días</td>
-        <td>&nbsp;  </td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA GENERAL</strong></td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
-        </tr>
-      <tr>
-        <td style="font-size: 11px">Trans. Bancaria</td>
-        <td  style="text-align:center;" > X </td>
-        <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-        <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-        <td style="text-align: center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
->>>>>>> 4a13a460a41f87b9f2c5aaced676425237f8ef8b
-        </tr>
-        <tr>
-<<<<<<< HEAD
-          <td>&nbsp;</td>
-          <td colspan="2" style="font-size: 10px">Cualquier enmienda o corrección invalida esta Orden de Compra.</td>
-        </tr>
-
-      </table>
-<p>&nbsp;</p>
-<p><br>
-</p>
-<table width="100%" border="0">
-  <tr>
-    <td width="33%" align="center"><b>Joselyn Vera Cieza</b></td>
-    <td width="40%" align="center"><b>Lusi Principe Bayona</b></td>
-    <td width="27%" align="center"><b>Alexander Diaz Vera</b></td>
-  </tr>
-  <tr>
-    <td align="center"><b>V°B DPTO. DE LOGISTICA</b></td>
-    <td align="center"><b>V°B GERENCIA AMD. Y FINANZAS</b></td>
-    <td align="center"><b>V°B GERENCIA GENERAL</b></td>
-  </tr>
-</table>
-<p><br>
-
-</p>
-=======
-            <td style="font-size: 11px">50% - 50%</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td style="text-align: center">&nbsp;</td>
-        </tr>
-    @endif
-
-    @if ($orderCompra->pago_id == 6)
-    <tr>
-        <td height="30" style="height: 25px ;font-size: 11px">Contado</td>
-        <td align="center" > X  </td>
-        <td colspan="3" style="border-top-color:#FFF">&nbsp;</td>
-        </tr>
-      <tr>
-        <td style="height: 25px ;font-size: 11px">Cheque Dif. a 30 dias</td>
-        <td style="width: 30px ">&nbsp;  </td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Alexander Díaz Vera</strong></td>
-        <td width="30%" align="center" style="font-size: 10px"><strong>Lusi Principe Bayona</strong></td>
-        <td style="text-align: center" style="font-size: 10px"><strong>Joselyn Vera Cieza</strong></td>
-        </tr>
-
-        <tr>
-            <td style="font-size: 11px">Factura a 7 Días</td>
-            <td style="width: 30px ">&nbsp;  </td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td align="center" style="font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            <td style="text-align: center ;font-size: 10px">INVERSIONES NOVESUR S.A.C.</td>
-            </tr>
-
-      <tr>
-        <td style="height: 25px ;font-size: 10px">Factura a 30 Días</td>
-        <td>&nbsp;  </td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA GENERAL</strong></td>
-        <td align="center" style="font-size: 10px"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
-        <td style="text-align: center ;font-size: 10px"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
-        </tr>
-      <tr>
-        <td style="font-size: 10px">Trans. Bancaria</td>
-        <td> &nbsp; </td>
-        <td align="center">&nbsp;</td>
-        <td align="center">&nbsp;</td>
-        <td style="text-align: center">&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td style="font-size: 10px">50% - 50%</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td align="center">&nbsp;</td>
-            <td style="text-align: center">&nbsp;</td>
-        </tr>
-    @endif
->>>>>>> 4a13a460a41f87b9f2c5aaced676425237f8ef8b
+      <td align="center"><strong>VºBº DPTO. DE LOGISTICA</strong></td>
+      <td align="center"><strong>VºBº GERENCIA AMD. Y FINANZAS</strong></td>
+      <td align="center"><strong>VºBº GERENCIA GENERAL</strong></td>
+    </tr>
 
 
 </body>
