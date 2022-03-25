@@ -352,6 +352,42 @@ Route::post('/administracion/DetalleOrdenservicio/DeleteItemDetalleOrdenServicio
 Route::get('/administracion/DetalleOrdenservicio/viewDetalleOrdenServicio', 'Administracion\DetalleOrdenServicioController@viewDetalleOrdenServicio');
 
 
+///Menus
+Route::get('/administracion/Menu/listTipoPlatoCrear', 'Administracion\MenuController@listTipoPlatoCrear');
+Route::post('/administracion/Menu/setCrearMenu', 'Administracion\MenuController@create');
+Route::get('/administracion/Menu/ListTipoMenuCrear', 'Administracion\MenuController@ListTipoMenuCrear');
+Route::get('/administracion/Menu/ListMenuEntrada', 'Administracion\MenuController@ListMenuEntrada');
+Route::get('/administracion/Menu/ListMenuSegundo', 'Administracion\MenuController@ListMenuSegundo');
+Route::get('/administracion/Menu/ListMenuExtra', 'Administracion\MenuController@ListMenuExtra');
+Route::post('/administracion/Menu/createMenu', 'Administracion\MenuController@createMenu');
+Route::get('/administracion/Menu/ListMenuExtra', 'Administracion\MenuController@ListMenuExtra');
+Route::get('/administracion/Menu/ListMenubyDate', 'Administracion\MenuController@ListMenubyDate');
+Route::post('/administracion/menu/setAnularMenu', 'Administracion\MenuController@setAnular');
+Route::get('/administracion/Menu/ListMenuDetallebyDate', 'Administracion\MenuController@ListMenuDetallebyDate');
+Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/{optional?}', function () {
     return view('welcome');

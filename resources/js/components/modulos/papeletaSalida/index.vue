@@ -487,8 +487,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Detalle de cotizacion #
-              {{ this.fillBsqPapeletaSalida.itemid | fourchar }}
+              Detalle de Papeleta de Salida
             </h5>
 
             <button class="close" @click="abrirModal(item.id)"></button>
@@ -629,7 +628,7 @@ export default {
     this.getlistVendedorAdmin();
     this.getlistMotivos();
     this.getlistVendedorxUsu();
-    this.getlistEstadoPedido();
+    //this.getlistEstadoPedido();
     this.getlistClientAdmin();
     this.getlistClient();
 
@@ -843,7 +842,7 @@ BuscaClientePapeletaS(item) {
 
         });
     },
-    getlistEstadoPedido(item) {
+/*     getlistEstadoPedido(item) {
       var url = "/administracion/cotizacion/buscaEstado";
       axios.get(url,{
           params:{
@@ -856,9 +855,9 @@ BuscaClientePapeletaS(item) {
          this.listPapeleByVendedor = response.data;
 
       });
-    },
+    }, */
 
-    setEditarPedido() {
+/*     setEditarPedido() {
       var url = "/administracion/cotizacion/editEstadoCotizacion";
       axios
         .post(url, {
@@ -874,7 +873,7 @@ BuscaClientePapeletaS(item) {
 
 
         });
-    },
+    }, */
 
     getPdfPSalidabyVendedor(item) {
       var config = { responseType: "blob" };

@@ -32,6 +32,6 @@ class CreateClientsPapeletaSalidaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_clients_papeleta_salida');
+        Schema::dropIfExists('clients_papeleta_salida');
     }
 }

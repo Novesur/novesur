@@ -25,7 +25,7 @@ class CreateDetalleordenservicioTable extends Migration
             $table->unsignedBigInteger('unidmedida_id')->required();
             $table->foreign('unidmedida_id')->references('id')->on('unidmedida');
             /* $table->decimal('punit', 8, 4)->required(); */
-            $table->float('punit')->required();
+            $table->double('punit')->required();
             $table->enum('estado',[Ordenservicio::ATENDIDO,Ordenservicio::ANULADO])->default(Ordenservicio::ATENDIDO);
         });
     }

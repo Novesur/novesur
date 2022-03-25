@@ -506,7 +506,6 @@ export default {
         nIdtEstadoCoti: "",
         nIdVendedor: "",
         cSelectAnios: "2022",
-
         nIdUser: sessionStorage.getItem("iduser"),
         nIdprod: "",
       },

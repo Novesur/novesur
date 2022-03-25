@@ -17,7 +17,6 @@ class CreateTipomenuTable extends Migration
             $table->id();
             $table->string('nombre',20)->required();
             $table->char('estado',1)->required();
-            $table->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ class CreateTipomenuTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_tipomenu');
+        Schema::dropIfExists('tipomenu');
     }
 }

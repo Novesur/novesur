@@ -615,6 +615,24 @@ export default new Router({
 
         },
 
+        {
+            path: '/menu/list',
+            name: 'menu.list',
+            component: require('./components/modulos/menu/list').default,
+
+        },
+
+        {
+            path: '/menu/detalle',
+            name: 'menu.detalle',
+            component: require('./components/modulos/menu/detalle').default,
+
+        },
+
+
+
+
+
 
     ],
 

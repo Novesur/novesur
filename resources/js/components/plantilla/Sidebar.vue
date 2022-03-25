@@ -342,13 +342,32 @@
                 </template>
               </li>
               <li class="nav-item">
-                <template v-if="listPermisos.includes('tipo.tienda')">
-                  <router-link class="nav-link" :to="'/tipo/index'">
+                <template v-if="listPermisos.includes('menu.list')">
+                  <router-link class="nav-link" :to="'/menu/list'">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tipo</p>
+                    <p>Pedido Menu</p>
                   </router-link>
                 </template>
               </li>
+
+                  <li class="nav-item">
+                <template v-if="listPermisos.includes('menu.detalle')">
+                  <router-link class="nav-link" :to="'/menu/detalle'">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Reporte de Detalle</p>
+                  </router-link>
+                </template>
+              </li>
+
+                 <li class="nav-item">
+                <template v-if="listPermisos.includes('menu.reporteFechas')">
+                  <router-link class="nav-link" :to="'/menu/list'">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Reporte por fechas</p>
+                  </router-link>
+                </template>
+              </li>
+
             </ul>
           </li>
 

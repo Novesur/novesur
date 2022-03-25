@@ -456,7 +456,7 @@ export default {
         })
         .then((response) => {
           this.listVendedorUser = response.data;
-          this.fillPapeletasalida.nIdCliente = this.listVendedorUser[0].id;
+          this.fillPapeletasalida.nIdCliente = this.listVendedorUser[1].id;
         });
     },
 
