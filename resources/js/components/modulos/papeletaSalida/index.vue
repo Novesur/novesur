@@ -13,9 +13,24 @@
       <div class="card">
         <div class="card-header">
           <div class="card-tools">
-            <router-link class="btn btn-info btn-sm" :to="'/material/crear'">
+            <router-link class="btn btn-info btn-sm" :to="'/papeletaSalida/create'">
               <i class="fas fa-plus-square"></i>Regresar
             </router-link>
+
+
+            <template
+              v-if="listRolPermisoByUsuario.includes('Papeleta.Reporte.excel')"
+            >
+              <button
+                      class="btn  btn-success btn-sm "
+                      @click.prevent="getExcelpapeletaSalida"
+                    >
+                    <span><i class="fas fa-file-excel"></i> EXCEL</span>
+                </button>
+
+            </template>
+
+
           </div>
         </div>
         <div class="card-body">
@@ -176,7 +191,11 @@
                <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Bandeja de Resultados</h3>
+
+
               </div>
+
+
               <div class="card-body table-responsive">
                 <table
                   class="
@@ -228,6 +247,12 @@
 
                           <template v-if="listRolPermisoByUsuario.includes('papeleta.admin')">
 
+                               <button
+                          class="btn btn-success btn-sm"
+                          @click.prevent="aprobarPartidaSalida(item.id)"
+                        >
+                        <i class="far fa-thumbs-up"></i> Aprobar
+                        </button>
                                 <button
                           class="btn btn-info btn-sm"
                           @click.prevent="abrirAnularVendedor(item.id)"
@@ -235,12 +260,6 @@
                           <i class="far fa-calendar-check"></i> Anular
                         </button>
 
-                               <button
-                          class="btn btn-success btn-sm"
-                          @click.prevent="aprobarPartidaSalida(item.id)"
-                        >
-                        <i class="far fa-thumbs-up"></i> Aprobar
-                        </button>
                           </template>
 
                         <template v-else>

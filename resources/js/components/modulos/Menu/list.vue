@@ -11,14 +11,6 @@
     </div>
     <div class="content container-fluid">
       <div class="card">
-        <div class="card-header">
-          <div class="card-tools">
-            <router-link class="btn btn-info btn-sm" :to="'/material/crear'">
-              <i class="fas fa-plus-square"></i>Regresar
-            </router-link>
-          </div>
-        </div>
-
         <div class="card-body">
           <div class="container-fluid">
             <form role="form">
@@ -114,15 +106,13 @@
                               filterable
                               placeholder="Seleccione una Tipo"
                               :style="{ width: '350px' }"
-                                @change="onChange(fillBsqPedidoMenu.nIdTipo)"
-
+                              @change="onChange(fillBsqPedidoMenu.nIdTipo)"
                             >
                               <el-option
                                 v-for="item in this.listTipoMenu"
                                 :key="item.id"
                                 :label="item.nombre"
                                 :value="item.id"
-
                               >
                               </el-option>
                             </el-select>
@@ -144,14 +134,16 @@
                           :style="{ width: '350px' }"
                           clearable
                         >
-                          <el-option
-                            v-for="item in this.listMenuEntrada"
-                            :key="item.id"
-                            :label="item.nombre"
-                            :value="item.id"
-                            :disabled="EstadoMenuEntrada"
-                          >
-                          </el-option>
+                          <v-row align="right">
+                            <el-option
+                              v-for="item in this.listMenuEntrada"
+                              :key="item.id"
+                              :label="item.nombre"
+                              :value="item.id"
+                              :disabled="EstadoMenuEntrada"
+                            >
+                            </el-option>
+                          </v-row>
                         </el-select>
                       </div>
 
@@ -167,7 +159,7 @@
                     </div>
                   </div>
 
-                              <div class="col-md-12">
+                  <div class="col-md-12">
                     <div class="row">
                       <label class="col-md-1 col-form-label">SEGUNDO</label>
 
@@ -179,14 +171,16 @@
                           :style="{ width: '350px' }"
                           clearable
                         >
-                          <el-option
-                            v-for="item in this.listMenuSegundo"
-                            :key="item.id"
-                            :label="item.nombre"
-                            :value="item.id"
-                            :disabled="EstadoMenuSegundo"
-                          >
-                          </el-option>
+                          <v-row align="right">
+                            <el-option
+                              v-for="item in this.listMenuSegundo"
+                              :key="item.id"
+                              :label="item.nombre"
+                              :value="item.id"
+                              :disabled="EstadoMenuSegundo"
+                            >
+                            </el-option>
+                          </v-row>
                         </el-select>
                       </div>
 
@@ -202,8 +196,7 @@
                     </div>
                   </div>
 
-
-            <div class="col-md-12">
+                  <div class="col-md-12">
                     <div class="row">
                       <label class="col-md-1 col-form-label">EXTRA</label>
 
@@ -215,14 +208,16 @@
                           :style="{ width: '350px' }"
                           clearable
                         >
-                          <el-option
-                            v-for="item in this.listMenuExtra"
-                            :key="item.id"
-                            :label="item.nombre"
-                            :value="item.id"
-                             :disabled="EstadoMenuExtra"
-                          >
-                          </el-option>
+                          <v-row align="right">
+                            <el-option
+                              v-for="item in this.listMenuExtra"
+                              :key="item.id"
+                              :label="item.nombre"
+                              :value="item.id"
+                              :disabled="EstadoMenuExtra"
+                            >
+                            </el-option>
+                          </v-row>
                         </el-select>
                       </div>
 
@@ -237,7 +232,6 @@
                       </div>
                     </div>
                   </div>
-
 
                   <div class="col-md-12">
                     <div class="row">
@@ -264,7 +258,7 @@
                       <div class="col-md-4 offset-4">
                         <button
                           class="btn btn-flat btn-info btnWidth"
-                          @click.prevent="getGuardarMenu"
+                          @click.prevent="setRegistrarMenu"
                         >
                           Guardar
                         </button>
@@ -310,28 +304,28 @@
                             v-for="(item, index) in listeMenusxFecha"
                             :key="index"
                           >
-                            <td>{{ item.menu.fecha | moment("DD - MM - Y") }}</td>
-                             <td>{{ item.menu.user.fullname }}</td>
+                            <td>
+                              {{ item.menu.fecha | moment("DD - MM - Y") }}
+                            </td>
+                            <td>{{ item.menu.user.fullname }}</td>
                             <td v-text="item.cantEntrada"></td>
                             <td v-text="item.menuentrada.nombre"></td>
                             <td v-text="item.cantSegundo"></td>
                             <td v-text="item.menusegundo.nombre"></td>
-                              <td v-text="item.cantExtra"></td>
+                            <td v-text="item.cantExtra"></td>
                             <td v-text="item.menuextra.nombre"></td>
                             <td v-text="item.tipomenu.nombre"></td>
                             <td v-text="item.menu.observacion"></td>
 
-                              <button
-                                class="btn btn-info btn-sm"
-                                @click.prevent="abrirAnularMenu(item.menu.id)"
-                              >
-                                <i class="far fa-calendar-check"></i> Anular
-                              </button>
-
+                            <button
+                              class="btn btn-info btn-sm"
+                              @click.prevent="abrirAnularMenu(item.menu.id)"
+                            >
+                              <i class="far fa-calendar-check"></i> Anular
+                            </button>
                           </tr>
                         </tbody>
                       </table>
-
                     </div>
                   </div>
                 </form>
@@ -347,40 +341,20 @@
       :class="{ show: modalShow }"
       :style="modalShow ? mostrarModal : ocultarModal"
     >
-      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Detalle de Papeleta de Salida</h5>
-
-            <button class="close" @click="abrirModal(item.id)"></button>
+            <h5 class="modal-title">Sistemas Novesur</h5>
+            <button class="close" @click="abrirModal"></button>
           </div>
           <div class="modal-body">
-            <!-- Listado de Detalle de Cotizaciones -->
-
-            <div class="card-body table-responsive">
-              <table
-                class="table table-hover table-head-fixed text-nowrap projects"
-              >
-                <thead>
-                  <tr>
-                    <th>Cliente</th>
-                    <th>Contacto</th>
-                    <th>Fundamento</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(item, index) in this.listModalVendedorAdmin"
-                    :key="index"
-                  >
-                    <td v-text="item.cliente.razonsocial"></td>
-
-                    <td v-text="item.contacto"></td>
-                    <td v-text="item.papeletasalida.fundamento"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <div
+              class="callout callout-danger"
+              style="padding: 5px"
+              v-for="(item, index) in mensajeError"
+              :key="index"
+              v-text="item"
+            ></div>
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" @click="abrirModal">
@@ -410,20 +384,21 @@ export default {
         cMotivoRechazo: "",
         nIdUser: sessionStorage.getItem("iduser"),
         cObservacion: "",
-         numEntrada: 1,
-         numSegundo : 1,
-         numExtra : 1,
+        numEntrada: 1,
+        numSegundo: 1,
+        numExtra: 1,
       },
 
       activeName: "first",
       EstadoMenuEntrada: false,
       EstadoMenuSegundo: false,
       EstadoMenuExtra: true,
+      mensajeError: [],
+      error: 0,
 
       txtrechazo: {
         margin: 15,
       },
-
 
       listDetPapeletaSalida: [],
       listModalVendedorAdmin: [],
@@ -498,71 +473,62 @@ export default {
     this.cargaListMenus();
   },
 
-
   methods: {
-
-      cargaListMenus(){
-                var url = "/administracion/Menu/ListMenubyDate";
-      axios
-        .get(url)
-        .then((response) => {
-            console.log(response.data)
-          this.listeMenusxFecha = response.data;
-        });
-      },
-
+    cargaListMenus() {
+      var url = "/administracion/Menu/ListMenubyDate";
+      axios.get(url).then((response) => {
+        this.listeMenusxFecha = response.data;
+      });
+    },
 
     cargaFechaActual() {
       this.fillBsqPedidoMenu.dFecha = new Date();
     },
 
     onChange(tipo) {
-        //SOLO ENTRADA
-     if (this.fillBsqPedidoMenu.nIdTipo == 1) {
+      //SOLO ENTRADA
+      if (this.fillBsqPedidoMenu.nIdTipo == 1) {
         this.EstadoMenuEntrada = false;
         this.EstadoMenuSegundo = true;
-        this.fillBsqPedidoMenu.nIdTipoSegundo=''
+        this.fillBsqPedidoMenu.nIdTipoSegundo = "";
         this.EstadoMenuExtra = true;
-        this.fillBsqPedidoMenu.nIdTipoExtra=''
+        this.fillBsqPedidoMenu.nIdTipoExtra = "";
       }
 
       //SOLO SEGUNDO
 
-         if (this.fillBsqPedidoMenu.nIdTipo == 2) {
+      if (this.fillBsqPedidoMenu.nIdTipo == 2) {
         this.EstadoMenuEntrada = true;
-        this.fillBsqPedidoMenu.nIdTipoEntrada=''
+        this.fillBsqPedidoMenu.nIdTipoEntrada = "";
         this.EstadoMenuSegundo = false;
         this.EstadoMenuExtra = true;
-         this.fillBsqPedidoMenu.nIdTipoExtra=''
+        this.fillBsqPedidoMenu.nIdTipoExtra = "";
       }
 
-     // MENU COMPLETO
-          if (this.fillBsqPedidoMenu.nIdTipo == 3) {
+      // MENU COMPLETO
+      if (this.fillBsqPedidoMenu.nIdTipo == 3) {
         this.EstadoMenuEntrada = false;
         this.EstadoMenuSegundo = false;
         this.EstadoMenuExtra = true;
-         this.fillBsqPedidoMenu.nIdTipoExtra=''
+        this.fillBsqPedidoMenu.nIdTipoExtra = "";
       }
 
       // SOLO EXTRA
-          if (this.fillBsqPedidoMenu.nIdTipo == 4) {
+      if (this.fillBsqPedidoMenu.nIdTipo == 4) {
         this.EstadoMenuEntrada = true;
-            this.fillBsqPedidoMenu.nIdTipoEntrada=''
+        this.fillBsqPedidoMenu.nIdTipoEntrada = "";
         this.EstadoMenuSegundo = true;
-             this.fillBsqPedidoMenu.nIdTipoSegundo=''
+        this.fillBsqPedidoMenu.nIdTipoSegundo = "";
         this.EstadoMenuExtra = false;
       }
 
-         // SOLO EXTRA Y ENTRADA
-          if (this.fillBsqPedidoMenu.nIdTipo == 5) {
+      // SOLO EXTRA Y ENTRADA
+      if (this.fillBsqPedidoMenu.nIdTipo == 5) {
         this.EstadoMenuEntrada = false;
         this.EstadoMenuSegundo = true;
-          this.fillBsqPedidoMenu.nIdTipoSegundo=''
+        this.fillBsqPedidoMenu.nIdTipoSegundo = "";
         this.EstadoMenuExtra = false;
-
       }
-
-
     },
     abrirModalbyVendedor(item) {
       this.modalShow = !this.modalShow;
@@ -580,7 +546,6 @@ export default {
       this.BuscaClientePapeletaS(item);
     },
     abrirAnularMenu(item) {
-
       Swal.fire({
         title: "Desea cancelar el menu?",
         text: "No podrás revertir esto.!",
@@ -597,7 +562,7 @@ export default {
               item: item,
             })
             .then((response) => {
-              this.cargaListMenus()
+              this.cargaListMenus();
             });
 
           Swal.fire(
@@ -641,14 +606,13 @@ export default {
 
     limpiarCriteriosBsq() {
       this.fillBsqPedidoMenu.nIdTipo = 3;
-      this.fillBsqPedidoMenu.numEntrada=1;
-      this.fillBsqPedidoMenu.numSegundo=1;
+      this.fillBsqPedidoMenu.numEntrada = 1;
+      this.fillBsqPedidoMenu.numSegundo = 1;
       this.fillBsqPedidoMenu.numExtra = 1;
-      this.fillBsqPedidoMenu.nIdTipoEntrada="";
-      this.fillBsqPedidoMenu.nIdTipoSegundo="";
-      this.fillBsqPedidoMenu.numExtra="";
+      this.fillBsqPedidoMenu.nIdTipoEntrada = "";
+      this.fillBsqPedidoMenu.nIdTipoSegundo = "";
+      this.fillBsqPedidoMenu.nIdTipoExtra = "";
       this.fillBsqPedidoMenu.cObservacion = "";
-
     },
     limpiarBandejaMaterial() {
       this.listDetPapeletaSalida = [];
@@ -701,31 +665,94 @@ export default {
         });
     },
 
+    setRegistrarMenu() {
+      if (this.validarMenu()) {
+        this.modalShow = true;
+        return;
+      }
+      this.getGuardarMenu();
+    },
+
+    validarMenu() {
+      this.error = 0;
+      this.mensajeError = [];
+      //alert(this.fillBsqPedidoMenu.nIdTipo)
+
+      if (this.fillBsqPedidoMenu.nIdTipo == 1) {
+        if (!this.fillBsqPedidoMenu.nIdTipoEntrada) {
+          this.mensajeError.push("El Campo Entrada es un campo obligatorio");
+        }
+      }
+
+            if (this.fillBsqPedidoMenu.nIdTipo == 2) {
+        if (!this.fillBsqPedidoMenu.nIdTipoSegundo) {
+          this.mensajeError.push("El Campo Segundo es un campo obligatorio");
+        }
+      }
+
+
+      if (this.fillBsqPedidoMenu.nIdTipo == 3) {
+        if (!this.fillBsqPedidoMenu.nIdTipoEntrada) {
+          this.mensajeError.push("El Campo Entrada es un campo obligatorio");
+        }
+
+        if (!this.fillBsqPedidoMenu.nIdTipoSegundo) {
+          this.mensajeError.push("El Campo Segundo es un campo obligatorio");
+        }
+      }
+
+
+            if (this.fillBsqPedidoMenu.nIdTipo == 4) {
+        if (!this.fillBsqPedidoMenu.nIdTipoExtra) {
+          this.mensajeError.push("El Campo Extra es un campo obligatorio");
+        }
+      }
+
+
+
+
+      if (this.fillBsqPedidoMenu.nIdTipo == 5) {
+        if (!this.fillBsqPedidoMenu.nIdTipoEntrada) {
+          this.mensajeError.push("El Campo Entrada es un campo obligatorio");
+        }
+
+        if (!this.fillBsqPedidoMenu.nIdTipoExtra) {
+          this.mensajeError.push("El Campo Extra es un campo obligatorio");
+        }
+      }
+
+      /*      if (!this.fillCrearMenu.cNombre) {
+        this.mensajeError.push("El Campo Nombre es un campo obligatorio");
+      }
+
+         if (!this.fillCrearMenu.tipoPlato) {
+        this.mensajeError.push("El Campo Tipo Menu es un campo obligatorio");
+      } */
+
+      if (this.mensajeError.length) {
+        this.error = 1;
+      }
+      return this.error;
+    },
+
     getGuardarMenu() {
       var url = "/administracion/Menu/createMenu";
       axios
         .post(url, {
-
-            nIdUser: this.fillBsqPedidoMenu.nIdUser,
-            nIdTipo : this.fillBsqPedidoMenu.nIdTipo,
-            cObservacion : this.fillBsqPedidoMenu.cObservacion,
-            numEntrada : this.fillBsqPedidoMenu.numEntrada,
-            nIdTipoEntrada : this.fillBsqPedidoMenu.nIdTipoEntrada,
-            numSegundo : this.fillBsqPedidoMenu.numSegundo,
-            nIdTipoSegundo: this.fillBsqPedidoMenu.nIdTipoSegundo,
-            numExtra : this.fillBsqPedidoMenu.numExtra,
-            nIdTipoExtra : this.fillBsqPedidoMenu.nIdTipoExtra,
-
+          nIdUser: this.fillBsqPedidoMenu.nIdUser,
+          nIdTipo: this.fillBsqPedidoMenu.nIdTipo,
+          cObservacion: this.fillBsqPedidoMenu.cObservacion,
+          numEntrada: this.fillBsqPedidoMenu.numEntrada,
+          nIdTipoEntrada: this.fillBsqPedidoMenu.nIdTipoEntrada,
+          numSegundo: this.fillBsqPedidoMenu.numSegundo,
+          nIdTipoSegundo: this.fillBsqPedidoMenu.nIdTipoSegundo,
+          numExtra: this.fillBsqPedidoMenu.numExtra,
+          nIdTipoExtra: this.fillBsqPedidoMenu.nIdTipoExtra,
         })
         .then((response) => {
-            Swal.fire(
-            "Grabado!",
-            "Nuevo Menu Agregado.",
-            "success"
-          );
+          Swal.fire("Grabado!", "Nuevo Menu Agregado.", "success");
 
-           this.cargaListMenus();
-
+          this.cargaListMenus();
         });
     },
 
@@ -782,8 +809,6 @@ export default {
           this.listClient = response.data;
         });
     },
-
-
   },
 };
 </script>

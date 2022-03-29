@@ -11,6 +11,7 @@ use App\Papeletasalida;
 use App\TempClientPapeletaSalida;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDF;
 
@@ -24,39 +25,50 @@ class PapeletaSalidaController extends Controller
     public function create( Request $request){
 
 
-        $PapeletaSalida = new Papeletasalida;
-        $PapeletaSalida->user_id = $request->nIdUser;
-        $PapeletaSalida->fecha = Carbon::parse($request->cfecha)->format('Y-m-d');
-        $PapeletaSalida->horasalida = substr($request->tHoraSalida,0,8);
-        $PapeletaSalida->horaretorno = substr($request->tHoraRetorno,0,8);
-        $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;
-        $PapeletaSalida->estadopapeletasalida_id = '1';
-        $PapeletaSalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
-        $PapeletaSalida->save();
+        DB::beginTransaction();
+        try{
 
-        if($request->nIdMotivo == 3){
-            $clientPapeletaSalida = Session::get('clients');
-            $allclients = $clientPapeletaSalida->map(function ($PS) use ($PapeletaSalida) {
-                return [
-                    'papeletasalida_id' => $PapeletaSalida->id,
-                    'cliente_id'      => $PS->id,
-                    'contacto' => $PS->contacto,
-                    'direccion'   => $PS->direccion,
+            $PapeletaSalida = new Papeletasalida;
+            $PapeletaSalida->user_id = $request->nIdUser;
+            $PapeletaSalida->fecha = Carbon::parse($request->cfecha)->format('Y-m-d');
+            $PapeletaSalida->horasalida = substr($request->tHoraSalida,0,8);
+            $PapeletaSalida->horaretorno = substr($request->tHoraRetorno,0,8);
+            $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;
+            $PapeletaSalida->estadopapeletasalida_id = '1';
+            $PapeletaSalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
+            $PapeletaSalida->save();
 
-                ];
-            });
-            ClientsPapeletaSalida::insert($allclients->toArray());
 
-        }else{
-            $clientsPapeletaSalida = new ClientsPapeletaSalida;
-            $clientsPapeletaSalida->papeletasalida_id = $PapeletaSalida->id;
-            $clientsPapeletaSalida->cliente_id = 202;
-            $clientsPapeletaSalida->contacto = NULL;
-            $clientsPapeletaSalida->direccion = NULL;
-            $clientsPapeletaSalida->save();
+            if($request->nIdMotivo == 3){
+                $clientPapeletaSalida = Session::get('clients');
 
+                $allclients = $clientPapeletaSalida->map(function ($PS) use ($PapeletaSalida) {
+                    return [
+                        'papeletasalida_id' => $PapeletaSalida->id,
+                        'cliente_id'      => $PS->id,
+                        'contacto' => $PS->contacto,
+                        'direccion'   => $PS->direccion,
+                    ];
+
+                });
+
+
+                ClientsPapeletaSalida::insert($allclients->toArray());
+            }else{
+                $clientsPapeletaSalida = new ClientsPapeletaSalida;
+                $clientsPapeletaSalida->papeletasalida_id = $PapeletaSalida->id;
+                $clientsPapeletaSalida->cliente_id = 202;
+                $clientsPapeletaSalida->contacto = NULL;
+                $clientsPapeletaSalida->direccion = NULL;
+                $clientsPapeletaSalida->save();
+            }
+            DB::commit();
+            return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
+        }catch(\Throwable $e){
+            DB::rollback();
+            return response()->json(['message' => 'Error al grabar', 'icon' => 'error'], 200);
         }
-        return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
+
 
     }
 

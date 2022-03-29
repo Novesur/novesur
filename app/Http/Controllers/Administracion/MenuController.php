@@ -63,53 +63,52 @@ class MenuController extends Controller
     }
 
     public function createMenu(Request $request)
-        {
+    {
 
-            $date = Carbon::now();
-            $fecha = $date->format('Y-m-d');
-            $hora = $date->toTimeString();
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+        $hora = $date->toTimeString();
 
-            $menu = new Menu();
-            $menu->user_id = $request->nIdUser;
-            $menu->fecha = $fecha;
-            $menu->hora = $hora;
-            $menu->observacion = mb_strtoupper($request->cObservacion);
-            $menu->estado = 'E';
-            $menu->save();
+        $menu = new Menu();
+        $menu->user_id = $request->nIdUser;
+        $menu->fecha = $fecha;
+        $menu->hora = $hora;
+        $menu->observacion = mb_strtoupper($request->cObservacion);
+        $menu->estado = 'E';
+        $menu->save();
 
-           $detallemenu = new DetalleMenu();
-           $detallemenu->menu_id =  $menu->id;
+        $detallemenu = new DetalleMenu();
+        $detallemenu->menu_id =  $menu->id;
 
 
-           if($request->nIdTipoEntrada == null){
+        if ($request->nIdTipoEntrada == null) {
             $detallemenu->menuentrada_id = 1;
             $detallemenu->cantEntrada = 0;
-           }else{
+        } else {
             $detallemenu->menuentrada_id = $request->nIdTipoEntrada;
             $detallemenu->cantEntrada = $request->numEntrada;
-           }
+        }
 
 
-           if($request->nIdTipoSegundo == null){
+        if ($request->nIdTipoSegundo == null) {
             $detallemenu->menusegundo_id = 1;
             $detallemenu->cantSegundo = 0;
-           }else{
-               $detallemenu->menusegundo_id = $request->nIdTipoSegundo;
-               $detallemenu->cantSegundo = $request->numSegundo;
-           }
+        } else {
+            $detallemenu->menusegundo_id = $request->nIdTipoSegundo;
+            $detallemenu->cantSegundo = $request->numSegundo;
+        }
 
 
-           if($request->nIdTipoExtra == null){
+        if ($request->nIdTipoExtra == null) {
             $detallemenu->menuextra_id = 1;
             $detallemenu->cantExtra = 0;
-           }else{
-               $detallemenu->menuextra_id = $request->nIdTipoExtra;
-               $detallemenu->cantExtra = $request->numExtra;
-           }
-           $detallemenu->tipomenu_id = $request->nIdTipo;
-           $detallemenu->save();
-
+        } else {
+            $detallemenu->menuextra_id = $request->nIdTipoExtra;
+            $detallemenu->cantExtra = $request->numExtra;
         }
+        $detallemenu->tipomenu_id = $request->nIdTipo;
+        $detallemenu->save();
+    }
     public function ListMenuEntrada(Request $request)
     {
         $fecha = substr($request->dFecha, 0, -14);
@@ -131,28 +130,31 @@ class MenuController extends Controller
         return $dato;
     }
 
-    public function ListMenubyDate(){
+    public function ListMenubyDate()
+    {
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
-        $dato = DetalleMenu::with('menu','menu.user','menuentrada','menusegundo','menuextra','tipomenu')->whereHas('menu' , function(Builder $query) use ($fecha){$query->where('fecha', $fecha)->where('estado','E');
-        } )->get();
+        $dato = DetalleMenu::with('menu', 'menu.user', 'menuentrada', 'menusegundo', 'menuextra', 'tipomenu')->whereHas('menu', function (Builder $query) use ($fecha) {
+            $query->where('fecha', $fecha)->where('estado', 'E');
+        })->get();
         return $dato;
-
     }
 
-    public function ListMenuDetallebyDate(Request $request){
+    public function ListMenuDetallebyDate(Request $request)
+    {
         $fechainicio = substr($request->dFechainicio, 0, -14);
         $fechafin = substr($request->dFechafin, 0, -14);
-        $dato = DetalleMenu::with('menu','menu.user','menuentrada','menusegundo','menuextra','tipomenu')->whereHas('menu' , function(Builder $query) use ($fechainicio, $fechafin){$query->whereBetween('fecha', [$fechainicio, $fechafin])->where('estado','E');
-        } )->get();
+        $dato = DetalleMenu::with('menu', 'menu.user', 'menuentrada', 'menusegundo', 'menuextra', 'tipomenu')->whereHas('menu', function (Builder $query) use ($fechainicio, $fechafin) {
+            $query->whereBetween('fecha', [$fechainicio, $fechafin])->where('estado', 'E');
+        })->get();
         return $dato;
     }
 
-    public function setAnular(Request $request){
+    public function setAnular(Request $request)
+    {
         $menu = Menu::find($request->item);
         $menu->estado = 'A';
         $menu->save();
-
     }
 
     public function export(Request $request)

@@ -25,7 +25,7 @@
     @foreach($DetalleMenu as $data)
 
             <tr>
-                <td>{{$data->menu->user->firstname}} {{$data->menu->user->lastname}}</td>
+                <td>{{$data->menu->user->firstname}} {{$data->menu->user->lastname}} {{$data->menu->user->secondname}}</td>
                 <td>{{$data->cantEntrada}} </td>
                 <td>{{$data->menuentrada->nombre}} </td>
                 <td>{{$data->cantSegundo}} </td>
