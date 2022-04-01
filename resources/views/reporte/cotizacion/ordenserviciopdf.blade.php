@@ -157,7 +157,7 @@
           @endphp</td>
         </td>
           <td align="center" style="font-size:1em">{{$data->cantidad}}</td>
-          <td align="center" style="font-size:1em"></td>
+          <td align="center" style="font-size:1em">{{$data->producto->codigo }}</td>
           <td align="center" style="font-size:1em">  {{$data->producto->familia->nombre }}</td>
           <td align="center" style="font-size:1em">{{$orderServicio->tipocambio->signo}} {{number_format($data->punit,4)  }}</td>
 

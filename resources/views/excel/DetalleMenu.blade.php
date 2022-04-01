@@ -10,6 +10,7 @@
     <table>
         <thead>
         <tr>
+            <th>Fecha</th>
             <th>Vendedor</th>
             <th>cant. Entrada</th>
             <th>Entrada</th>
@@ -25,6 +26,7 @@
     @foreach($DetalleMenu as $data)
 
             <tr>
+                <td>{{$data->menu->fecha}}</td>
                 <td>{{$data->menu->user->firstname}} {{$data->menu->user->lastname}} {{$data->menu->user->secondname}}</td>
                 <td>{{$data->cantEntrada}} </td>
                 <td>{{$data->menuentrada->nombre}} </td>

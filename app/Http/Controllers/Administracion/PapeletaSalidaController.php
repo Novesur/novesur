@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administracion;
 use App\Cliente;
 use App\ClientsPapeletaSalida;
 use App\Detallepapeletasalida;
+use App\Exports\PapeletaExport;
 use App\Http\Controllers\Controller;
 use App\Motivopapeletasalida;
 use App\Papeletasalida;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\Builder;
 use PDF;
 
 class PapeletaSalidaController extends Controller
@@ -82,6 +84,10 @@ class PapeletaSalidaController extends Controller
             $dato = Papeletasalida::with('user','estadoPapeletaSalida','motivopapeletasalida')->get();
             return $dato;
         }
+        if($request->nIdMotivo == null &&  $request->nIdVendedor == null ){
+            $dato = Papeletasalida::with('user','estadoPapeletaSalida','motivopapeletasalida')->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
+            return $dato;
+        }
         if($request->nIdMotivo == null){
                 $dato = Papeletasalida::with('user','estadoPapeletaSalida','motivopapeletasalida')->where('user_id', $request->nIdVendedor)->whereBetween('fecha',[$dFechainicio, $dFechafin])->get();
                 return $dato;
@@ -91,7 +97,6 @@ class PapeletaSalidaController extends Controller
                 $dato = Papeletasalida::with('user','estadoPapeletaSalida','motivopapeletasalida')->where('user_id', $request->nIdVendedor)->where('motivopapeletasalida_id', $request->nIdMotivo)->get();
                 return $dato;
             }
-
 
     }
 
@@ -181,5 +186,19 @@ class PapeletaSalidaController extends Controller
                 return response()->json(['datos' => $items]);
             endif;
             return response()->json(['message' => 'El item no existe'], 422);
+        }
+
+        public function export(Request $request)
+        {
+            $fecha1 = $request->dFechainicio;
+            $fecha2 = $request->dFechafin;
+
+        $papeletasalida = Papeletasalida::with('user','motivopapeletasalida')->whereBetween('fecha', [$fecha1 , $fecha2] )->where('estadopapeletasalida_id',3)->get();
+
+         $listPapeletaSalida = ClientsPapeletaSalida::with('papeletasalida','cliente','papeletasalida.user','papeletasalida.motivopapeletasalida')
+         ->whereHas('papeletasalida' , function(Builder $query) use ($fecha1 , $fecha2 ){$query->whereBetween('fecha', [$fecha1 , $fecha2] )->where('estadopapeletasalida_id', 3);
+        } )->get();
+
+        return (new PapeletaExport)->setGenerarExcel($papeletasalida,$listPapeletaSalida)->download('invoices.xlsx');
         }
 }

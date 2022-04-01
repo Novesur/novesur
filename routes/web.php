@@ -325,6 +325,9 @@ Route::get('/administracion/papeletasalida/getListarCliente', 'Administracion\Pa
 Route::post('/administracion/papeletasalida/AddTempClient', 'Administracion\PapeletaSalidaController@AddTempClient');
 Route::post('/administracion/papeletasalida/CleanTempClient', 'Administracion\PapeletaSalidaController@CleanTempClient');
 Route::post('/administracion/papeletasalida/EliminarClientTemp', 'Administracion\PapeletaSalidaController@EliminarClientTemp');
+//REPORTE EXCEL
+Route::post('/operacion/papeletaSalida/export', 'Administracion\PapeletaSalidaController@export');
+
 
 
 ///// Cliente Papeleta Salida
@@ -365,7 +368,7 @@ Route::get('/administracion/Menu/ListMenubyDate', 'Administracion\MenuController
 Route::post('/administracion/menu/setAnularMenu', 'Administracion\MenuController@setAnular');
 Route::get('/administracion/Menu/ListMenuDetallebyDate', 'Administracion\MenuController@ListMenuDetallebyDate');
 Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
-
+Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
 
 
 

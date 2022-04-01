@@ -554,6 +554,7 @@
 </template>
 
 <script>
+import FileSaver from "file-saver";
 export default {
   data() {
     return {
@@ -680,6 +681,30 @@ export default {
     },
   },
   methods: {
+
+    getExcelpapeletaSalida() {
+      var url = "/operacion/papeletaSalida/export";
+      axios
+        .post(
+          url,
+          {
+            dFechainicio: !this.fillBsqPapeletaSalida.dFecha
+              ? ""
+              : this.fillBsqPapeletaSalida.dFecha[0],
+            dFechafin: !this.fillBsqPapeletaSalida.dFecha
+              ? ""
+              : this.fillBsqPapeletaSalida.dFecha[1],
+          },
+          { responseType: "blob" }
+        )
+        .then((response) => {
+          FileSaver.saveAs(response.data, "PapeletaSalida.xlsx");
+          //console.log(response.data)
+        });
+    },
+
+
+
     cargaFechaActual() {
       this.fillBsqPapeletaSalida.dFecha = new Date();
     },
