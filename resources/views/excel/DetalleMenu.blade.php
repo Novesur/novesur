@@ -26,8 +26,8 @@
     @foreach($DetalleMenu as $data)
 
             <tr>
-                <td>{{$data->menu->fecha}}</td>
-                <td>{{$data->menu->user->firstname}} {{$data->menu->user->lastname}} {{$data->menu->user->secondname}}</td>
+                <td>{{ date('d-m-Y', strtotime($data->menu->fecha)) }}</td>
+                <td>{{strtoupper($data->menu->user->secondname)}} {{strtoupper($data->menu->user->lastname)}}   {{strtoupper($data->menu->user->firstname)}}</td>
                 <td>{{$data->cantEntrada}} </td>
                 <td>{{$data->menuentrada->nombre}} </td>
                 <td>{{$data->cantSegundo}} </td>
