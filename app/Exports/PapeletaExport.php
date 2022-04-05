@@ -10,22 +10,20 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 class PapeletaExport implements FromView,ShouldAutoSize
 {
     use Exportable;
-    private $listPapeletaSalida = [];
-    private $papeletasalida = [];
+    private $dato = [];
 
-    public function setGenerarExcel( $papeletasalida, $listPapeletaSalida)
+    public function setGenerarExcel($dato)
 
     {
-        $this->listPapeletaSalida = $listPapeletaSalida;
-        $this->papeletasalida = $papeletasalida;
+        $this->dato = $dato;
+
         return  $this;
     }
 
     public function view(): View
     {
         return view('excel.PapeletaSalida', [
-            'papeletasalida' => $this->papeletasalida,
-            'listPapeletaSalida' => $this->listPapeletaSalida
+            'dato' => $this->dato
         ]);
     }
 }

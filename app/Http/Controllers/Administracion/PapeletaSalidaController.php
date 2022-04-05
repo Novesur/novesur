@@ -195,10 +195,12 @@ class PapeletaSalidaController extends Controller
 
         $papeletasalida = Papeletasalida::with('user','motivopapeletasalida')->whereBetween('fecha', [$fecha1 , $fecha2] )->where('estadopapeletasalida_id',3)->get();
 
-         $listPapeletaSalida = ClientsPapeletaSalida::with('papeletasalida','cliente','papeletasalida.user','papeletasalida.motivopapeletasalida')
+         $dato = ClientsPapeletaSalida::with('papeletasalida','cliente','papeletasalida.user','papeletasalida.motivopapeletasalida')
          ->whereHas('papeletasalida' , function(Builder $query) use ($fecha1 , $fecha2 ){$query->whereBetween('fecha', [$fecha1 , $fecha2] )->where('estadopapeletasalida_id', 3);
         } )->get();
 
-        return (new PapeletaExport)->setGenerarExcel($papeletasalida,$listPapeletaSalida)->download('invoices.xlsx');
+
+//return $dato;
+        return (new PapeletaExport)->setGenerarExcel($dato)->download('invoices.xlsx');
         }
 }

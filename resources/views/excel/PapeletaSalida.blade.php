@@ -10,17 +10,41 @@
     <table>
         <thead>
         <tr>
-            <th>Fecha</th>
-
+            <th><b>Fecha</b></th>
+            <th><b>Vendedor</b></th>
+            <th><b>Hora Salida</b></th>
+            <th><b>Hora Entrada</b></th>
+            <th><b>Motivo</b></th>
         </tr>
         </thead>
         <tbody>
-    @foreach($papeletasalida as $data)
+    @foreach($dato as $data)
             <tr>
-                <td>{{$data->fecha}}</td>
+                <td>{{ date('d-m-Y', strtotime($data->papeletasalida->fecha)) }}</td>
+                <br>
+                <td>{{$data->papeletasalida->user->fullname}}</td>
+                <td>{{$data->papeletasalida->horasalida}}</td>
+                <td>{{$data->papeletasalida->horaretorno}}</td>
+                <td>{{$data->papeletasalida->motivopapeletasalida->nombre}}</td>
+
+            </tr>
+
+            <tr>
+                <thead>
+
+                    </thead>
+                    <td><b>Cliente</b></td>
+
+                <td>{{$data->cliente->razonsocial}}</td>
+                <td><b>Contacto</b></td>
+                <td>{{$data->contacto}}</td>
+                <td><b>Fundamento</b></td>
+                <td>{{$data->papeletasalida->fundamento}}</td>
+
 
 
             </tr>
+
             @endforeach
         </tbody>
     </table>
