@@ -630,6 +630,14 @@ export default new Router({
         },
 
 
+//// ORDEN  DE PRODUCCION  /////////
+
+{
+    path: '/ordenproducccion/create',
+    name: 'ordenproducccion.create',
+    component: require('./components/modulos/ordenproduccion/create').default,
+
+},
 
 
 

@@ -20,13 +20,13 @@ class OrdenServicioController extends Controller
     {
         $product = Producto::where(['id' => $request->nIdprod])->with('familia', 'marca', 'material', 'modelotipo', 'subfamilia', 'homologacion')->first();
         $products = Session::get('products');
-        $products = ($products != null) ? collect($products) : collect([]);
+   /*      $products = ($products != null) ? collect($products) : collect([]);
         $exists = $products->firstWhere("producto_id", $product->id);
         if (!empty($exists)) :
             // return response()->json(['message' => "Ya fue agregado anteriormente"], 422);
             return response()->json(['datos' => $products, 'message' => 'Ya fue agregado anteriormente', 'icon' => 'error'], 200);
 
-        else :
+        else : */
             $articulo = $product;
             $unidmed = UnidMedida::where(['id' => $request->nIdUnidMed])->first();
             $tempOrder = new TempOrdenServicio();
@@ -36,7 +36,7 @@ class OrdenServicioController extends Controller
             //return response()->json("Grabado");
             return response()->json(['datos' => $products, 'message' => NULL]);
 
-        endif;
+      /*   endif; */
     }
 
     public function create(Request $request)

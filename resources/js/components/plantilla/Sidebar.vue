@@ -381,14 +381,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-           <!--    <li class="nav-item">
-                <template v-if="listPermisos.includes('menu.create')">
-                  <router-link class="nav-link" :to="'/Menu/create'">
+      <li class="nav-item">
+                <template v-if="listPermisos.includes('ordenproduccion.create')">
+                  <router-link class="nav-link" :to="'/ordenProducccion/create'">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Crear Menu</p>
+                    <p>Crear Orden Producción</p>
                   </router-link>
                 </template>
-              </li> -->
+              </li>
       <!--         <li class="nav-item">
                 <template v-if="listPermisos.includes('menu.list')">
                   <router-link class="nav-link" :to="'/menu/list'">

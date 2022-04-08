@@ -220,7 +220,8 @@
                       v-for="(item, index) in listCotizacionPaginated"
                       :key="index"
                     >
-                      <td>{{ item.fecha | moment("DD - MM - Y") }}</td>
+                      <!-- <td>{{ item.fecha | moment("DD - MM - Y") }}</td> -->
+                      <td> {{item.created_at.substring(0,10) | moment("DD - MM - Y") }}</td>
                       <td> {{item.user.fullname}}</td>
                       <td v-text="item.horasalida"></td>
                       <td v-text="item.horaretorno"></td>

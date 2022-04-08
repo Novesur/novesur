@@ -38,7 +38,6 @@
                               type="text"
                               class="form-control"
                               v-model="fillCrearOrdenCompra.cProveedor"
-                              @keypress.prevent.enter="setRegistrarPIngreso"
                               style="width: 300px"
                               readonly
                             />
@@ -56,7 +55,6 @@
                               type="text"
                               class="form-control"
                               v-model="fillCrearOrdenCompra.cReferencia"
-                              @keypress.prevent.enter="setRegistrarPIngreso"
                               style="width: 300px"
                             />
                           </div>
@@ -140,7 +138,6 @@
                               type="text"
                               class="form-control"
                               v-model="fillCrearOrdenCompra.cLEntrega"
-                              @keypress.prevent.enter="setRegistrarPIngreso"
                               style="width: 300px"
                             />
                           </div>
@@ -246,7 +243,6 @@
                                     type="text"
                                     class="form-control"
                                     v-model="fillCrearOrdenCompra.cCantidad"
-                                    v-int
                                   />
                                 </div>
 
@@ -294,7 +290,7 @@
                   <div class="col-md-4 offset-4">
                     <button
                       class="btn btn-flat btn-info btnWidth"
-                      @click.prevent="setAddPMaterial"
+                      @click.prevent="setRegistrarPIngreso"
                     >
                       Agregar
                     </button>
@@ -569,6 +565,14 @@ export default {
       if (!this.fillCrearOrdenCompra.cProveedor) {
         this.mensajeError.push("El campo nombre es obligatorio");
       }
+
+      if(this.fillCrearOrdenCompra.cCantidad <=   0){
+         this.mensajeError.push("Cantidad no puede ser menor o igual a cero");
+      }
+        if(!this.fillCrearOrdenCompra.cCantidad){
+         this.mensajeError.push("Cantidad es campo obligatorio");
+      }
+
 
       if (this.mensajeError.length) {
         this.error = 1;

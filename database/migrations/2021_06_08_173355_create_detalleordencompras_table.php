@@ -20,7 +20,8 @@ class CreateDetalleordencomprasTable extends Migration
             $table->foreign('ordencompras_id')->references('id')->on('ordencompras');
             $table->unsignedBigInteger('producto_id')->required();
             $table->foreign('producto_id')->references('id')->on('producto');
-            $table->integer('cantidad')->required();
+            $table->decimal('cantidad',8,1)->required();
+            //$table->integer('cantidad')->required();
             $table->integer('cantidadKardex');
             $table->unsignedBigInteger('unidmedida_id')->required();
             $table->foreign('unidmedida_id')->references('id')->on('unidmedida');

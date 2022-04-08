@@ -29,10 +29,11 @@ class PapeletaSalidaController extends Controller
 
         DB::beginTransaction();
         try{
-
+           // $formatreq = date("Y-m-d");
             $PapeletaSalida = new Papeletasalida;
             $PapeletaSalida->user_id = $request->nIdUser;
             $PapeletaSalida->fecha = Carbon::parse($request->cfecha)->format('Y-m-d');
+           //$PapeletaSalida->fecha = $formatreq;
             $PapeletaSalida->horasalida = substr($request->tHoraSalida,0,8);
             $PapeletaSalida->horaretorno = substr($request->tHoraRetorno,0,8);
             $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;
