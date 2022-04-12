@@ -207,6 +207,7 @@
                   <thead>
                     <tr>
                       <th>Fecha</th>
+                       <th>Fecha de Salida</th>
                       <th>Vendedor</th>
                       <th>Hora Salida</th>
                       <th>Hora Retorno</th>
@@ -222,6 +223,7 @@
                     >
                       <!-- <td>{{ item.fecha | moment("DD - MM - Y") }}</td> -->
                       <td> {{item.created_at.substring(0,10) | moment("DD - MM - Y") }}</td>
+                      <td>{{ item.fecha | moment("DD - MM - Y") }}</td>
                       <td> {{item.user.fullname}}</td>
                       <td v-text="item.horasalida"></td>
                       <td v-text="item.horaretorno"></td>
