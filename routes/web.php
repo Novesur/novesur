@@ -325,6 +325,10 @@ Route::get('/administracion/papeletasalida/getListarCliente', 'Administracion\Pa
 Route::post('/administracion/papeletasalida/AddTempClient', 'Administracion\PapeletaSalidaController@AddTempClient');
 Route::post('/administracion/papeletasalida/CleanTempClient', 'Administracion\PapeletaSalidaController@CleanTempClient');
 Route::post('/administracion/papeletasalida/EliminarClientTemp', 'Administracion\PapeletaSalidaController@EliminarClientTemp');
+Route::post('/administracion/papeletasalida/ObservacionUpdate', 'Administracion\PapeletaSalidaController@ObservacionUpdate');
+
+
+
 //REPORTE EXCEL
 Route::post('/operacion/papeletaSalida/export', 'Administracion\PapeletaSalidaController@export');
 
