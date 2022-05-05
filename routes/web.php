@@ -149,7 +149,7 @@ Route::get('/administracion/ventas/getListarStockProds', 'Administracion\VentaCo
 //Clientes
 Route::post('/administracion/cliente/createClientes', 'Administracion\ClienteController@create');
 Route::get('/administracion/cliente/store', 'Administracion\ClienteController@store');
-Route::get('/administracion/cliente/listClientesById', 'Administracion\ClienteController@listPermisosById');
+Route::get('/administracion/cliente/listClientesById', 'Administracion\ClienteController@listClientesById');
 Route::post('/administracion/cliente/EditClientes', 'Administracion\ClienteController@edit');
 Route::get('/administracion/cliente/getListarCliente', 'Administracion\ClienteController@getListarCliente');
 Route::get('/administracion/cliente/listGetClienteVendedor', 'Administracion\ClienteController@listGetClienteVendedor');
@@ -158,8 +158,7 @@ Route::post('/operacion/Cliente/export', 'Administracion\ClienteController@expor
 Route::get('/administracion/cliente/listClientAll', 'Administracion\ClienteController@listClientAll');
 Route::post('/administracion/cliente/consultaRuc', 'Administracion\ClienteController@consultaRuc');
 Route::post('/administracion/cliente/consultaDNI', 'Administracion\ClienteController@consultaDNI');
-
-
+Route::post('/administracion/cliente/UpdateClientVendedor', 'Administracion\ClienteController@UpdateClientVendedor');
 
 
 //DetalleCotizacion
@@ -373,6 +372,21 @@ Route::post('/administracion/menu/setAnularMenu', 'Administracion\MenuController
 Route::get('/administracion/Menu/ListMenuDetallebyDate', 'Administracion\MenuController@ListMenuDetallebyDate');
 Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
 Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
+
+/// Orden de Produccion
+Route::post('/administracion/ordenProduccion/addOrden', 'Administracion\OrdenProduccionController@addOrden');
+Route::get('/administracion/ordenProduccion/eliminarTemporder', 'Administracion\OrdenProduccionController@eliminarTemporder');
+Route::post('/administracion/ordenProduccion/addMObra', 'Administracion\OrdenProduccionController@addMObra');
+Route::get('/administracion/ordenProduccion/CleanMaterialManoOBra', 'Administracion\OrdenProduccionController@CleanMaterialManoOBra');
+Route::post('/administracion/ordenProduccion/addRequerimientos', 'Administracion\OrdenProduccionController@addRequerimientos');
+Route::get('/administracion/ordenProduccion/cleanRequerimientos', 'Administracion\OrdenProduccionController@cleanRequerimientos');
+
+
+
+
+
+
+
 
 
 

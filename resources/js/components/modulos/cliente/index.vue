@@ -12,26 +12,22 @@
       <div class="card">
         <div class="card-header">
           <div class="card-tools">
-
-               <template
-                      v-if="listRolPermisoByUsuario.includes('create.clientes')"
-                    >
-            <router-link class="btn btn-info btn-sm" :to="'/cliente/create'">
-              <i class="fas fa-plus-square"></i> Nuevo Clientes
-            </router-link>
-               </template>
-
-            <template  v-if="listRolPermisoByUsuario.includes('cliente.Excel')">
-                    <button
-                      class="btn  btn-success btn-sm "
-                      @click.prevent="getExcelCliente"
-                    >
-                    <span><i class="fas fa-file-excel"></i> EXCEL</span>
-                    </button>
-
+            <template
+              v-if="listRolPermisoByUsuario.includes('create.clientes')"
+            >
+              <router-link class="btn btn-info btn-sm" :to="'/cliente/create'">
+                <i class="fas fa-plus-square"></i> Nuevo Clientes
+              </router-link>
             </template>
 
-
+            <template v-if="listRolPermisoByUsuario.includes('cliente.Excel')">
+              <button
+                class="btn btn-success btn-sm"
+                @click.prevent="getExcelCliente"
+              >
+                <span><i class="fas fa-file-excel"></i> EXCEL</span>
+              </button>
+            </template>
           </div>
         </div>
         <div class="card-body">
@@ -147,6 +143,7 @@
                   <thead>
                     <tr>
                       <th>Cotizar</th>
+                      <th>Acciones</th>
                       <th>Vendedor</th>
                       <th>Razon Social</th>
                       <th>Ruc</th>
@@ -154,8 +151,6 @@
                       <th>Telefono</th>
                       <th>Celular</th>
                       <th>Email</th>
-
-                      <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -163,9 +158,8 @@
                       v-for="(item, index) in listarClientesPaginated"
                       :key="index"
                     >
-
-                               <td>
-                                    <template
+                      <td>
+                        <template
                           v-if="
                             listRolPermisoByUsuario.includes(
                               'cotizacion.create'
@@ -184,7 +178,23 @@
                         </template>
                       </td>
 
-
+                      <template
+                        v-if="
+                          listRolPermisoByUsuario.includes('cliente.editar')
+                        "
+                      >
+                        <td>
+                          <router-link
+                            class="btn btn-info btn-sm"
+                            :to="{
+                              name: 'cliente.editar',
+                              params: { id: item.id },
+                            }"
+                          >
+                            <i class="fas fa-pencil-alt"></i>Editar
+                          </router-link>
+                        </td>
+                      </template>
                       <td>
                         {{
                           item.user == null
@@ -199,20 +209,6 @@
                       <td v-text="item.telefono"></td>
                       <td v-text="item.celular"></td>
                       <td v-text="item.email"></td>
-                      <template  v-if="listRolPermisoByUsuario.includes('cliente.editar')">
-                      <td>
-                        <router-link
-                          class="btn btn-info btn-sm"
-                          :to="{
-                            name: 'cliente.editar',
-                            params: { id: item.id },
-                          }"
-                        >
-                          <i class="fas fa-pencil-alt"></i>Editar
-                        </router-link>
-
-                      </td>
-                      </template>
                     </tr>
                   </tbody>
                 </table>
@@ -334,7 +330,7 @@ export default {
         });
     },
 
-            getExcelCliente(){
+    getExcelCliente() {
       var url = "/operacion/Cliente/export";
       axios
         .post(
@@ -347,10 +343,7 @@ export default {
         .then((response) => {
           FileSaver.saveAs(response.data, "Clientes.xlsx");
         });
-
-        },
-
-
+    },
 
     nextPage() {
       this.pageNumber++;

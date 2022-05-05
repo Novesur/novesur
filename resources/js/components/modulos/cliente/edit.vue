@@ -128,7 +128,60 @@
                         </div>
                       </div>
                     </div>
+
+                        <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Vendedor Actual</label>
+                        <div class="col-md-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                             readonly
+                            v-model="fillEditarCliente.VendedorActual"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                   <template  v-if="listRolPermisoByUsuario.includes('cliente.traladar')">
+                       <div class="row">
+                           <div class="col-md-6">
+
+                           </div>
+
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label"
+                              >Seleccionar Vendedor</label
+                            >
+                                      <div class="col-md-6">
+                              <el-select
+                                v-model="fillEditarCliente.nIdVendedorfuture"
+                                filterable
+                                placeholder="Seleccione una Vendedor"
+                                :style="{ width: '350px' }"
+
+                                clearable
+                              >
+                                <el-option
+                                  v-for="item in listVendedorFuturo"
+                                  :key="item.id"
+                                  :label="
+                                    item.firstname +
+                                    ' ' +
+                                    item.secondname +
+                                    ' ' +
+                                    item.lastname
+                                  "
+                                  :value="item.id"
+                                >
+                                </el-option>
+                              </el-select>
+                            </div>
+                          </div><span><button type="button" class="btn btn-primary" @click.prevent="setUpdateClienteVendedor(fillEditarCliente.nIdCliente)">Cambiar</button></span>
+                       </div>
+
+                  </template>
                 </form>
               </div>
               <div class="card-footer">
@@ -198,7 +251,13 @@ export default {
         cTelefono: "",
         cCelular: "",
         cEmail: "",
+        VendedorActual :"",
+        nIdVendedorfuture:"",
       },
+      listVendedorFuturo :[],
+          listRolPermisoByUsuario: JSON.parse(
+        sessionStorage.getItem("listRolPermisosByUsuario")
+      ),
       modalShow: false,
       mostrarModal: {
         display: "block",
@@ -213,8 +272,53 @@ export default {
   },
   mounted() {
     this.getClienteById();
+    this.getlistVendedores();
   },
   methods: {
+
+
+    getlistVendedores() {
+      var url = "/administracion/usuario/getListarUsusarios";
+      axios.get(url).then((response) => {
+        this.listVendedorFuturo = response.data;
+        this.getlistCliente();
+      });
+    },
+
+setUpdateClienteVendedor(idClient){
+
+      var url = "/administracion/cliente/UpdateClientVendedor";
+      axios
+        .post(url, {
+          idClient: idClient,
+          nIdVendedorfuture : this.fillEditarCliente.nIdVendedorfuture
+        })
+        .then((response) => {
+          if (response.data.icon == "success") {
+            Swal.fire({
+              position: "center",
+              icon: response.data.icon,
+              title: response.data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+             this.$router.push("/cliente/index");
+          }else{
+                    Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Verifique bien por favor",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+
+          }
+        });
+
+
+},
+
+
     abrirModal() {
       this.modalShow = !this.modalShow;
     },
@@ -254,6 +358,9 @@ export default {
           this.fillEditarCliente.cTelefono = response.data.telefono;
           this.fillEditarCliente.cCelular = response.data.celular;
           this.fillEditarCliente.cEmail = response.data.email;
+          this.fillEditarCliente.VendedorActual = response.data.user.fullname
+
+
         });
     },
 

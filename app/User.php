@@ -16,6 +16,7 @@ class User  extends Authenticatable
     protected $table = 'users';
     protected $dates = ['deleted_at']; //Registramos la nueva columna
 
+
     public function roles()
     {
         return $this->belongsTo(Rol::class);
@@ -35,7 +36,7 @@ class User  extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return "{$this->firstname}  {$this->secondname}  ";
+        return "{$this->firstname}  {$this->secondname}  {$this->lastname} ";
     }
     public function gradousers()
     {

@@ -126,6 +126,7 @@
                       <th>Codigo</th>
                       <th>Fecha</th>
                       <th>Cliente</th>
+                      <th>Vendedor</th>
                       <th>Estado</th>
                       <th>Observacion</th>
                       <th>Accion</th>
@@ -141,7 +142,8 @@
                         {{ item.fecha | moment("YYYY") }} -->
                       </td>
                       <td>{{ item.fecha | moment("DD - MM - Y") }}</td>
-                      <td v-text="item.razonsocial"></td>
+                         <td v-text="item.razonsocial"></td>
+                      <td v-text="item.vendedor"></td>
                       <td v-text="item.estadopedido"></td>
 
 
@@ -456,6 +458,7 @@ export default {
           },
         })
         .then((response) => {
+
           this.listPaginacion = response.data;
           this.inicializarPaginacion();
         });
@@ -549,8 +552,7 @@ BuscaCotizacionList(item) {
           { responseType: "blob" }
         )
         .then((response) => {
-            console.log(this.listPaginacion)
-          FileSaver.saveAs(response.data, "CotizacionProduct.xlsx");
+          FileSaver.saveAs(response.data, "ReporteCotizacion.xlsx");
         });
     },
 

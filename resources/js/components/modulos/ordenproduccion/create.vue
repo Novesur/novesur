@@ -35,7 +35,7 @@
                           >
                           <div class="col-md-10">
                             <el-select
-                              v-model="fillCrearOrdenProduccion.nIdprod"
+                              v-model="fillCrearOrdenProduccion.nIdproduct"
                               style="width: 800px"
                               filterable
                               placeholder="Select"
@@ -67,7 +67,9 @@
                             <input
                               type="text"
                               class="form-control"
+                              v-int
                               v-model="fillCrearOrdenProduccion.cCantprod"
+
                             />
                           </div>
                         </div>
@@ -168,67 +170,63 @@
 
                   <div class="col-md-12">
                     <div class="row">
-                              <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label"
-                          >Fecha Inicio</label
-                        >
-                        <div class="col-md-6">
-                          <el-date-picker
-                            v-model="fillCrearOrdenProduccion.FInicio"
-                            type="date"
-                            placeholder="Indique la fecha"
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label"
+                            >Fecha Inicio</label
                           >
-                          </el-date-picker>
-                        </div>
-                      </div>
-                    </div>
-
-
-
-                    <div class="col-md-6">
                           <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label"
-                          >Fecha Final</label
-                        >
+                            <el-date-picker
+                              v-model="fillCrearOrdenProduccion.FInicio"
+                              type="date"
+                              placeholder="Indique la fecha"
+                            >
+                            </el-date-picker>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
                         <div class="col-md-6">
-                          <el-date-picker
-                            v-model="fillCrearOrdenProduccion.FFinal"
-                            type="date"
-                            placeholder="Indique la fecha"
-                          >
-                          </el-date-picker>
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label"
+                              >Fecha Final</label
+                            >
+                            <div class="col-md-6">
+                              <el-date-picker
+                                v-model="fillCrearOrdenProduccion.FFinal"
+                                type="date"
+                                placeholder="Indique la fecha"
+                              >
+                              </el-date-picker>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                    </div>
-
-                    </div>
                   </div>
 
-
-                       <div class="col-md-12">
+                  <div class="col-md-12">
                     <div class="row">
-                              <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label"
-                          >Duracion</label
-                        >
-                        <div class="col-md-3">
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="fillCrearOrdenProduccion.cDuracion"
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label"
+                            >Duracion</label
+                          >
+                          <div class="col-md-3">
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-model="fillCrearOrdenProduccion.cDuracion"
 
-                          />
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                    </div>
                   </div>
+
+                  <!-- INICIO  DE REQUERIMIENTOS DE MATERIALES -->
 
                   <div class="container-fluid">
                     <form role="form">
@@ -236,7 +234,9 @@
                         <div class="col-md-12">
                           <div class="card card-primary">
                             <div class="card-header">
-                              <h3 class="card-title">REQUERIMIENTOS DE MATERIALES</h3>
+                              <h3 class="card-title">
+                                REQUERIMIENTOS DE MATERIALES
+                              </h3>
                             </div>
                             <div class="card-body">
                               <div class="form-group row">
@@ -246,7 +246,7 @@
 
                                 <div class="col-md-10">
                                   <el-select
-                                    v-model="fillCrearOrdenProduccion.nIdprod"
+                                    v-model="fillCrearOrdenProduccion.nIdmaterial"
                                     style="width: 90%"
                                     filterable
                                     placeholder="Select"
@@ -273,10 +273,10 @@
                                   <input
                                     type="text"
                                     class="form-control"
-                                    v-model="fillCrearOrdenProduccion.cCantidad"
+                                    v-int
+                                    v-model="fillCrearOrdenProduccion.cCantMaterial"
                                   />
                                 </div>
-
                               </div>
                             </div>
                           </div>
@@ -290,14 +290,14 @@
                 <div class="row">
                   <div class="col-md-4 offset-4">
                     <button
-                      class="btn btn-flat btn-info btnWidth"
-                      @click.prevent="setRegistrarPIngreso"
+                      class="btn btn-flat btn-primary btnWidth"
+                      @click.prevent="setAddPMaterial"
                     >
                       Agregar
                     </button>
                     <button
                       class="btn btn-flat btn-default btnWidth"
-                      @click.prevent="setResetCampos"
+                      @click.prevent="setCleanMaterial"
                     >
                       Limpiar
                     </button>
@@ -306,7 +306,7 @@
               </div>
 
               <!--  Bandeja de Resultados -->
-              <div class="card card-info">
+              <div class="card card-primary">
                 <div class="card-header">
                   <h3 class="card-title">Bandeja de Resultados</h3>
                 </div>
@@ -327,7 +327,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, index) in listartempOrder" :key="index">
+                      <tr v-for="(item, index) in listartempProduccion" :key="index">
                         <td v-text="item.codigo"></td>
                         <td v-text="item.cantidad"></td>
 
@@ -350,12 +350,12 @@
                 </div>
               </div>
 
-              <div class="card-footer">
+              <!--         <div class="card-footer">
                 <div class="row">
                   <div class="col-md-4 offset-4">
                     <button
                       class="btn btn-flat btn-info btnWidth"
-                      @click.prevent="setGrabarOrderCompra"
+                      @click.prevent="setGrabarOrdenProduccion"
                     >
                       Guardar
                     </button>
@@ -367,37 +367,277 @@
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        class="modal fade"
-        :class="{ show: modalShow }"
-        :style="modalShow ? mostrarModal : ocultarModal"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Sistemas Novesur</h5>
-              <button class="close" @click="abrirModal"></button>
+      <!-- FIN   DE REQUERIMIENTOS DE MATERIALES -->
+
+      <!-- INICIO DE REQUERIMIENTOS MANO DE OBRA -->
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="col-md-12">
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">
+                  REQUERIMIENTOS MANO DE OBRA (DIAS, HORAS, HOMBRES)
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label"
+                    >PERSONAL</label
+                  >
+
+                  <div class="col-md-6">
+                <input
+                                    type="text"
+                                    class="form-control"
+                                    v-model="fillCrearOrdenProduccion.cPersonal"
+                                  />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label">DIAS</label>
+                  <div class="col-md-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="fillCrearOrdenProduccion.cDiasMObra"
+                      v-int
+                    />
+                  </div>
+
+
+                </div>
+
+
+                       <div class="form-group row">
+                  <label class="col-md-2 col-form-label">HORAS</label>
+                  <div class="col-md-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="fillCrearOrdenProduccion.cHorasMObra"
+                      v-int
+                    />
+                  </div>
+                </div>
+
+
+              </div>
             </div>
-            <div class="modal-body">
-              <div
-                class="callout callout-danger"
-                style="padding: 5px"
-                v-for="(item, index) in mensajeError"
-                :key="index"
-                v-text="item"
-              ></div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" @click="abrirModal">
-                Cerrar
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-4 offset-4">
+              <button
+                class="btn btn-flat btn-success btnWidth"
+                @click.prevent="setAddMObra"
+              >
+                Agregar
+              </button>
+              <button
+                class="btn btn-flat btn-default btnWidth"
+                @click.prevent="setCleanManoObra"
+              >
+                Limpiar
               </button>
             </div>
+          </div>
+        </div>
+
+        <!--  Bandeja de Resultados -->
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Bandeja de Resultados</h3>
+          </div>
+
+          <div class="card-body table-responsive">
+            <table
+              class="table table-hover table-head-fixed text-nowrap projects"
+            >
+              <thead>
+                <tr>
+                  <th>Personal</th>
+                  <th>Días</th>
+                  <th>Horas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in listartempMobra" :key="index">
+                  <td v-text="item.personal"></td>
+                  <td v-text="item.dias"></td>
+                  <td v-text="item.horas"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIN DE REQUERIMIENTOS MANO DE OBRA -->
+
+      <!-- INICIO DE OTROS REQUERIMIENTOS -->
+
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="col-md-12">
+            <div class="card">
+              <div
+                class="card-header"
+                style="background-color: #9b59b6; color: white"
+              >
+                <h3 class="card-title">OTROS REQUERIMIENTOS</h3>
+              </div>
+              <div class="card-body">
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label"
+                    >DESCRIPCION</label
+                  >
+
+                  <div class="col-md-10">
+                     <input
+                      type="text"
+                      class="form-control"
+                      v-model="fillCrearOrdenProduccion.cDescripcion"
+                    />
+                  </div>
+                </div>
+                  <div class="form-group row">
+                  <label class="col-md-2 col-form-label">DIAS</label>
+                  <div class="col-md-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-int
+                      v-model="fillCrearOrdenProduccion.cDiasReq"
+                    />
+                  </div>
+
+
+                </div>
+
+
+                       <div class="form-group row">
+                  <label class="col-md-2 col-form-label">HORAS</label>
+                  <div class="col-md-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-int
+                      v-model="fillCrearOrdenProduccion.cHorasRequ"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-4 offset-4">
+              <button
+                class="btn btn-flat btnWidth"
+                style="background-color: #9b59b6; color: white"
+                @click.prevent="setAddRequerimientos"
+              >
+                Agregar
+              </button>
+              <button
+                class="btn btn-flat btn-default btnWidth"
+                @click.prevent="setCleanRequerimientos"
+              >
+                Limpiar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!--  Bandeja de Resultados -->
+        <div class="card card-light">
+          <div
+            class="card-header"
+            style="background-color: #9b59b6; color: white"
+          >
+            <h3 class="card-title">Bandeja de Resultados</h3>
+          </div>
+
+          <div class="card-body table-responsive">
+            <table
+              class="table table-hover table-head-fixed text-nowrap projects"
+            >
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th>Días</th>
+                  <th>Horas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in listartempRequerimientos" :key="index">
+                  <td v-text="item.descripcion"></td>
+                  <td v-text="item.dias"></td>
+                  <td v-text="item.horas"></td>
+
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-4 offset-4">
+              <button
+                class="btn btn-flat btn-info btnWidth"
+                @click.prevent="setGrabarOrdenProduccion"
+              >
+                Guardar
+              </button>
+              <button
+                class="btn btn-flat btn-default btnWidth"
+                @click.prevent="eliminarTempitemOrders"
+              >
+                Limpiar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIN DE OTROS REQUERIMIENTOS -->
+
+    <div
+      class="modal fade"
+      :class="{ show: modalShow }"
+      :style="modalShow ? mostrarModal : ocultarModal"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Sistemas Novesur</h5>
+            <button class="close" @click="abrirModal"></button>
+          </div>
+          <div class="modal-body">
+            <div
+              class="callout callout-danger"
+              style="padding: 5px"
+              v-for="(item, index) in mensajeError"
+              :key="index"
+              v-text="item"
+            ></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" @click="abrirModal">
+              Cerrar
+            </button>
           </div>
         </div>
       </div>
@@ -409,34 +649,39 @@
 export default {
   data() {
     return {
-
-
-
-
       fillCrearOrdenProduccion: {
         nIdProveedor: this.$attrs.id,
-        cCodProduct: "",
+        nIdproduct: "",
         cReferencia: "",
         cDocumento: "",
         cFechaEmision: "",
         cCantstock: "",
         cRSocial: "",
         cRuc: "",
-        nIdprod: "",
-
+        nIdmaterial: "",
+        cCantMaterial:"",
         cCantidad: "",
         cCantprod: "",
         nIdTipoPago: "",
         nIdTipoMoneda: "",
         nIdUser: sessionStorage.getItem("iduser"),
-        FInicio:"",
-        FFinal:"",
-        cDuracion:"",
+        FInicio: "",
+        FFinal: "",
+        cDuracion: "",
+        cPersonal:"",
+        cDiasMObra:"",
+        cHorasMObra:"",
+        cDescripcion:"",
+        cDiasReq: "",
+        cHorasRequ : "",
+
       },
 
       listUnidMed: [],
       listProd: [],
-      listartempOrder: [],
+      listartempProduccion: [],
+      listartempMobra:[],
+      listartempRequerimientos:[],
       listDescripPago: [
         {
           value: "1",
@@ -497,6 +742,52 @@ export default {
         });
     },
 
+    setAddMObra(){
+
+     var url = "/administracion/ordenProduccion/addMObra";
+      axios
+        .post(url, {
+          cPersonal: this.fillCrearOrdenProduccion.cPersonal,
+          cDiasMObra: this.fillCrearOrdenProduccion.cDiasMObra,
+          cHorasMObra : this.fillCrearOrdenProduccion.cHorasMObra
+        })
+        .then((response) => {
+         this.listartempMobra = response.data.datos;
+         this.setcleanListMObra();
+
+        });
+    },
+
+    setcleanListMObra(){
+      this.fillCrearOrdenProduccion.cPersonal ='',
+      this.fillCrearOrdenProduccion.cDiasMObra =''
+      this.fillCrearOrdenProduccion.cHorasMObra =''
+    },
+
+
+
+    setAddRequerimientos(){
+       var url = "/administracion/ordenProduccion/addRequerimientos";
+      axios
+        .post(url, {
+          cDescripcion: this.fillCrearOrdenProduccion.cDescripcion,
+          cDiasReq: this.fillCrearOrdenProduccion.cDiasReq,
+          cHorasRequ : this.fillCrearOrdenProduccion.cHorasRequ
+
+        })
+        .then((response) => {
+         this.listartempRequerimientos = response.data.datos;
+         this.setLimpiaRequerimientos();
+        });
+    },
+
+    setLimpiaRequerimientos(){
+      this.fillCrearOrdenProduccion.cDescripcion = '',
+      this.fillCrearOrdenProduccion.cDiasReq = '',
+      this.fillCrearOrdenProduccion.cHorasRequ = ''
+
+    },
+
     getListarByProveedor() {
       var url = "/administracion/proveedor/getListarProveedorById";
       axios
@@ -532,14 +823,13 @@ export default {
       axios
         .get(url, {
           params: {
-            nIdprod: this.fillCrearOrdenProduccion.nIdprod,
+            nIdmaterial: this.fillCrearOrdenProduccion.nIdmaterial,
           },
         })
         .then((response) => {
           this.listProd = response.data;
         });
     },
-
 
     limpiarCriteriosBsq() {
       this.fillCrearOrdenProduccion.cCodProduct = "";
@@ -552,15 +842,16 @@ export default {
       this.setAddPMaterial();
     },
 
-    setGrabarOrderCompra() {
+    setGrabarOrdenProduccion() {
       var url = "/administracion/OrdenServicio/create";
       axios
         .post(url, {
-          cFechaEmision: this.fillCrearOrdenProduccion.cFechaEmision,
-          cReferencia: this.fillCrearOrdenProduccion.cReferencia,
-          nIdProveedor: this.fillCrearOrdenProduccion.nIdProveedor,
-          nIdTipoPago: this.fillCrearOrdenProduccion.nIdTipoPago,
-          nIdTipoMoneda: this.fillCrearOrdenProduccion.nIdTipoMoneda,
+          nIdproduct : this.fillCrearOrdenProduccion.nIdproduct,
+          cCantprod : this.fillCrearOrdenProduccion.cCantprod,
+          cRuc : this.fillCrearOrdenProduccion.cRuc,
+
+
+
           nIdUser: this.fillCrearOrdenProduccion.nIdUser,
         })
         .then((response) => {
@@ -583,16 +874,15 @@ export default {
       this.error = 0;
       this.mensajeError = [];
 
-      if (!this.fillCrearOrdenProduccion.cCodProduct) {
-        this.mensajeError.push("El campo nombre es obligatorio");
+      if (!this.fillCrearOrdenProduccion.nIdmaterial) {
+        this.mensajeError.push("El campo material es obligatorio");
       }
-       if(this.fillCrearOrdenProduccion.cCantidad <=   0){
-         this.mensajeError.push("Cantidad no puede ser menor o igual a cero");
+      if (this.fillCrearOrdenProduccion.cCantidad <= 0) {
+        this.mensajeError.push("Cantidad no puede ser menor o igual a cero");
       }
-        if(!this.fillCrearOrdenProduccion.cCantidad){
-         this.mensajeError.push("Cantidad es campo obligatorio");
+      if (!this.fillCrearOrdenProduccion.cCantidad) {
+        this.mensajeError.push("Cantidad es campo obligatorio");
       }
-
 
       if (this.mensajeError.length) {
         this.error = 1;
@@ -601,19 +891,15 @@ export default {
       return this.error;
     },
     setAddPMaterial() {
-      var url = "/administracion/ordenCompra/addOrden";
+      var url = "/administracion/ordenProduccion/addOrden";
       axios
         .post(url, {
-          nIdprod: this.fillCrearOrdenProduccion.nIdprod,
-
-          cCantidad: this.fillCrearOrdenProduccion.cCantidad,
-
-          CestadoDet: this.fillCrearOrdenProduccion.CestadoDet,
-          cPUnit: this.fillCrearOrdenProduccion.cPUnit,
+          nIdmaterial: this.fillCrearOrdenProduccion.nIdmaterial,
+          cCantMaterial: this.fillCrearOrdenProduccion.cCantMaterial,
         })
         .then((response) => {
-          this.listartempOrder = response.data.datos;
-          this.setLimpiaCampos();
+         this.listartempProduccion = response.data.datos;
+          this.setLimpiaMaterial();
 
           if (response.data.message == "Ya fue agregado anteriormente") {
             Swal.fire({
@@ -627,24 +913,57 @@ export default {
         });
     },
 
-    setLimpiaCampos() {
-      this.fillCrearOrdenProduccion.nIdprod = null;
-      this.fillCrearOrdenProduccion.cCantidad = "";
+    setLimpiaMaterial(){
+      this.fillCrearOrdenProduccion.nIdmaterial='',
+      this.fillCrearOrdenProduccion.cCantMaterial = ''
+    },
 
+
+
+    setLimpiaCampos() {
+      this.fillCrearOrdenProduccion.nIdmaterial = null;
+      this.fillCrearOrdenProduccion.cCantidad = "";
     },
 
     setResetCampos() {
-      this.fillCrearOrdenProduccion.nIdprod = null;
+      this.fillCrearOrdenProduccion.nIdmaterial = null;
       this.fillCrearOrdenProduccion.cCantidad = "";
 
       this.fillCrearOrdenProduccion.cReferencia = "";
       this.fillCrearOrdenProduccion.cDocumento = "";
     },
 
+    setCleanMaterial(){
+           var url = "/administracion/ordenProduccion/eliminarTemporder";
+      axios.get(url, {}).then((response) => {
+        this.listartempProduccion = response.data.datos;
+      this.setLimpiaMaterial()
+      });
+    },
+
+
+
+    setCleanManoObra(){
+           var url = "/administracion/ordenProduccion/CleanMaterialManoOBra";
+      axios.get(url, {}).then((response) => {
+        this.listartempMobra = response.data.datos;
+         this.setcleanListMObra();
+      });
+    },
+
+       setCleanRequerimientos(){
+           var url = "/administracion/ordenProduccion/cleanRequerimientos";
+      axios.get(url, {}).then((response) => {
+        this.listartempRequerimientos = response.data.datos;
+          this.setCleanRequerimientos();
+      });
+    },
+
+
     setListtemOrders() {
       var url = "/administracion/ordenCompra/ListtempOrden";
       axios.get(url, {}).then((response) => {
-        this.listartempOrder = response.data.datos;
+        this.listartempProduccion = response.data.datos;
       });
     },
 

@@ -8,6 +8,7 @@ use App\Cliente;
 use App\Cotizacion;
 use App\User;
 use App\Exports\ClientExport;
+use Facade\FlareClient\Http\Client;
 use Illuminate\Support\Facades\Http;
 
 class ClienteController extends Controller
@@ -101,10 +102,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function listPermisosById(Request $request)
+    public function listClientesById(Request $request)
     {
 
-        $dato = Cliente::where('id', $request->nIdCliente)
+        $dato = Cliente::with('user')->where('id', $request->nIdCliente)
             ->orWhere('ruc', $request->cRuc)->first();
         return $dato;
     }
@@ -201,6 +202,17 @@ class ClienteController extends Controller
         $DNI = Http::get($ruta) ;
         $dato  = $DNI->json();
         return $dato;
+
+    }
+
+    public function UpdateClientVendedor(Request $request){
+        $cliente = Cliente::find($request->idClient);
+        if($cliente){
+            $cliente->usuario_id = $request->nIdVendedorfuture;
+            $cliente->save();
+            return response()->json(['message' => 'Cliente con usuario Actualizado', 'icon' => 'success'], 200);
+        }
+
 
     }
 }

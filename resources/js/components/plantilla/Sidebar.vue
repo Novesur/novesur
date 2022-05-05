@@ -244,7 +244,7 @@
                 <template v-if="listPermisos.includes('consulta.ventas')">
                   <router-link class="nav-link" :to="'/cotizacion/list'">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Consulta de Ventas</p>
+                    <p>Consulta de Cotizaciones</p>
                   </router-link>
                 </template>
               </li>

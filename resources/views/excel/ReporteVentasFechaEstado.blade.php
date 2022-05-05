@@ -15,10 +15,8 @@
             <th><b>Nro</b></th>
             <th><b>Fecha</b></th>
             <th><b>Cliente</b></th>
+             <th><b>Vendedor</b></th>
             <th><b>Estado</b></th>
-
-
-
         </tr>
         </thead>
         <tbody>
@@ -36,6 +34,7 @@
                 <td>{{$data->fecha}}</td>
 
                 <td>{{$data->clienteNombre}}</td>
+                 <td>{{$data->vendedor}}</td>
                 <td>{{$data->estadopedido}}</td>
 
 

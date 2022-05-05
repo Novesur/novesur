@@ -27,7 +27,7 @@
               <div class="card-body">
                 <form role="form">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                       <div class="form-group row">
                         <label class="col-md-2 col-form-label">Nombre</label>
                         <div class="col-md-9">
@@ -35,25 +35,46 @@
                             type="text"
                             class="form-control"
                             v-model="fillRegistrarProveedor.cNombre"
+                              :disabled="true"
                           />
                         </div>
                       </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                       <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Ruc</label>
+                        <label class="col-md-2 col-form-label">Ruc o DNI</label>
                         <div class="col-md-5">
                           <input
                             type="text"
                             class="form-control"
                             v-model="fillRegistrarProveedor.cRuc"
-                            v-int
                             :maxlength="11"
+                             :disabled="disabledbtnRuc"
                           />
                         </div>
                       </div>
+
                     </div>
+
+                    <div class="col-md-2">
+                         <div class="input-group">
+                             <span >
+                         <button
+                                  class="btn btn-success btn-sm"
+                                  @click.prevent="consultaRuc"
+                                >
+                                  Buscar Por Ruc
+                                </button>
+                                <button
+                                  class="btn btn-primary btn-sm"
+                                  @click.prevent="consultaDNI"
+                                >
+                                  Buscar Por DNI
+                                </button>
+                                </span >
+                    </div >
+                         </div>
                   </div>
 
                   <div class="row">
@@ -245,6 +266,75 @@ export default {
     };
   },
   methods: {
+
+    consultaRuc() {
+      var url = "/administracion/cliente/consultaRuc";
+      axios
+        .post(url, {
+          cRuc: this.fillRegistrarProveedor.cRuc,
+        })
+        .then((response) => {
+          if (response.data.success == false) {
+            this.estadobutton = true;
+            (this.fillRegistrarProveedor.cRuc = ""),
+              (this.fillRegistrarProveedor.cDireccion = "");
+
+            Swal.fire({
+              position: "center",
+              icon: "info",
+              title: "Ruc no encontrado o numero equivocado",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+             this.estadobutton = true;
+          } else {
+            (this.fillRegistrarProveedor.cNombre = response.data.razonSocial),
+              (this.fillRegistrarProveedor.cDireccion = response.data.direccion),
+              (this.estadobutton = false);
+            this.disabledbtnRuc = true;
+          }
+        });
+    },
+
+    consultaDNI() {
+      var url = "/administracion/cliente/consultaDNI";
+      axios
+        .post(url, {
+          cRuc: this.fillRegistrarProveedor.cRuc,
+        })
+        .then((response) => {
+          if (response.data.success == false) {
+            this.estadobutton = true;
+            (this.fillRegistrarProveedor.cRSocial = ""),
+              (this.fillRegistrarProveedor.cDireccion = "");
+
+            Swal.fire({
+              position: "center",
+              icon: "info",
+              title: "DNI no encontrado o numero equivocado",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+         this.estadobutton = false;
+          } else {
+            (this.fillRegistrarProveedor.cNombre =
+              response.data.nombres +
+              " " +
+              response.data.apellidoPaterno +
+              " " +
+              response.data.apellidoMaterno),
+              (this.fillRegistrarProveedor.cDireccion = response.data.direccion);
+            this.estadobutton = false;
+            this.disabledbtnRuc = true;
+          }
+        });
+    },
+
+
+
+
+
+
     abrirModal() {
       this.modalShow = !this.modalShow;
     },
@@ -258,6 +348,7 @@ export default {
       this.fillRegistrarProveedor.cCuentaNro1 = "";
       this.fillRegistrarProveedor.cCuentaNro2 = "";
       this.fillRegistrarProveedor.cCuentaNro3 = "";
+         this.disabledbtnRuc = false;
     },
     limpiarBandejaProveedor() {
       this.listProveedor = [];
