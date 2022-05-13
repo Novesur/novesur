@@ -10,6 +10,7 @@ import VueCurrencyFilter from 'vue-currency-filter'
 
 
 
+
 window.Vue.use(ElementUI,{ locale });
 window.Vue.use(onlyInt);
 window.Vue.use(require('vue-moment'));

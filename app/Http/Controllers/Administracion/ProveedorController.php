@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administracion;
 
+use App\Exports\ProveedorExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Proveedor;
@@ -101,6 +102,13 @@ class ProveedorController extends Controller
     public function ListProveedor(){
         $dato = Proveedor::orderBy('nombre','ASC')->get();
         return $dato;
+    }
+
+    public function export(Request $request)
+    {
+
+        $listProveedor = json_decode($request->params['listProveedor']);
+        return (new ProveedorExport)->setGenerarExcel($listProveedor)->download('invoices.xlsx');
     }
 
 }

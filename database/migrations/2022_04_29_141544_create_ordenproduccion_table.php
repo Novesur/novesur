@@ -19,11 +19,11 @@ class CreateOrdenproduccionTable extends Migration
             $table->unsignedBigInteger('producto_id')->required();
             $table->foreign('producto_id')->references('id')->on('producto');
             $table->integer('cantidad')->required();
+            $table->integer('stock')->nullable();
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('cliente');
             $table->date('fechainicio')->required();
             $table->date('fechafinal')->required();
-            $table->integer('duracion')->required();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
            //  $table->unsignedBigInteger('material_ordenproduc_id');

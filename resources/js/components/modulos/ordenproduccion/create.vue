@@ -153,9 +153,9 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Empresa</label>
+                        <label class="col-md-1 col-form-label">Empresa</label>
                         <div class="col-md-9">
                           <input
                             type="text"
@@ -180,6 +180,8 @@
                               v-model="fillCrearOrdenProduccion.FInicio"
                               type="date"
                               placeholder="Indique la fecha"
+                                  format="dd/MM/yyyy"
+                              value-format="yyyy-MM-dd"
                             >
                             </el-date-picker>
                           </div>
@@ -197,6 +199,8 @@
                                 v-model="fillCrearOrdenProduccion.FFinal"
                                 type="date"
                                 placeholder="Indique la fecha"
+                                format="dd/MM/yyyy"
+                               value-format="yyyy-MM-dd"
                               >
                               </el-date-picker>
                             </div>
@@ -214,16 +218,14 @@
                             >Duracion</label
                           >
                           <div class="col-md-3">
-                            <input
-                              type="text"
-                              class="form-control"
-                              v-model="fillCrearOrdenProduccion.cDuracion"
 
-                            />
+                              <p v-if="calculoFechas">{{ calculoFechas}} Día(s)</p>
+
                           </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
 
                   <!-- INICIO  DE REQUERIMIENTOS DE MATERIALES -->
@@ -596,7 +598,7 @@
             <div class="col-md-4 offset-4">
               <button
                 class="btn btn-flat btn-info btnWidth"
-                @click.prevent="setGrabarOrdenProduccion"
+                @click.prevent="setRegistrarOProduccion"
               >
                 Guardar
               </button>
@@ -708,15 +710,22 @@ export default {
   },
   mounted() {
     this.getListarByProveedor();
-
     this.getListarproductosByName();
-    // this.setListtemOrders();
-    //this.getlistDescricionPago();
     this.getlistTipoCambio();
-    this.fillCrearOrdenProduccion.cFechaEmision = new Date();
+    this.defaultDiaHora();
+    //this.fillCrearOrdenProduccion.FInicio = moment(new Date()).format('YYYY-MM-D');
   },
-  computed: {},
+
+
   methods: {
+
+    defaultDiaHora(){
+      this.fillCrearOrdenProduccion.cDiasReq = 0
+      this.fillCrearOrdenProduccion.cHorasRequ = 0
+      this.fillCrearOrdenProduccion.cDiasMObra = 0
+      this.fillCrearOrdenProduccion.cHorasMObra = 0
+    },
+
     consultaRuc() {
       var url = "/administracion/cliente/consultaRuc";
       axios
@@ -834,27 +843,45 @@ export default {
     limpiarCriteriosBsq() {
       this.fillCrearOrdenProduccion.cCodProduct = "";
     },
-    setRegistrarPIngreso() {
-      if (this.validaPIngreso()) {
+    setRegistrarOProduccion() {
+      if (this.validaOrdenProduccion()) {
         this.modalShow = true;
         return;
       }
-      this.setAddPMaterial();
+      this.setGrabarOrdenProduccion();
     },
 
     setGrabarOrdenProduccion() {
-      var url = "/administracion/OrdenServicio/create";
+      var url = "/administracion/OrdenProduccion/create";
       axios
         .post(url, {
           nIdproduct : this.fillCrearOrdenProduccion.nIdproduct,
           cCantprod : this.fillCrearOrdenProduccion.cCantprod,
+          cCantstock : this.fillCrearOrdenProduccion.cCantstock,
           cRuc : this.fillCrearOrdenProduccion.cRuc,
-
-
-
+          FInicio : this.fillCrearOrdenProduccion.FInicio,
+          FFinal : this.fillCrearOrdenProduccion.FFinal,
           nIdUser: this.fillCrearOrdenProduccion.nIdUser,
+
+       //Requerimientos de Materiales ////
+          nIdmaterial : this.fillCrearOrdenProduccion.nIdmaterial,
+          cCantMaterial : this.fillCrearOrdenProduccion.cCantMaterial,
+       //Fin de Requerimientos de Materiales ////
+
+       //// Requerimientos de Mano de Obra /////
+        cPersonal : this.fillCrearOrdenProduccion.cPersonal,
+        cDiasMObra : this.fillCrearOrdenProduccion.cDiasMObra,
+        cHorasMObra : this.fillCrearOrdenProduccion.cHorasMObra,
+        //// Fin de Requerimientos de Mano de Obra /////
+
+        ///// Otros Requerimientos //////
+            cDescripcion : this.fillCrearOrdenProduccion.cDescripcion,
+            cDiasReq: this.fillCrearOrdenProduccion.cDiasReq,
+            cHorasRequ : this.fillCrearOrdenProduccion.cHorasRequ,
         })
         .then((response) => {
+
+
           Swal.fire({
             position: "center",
             icon: response.data.icon,
@@ -862,20 +889,20 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-
-          this.setResetCampos();
-          this.eliminarTempitemOrders();
+            this.setCleanMaterial();
+            this.setCleanManoObra();
+            this.setCleanRequerimientos();
         });
     },
     abrirModal() {
       this.modalShow = !this.modalShow;
     },
-    validaPIngreso() {
+    validaOrdenProduccion() {
       this.error = 0;
       this.mensajeError = [];
 
-      if (!this.fillCrearOrdenProduccion.nIdmaterial) {
-        this.mensajeError.push("El campo material es obligatorio");
+      if (!this.fillCrearOrdenProduccion.nIdproduct) {
+        this.mensajeError.push("El campo producto es obligatorio");
       }
       if (this.fillCrearOrdenProduccion.cCantidad <= 0) {
         this.mensajeError.push("Cantidad no puede ser menor o igual a cero");
@@ -883,6 +910,23 @@ export default {
       if (!this.fillCrearOrdenProduccion.cCantidad) {
         this.mensajeError.push("Cantidad es campo obligatorio");
       }
+        if (!this.fillCrearOrdenProduccion.cCantstock) {
+        this.mensajeError.push("Stock es campo obligatorio");
+      }
+
+      if (!this.fillCrearOrdenProduccion.FInicio) {
+        this.mensajeError.push("Fecha Inicio es campo obligatorio");
+      }
+
+        if (!this.fillCrearOrdenProduccion.FFinal) {
+        this.mensajeError.push("Fecha Final es campo obligatorio");
+      }
+
+         if (!this.fillCrearOrdenProduccion.nIdTipoPago) {
+        this.mensajeError.push("Tipo de Pago es campo obligatorio");
+      }
+
+
 
       if (this.mensajeError.length) {
         this.error = 1;
@@ -900,6 +944,7 @@ export default {
         .then((response) => {
          this.listartempProduccion = response.data.datos;
           this.setLimpiaMaterial();
+
 
           if (response.data.message == "Ya fue agregado anteriormente") {
             Swal.fire({
@@ -974,6 +1019,15 @@ export default {
       });
     },
   },
+  computed:{
+      calculoFechas(){
+          if (this.fillCrearOrdenProduccion.FFinal != null &&  this.fillCrearOrdenProduccion.FInicio != null){
+
+              let valorfecha =  new Date(this.fillCrearOrdenProduccion.FFinal).getTime()   -  new Date(this.fillCrearOrdenProduccion.FInicio).getTime() ;
+              return valorfecha/86400000
+          }
+      }
+  }
 };
 </script>
 

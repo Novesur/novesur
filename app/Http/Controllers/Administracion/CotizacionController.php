@@ -15,10 +15,8 @@ use App\Exports\CotizacionFechaExport;
 use App\Exports\CotizacionProductExport;
 use App\Exports\CotizacionVendedorExport;
 use App\Exports\ReporteVentasFechaEstadoExport;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
 use PDF;
 
 

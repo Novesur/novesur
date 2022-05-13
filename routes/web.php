@@ -77,6 +77,9 @@ Route::post('/administracion/proveedor/setEditarProveedor', 'Administracion\Prov
 Route::get('/administracion/KardexDetalle/listProveedor', 'Administracion\KardexDetalleController@listProveedor');
 Route::get('/administracion/proveedor/ListarProveedorByRuc', 'Administracion\ProveedorController@ListarProveedorByRuc');
 Route::get('/administracion/proveedor/ListProveedor', 'Administracion\ProveedorController@ListProveedor');
+Route::post('/operacion/Proveedor/export', 'Administracion\ProveedorController@export');
+
+
 
 /////  Kardex
 Route::get('/administracion/kardex/getListarKardexByProduct', 'Administracion\KardexController@index');
@@ -325,7 +328,7 @@ Route::post('/administracion/papeletasalida/AddTempClient', 'Administracion\Pape
 Route::post('/administracion/papeletasalida/CleanTempClient', 'Administracion\PapeletaSalidaController@CleanTempClient');
 Route::post('/administracion/papeletasalida/EliminarClientTemp', 'Administracion\PapeletaSalidaController@EliminarClientTemp');
 Route::post('/administracion/papeletasalida/ObservacionUpdate', 'Administracion\PapeletaSalidaController@ObservacionUpdate');
-
+Route::post('/administracion/papeletasalida/getlistClientxIndex', 'Administracion\PapeletaSalidaController@getlistClientxIndex');
 
 
 //REPORTE EXCEL
@@ -380,6 +383,10 @@ Route::post('/administracion/ordenProduccion/addMObra', 'Administracion\OrdenPro
 Route::get('/administracion/ordenProduccion/CleanMaterialManoOBra', 'Administracion\OrdenProduccionController@CleanMaterialManoOBra');
 Route::post('/administracion/ordenProduccion/addRequerimientos', 'Administracion\OrdenProduccionController@addRequerimientos');
 Route::get('/administracion/ordenProduccion/cleanRequerimientos', 'Administracion\OrdenProduccionController@cleanRequerimientos');
+Route::post('/administracion/OrdenProduccion/create', 'Administracion\OrdenProduccionController@create');
+
+
+
 
 
 

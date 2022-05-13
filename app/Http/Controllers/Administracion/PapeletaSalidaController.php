@@ -84,6 +84,10 @@ class PapeletaSalidaController extends Controller
         if ($request->nIdMotivo == null && $request->dFechafin == null &&  $request->nIdVendedor == null && $request->dFechainicio == null) {
             $dato = Papeletasalida::with('user', 'estadoPapeletaSalida', 'motivopapeletasalida')->get();
             return $dato;
+
+          /*   $dato =  ClientsPapeletaSalida::with('papeletasalida','cliente','papeletasalida.user','papeletasalida.estadoPapeletaSalida', 'papeletasalida.motivopapeletasalida')
+            ->has('papeletasalida')->get(); */
+            return $dato;
         }
         if ($request->nIdMotivo == null &&  $request->nIdVendedor == null) {
             $dato = Papeletasalida::with('user', 'estadoPapeletaSalida', 'motivopapeletasalida')->whereBetween('fecha', [$dFechainicio, $dFechafin])->get();
@@ -226,6 +230,12 @@ class PapeletaSalidaController extends Controller
               $papeletasalida->save();
           }
       }
+
+    }
+
+    public function getlistClientxIndex(Request $request){
+        $dato = ClientsPapeletaSalida::with('cliente')->where('papeletasalida_id' , $request->papeletaId)->get();
+        return $dato;
 
     }
 }

@@ -25,7 +25,7 @@ class CreatePapeletasalidaTable extends Migration
             $table->unsignedBigInteger('estadopapeletasalida_id');
             $table->foreign('estadopapeletasalida_id')->references('id')->on('estadopapeletasalida');
             $table->string('fundamento',150)->required();
-            $table->string('observacion',250)->required();
+            $table->string('observacion',250)->nullable();
             $table->timestamps();
         });
     }

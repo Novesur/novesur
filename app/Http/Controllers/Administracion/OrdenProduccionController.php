@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers\Administracion;
 
+use App\Cliente;
 use App\Http\Controllers\Controller;
+use App\MaterialOrdenProduccion;
+use App\OrdenProduccion;
+use App\OtrosRequerimientosOrdenProduc;
 use App\Producto;
+use App\RequerimientoManoObra;
 use App\TempMaterialOrdenProd;
 use App\TempRequerimientos;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OrdenProduccionController extends Controller
 {
@@ -76,7 +83,71 @@ class OrdenProduccionController extends Controller
 
     public function create(Request $request){
 
+        $codclient = Cliente::where('ruc', $request->cRuc)->first();
 
+        if($codclient){
+            $idclient = $codclient->id;
+            $stock = 0;
+        }else{
+            $idclient = '202';
+            $stock = $request->cCantstock;
+        }
+        $dateIni = Carbon::parse($request->FInicio)->format('Y-m-d');
+        $dateFinal = Carbon::parse($request->FFinal)->format('Y-m-d');
+
+        $ordenProduccion = new OrdenProduccion();
+        $ordenProduccion->producto_id = $request->nIdproduct;
+        $ordenProduccion->cantidad = $request->cCantprod;
+        $ordenProduccion->cliente_id = $idclient;
+        $ordenProduccion->fechainicio = $dateIni;
+        $ordenProduccion->fechafinal = $dateFinal;
+        $ordenProduccion->user_id = $request->nIdUser;
+        $ordenProduccion->save();
+
+
+
+        $MaterialOrdenProd = Session::get('materialOrdenprod');
+        $allMaterialOP = $MaterialOrdenProd->map(function($MaterialOP) use ($ordenProduccion){
+            return[
+                'ordenproduccion_id' => $ordenProduccion->id,
+                'producto_id' => $MaterialOP->producto_id,
+                'cantidad' => $MaterialOP->cantidad
+            ];
+        });
+        MaterialOrdenProduccion::insert($allMaterialOP->toArray());
+        DB::commit();
+        Session::put('materialOrdenprod', collect([]));
+
+
+
+        $RequerimientoManoObra = Session::get('MaterialManoObra');
+        $allRequerimientoObra = $RequerimientoManoObra->map(function($ReqManoObra)use ($ordenProduccion){
+            return[
+                'ordenproduccion_id' => $ordenProduccion->id,
+                'personal' => $ReqManoObra->personal,
+                'dias' =>  $ReqManoObra->dias,
+                'horas' => $ReqManoObra->horas,
+            ];
+        });
+        RequerimientoManoObra::insert($allRequerimientoObra->toArray());
+        DB::commit();
+        Session::put('MaterialManoObra', collect([]));
+
+
+
+        $OtrosRequerimientos = Session::get('Requerimientos');
+        $allOtrosReque =  $OtrosRequerimientos->map(function($otrosReque) use ($ordenProduccion){
+            return[
+                'ordenproduccion_id' => $ordenProduccion->id,
+                'descripcion' => $ordenProduccion->descripcion,
+                'dias' => $ordenProduccion->dias,
+                'horas' => $ordenProduccion->horas,
+
+            ];
+        });
+        OtrosRequerimientosOrdenProduc::insert($allOtrosReque->toArray());
+        DB::commit();
+        Session::put('Requerimientos', collect([]));
 
     }
 }

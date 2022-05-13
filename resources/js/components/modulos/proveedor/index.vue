@@ -15,6 +15,15 @@
             <router-link class="btn btn-info btn-sm" :to="'/proveedor/crear'">
               <i class="fas fa-plus-square"></i> Nuevo Proveedor
             </router-link>
+
+                 <template v-if="listRolPermisoByUsuario.includes('proveedor.Excel')">
+              <button
+                class="btn btn-success btn-sm"
+                @click.prevent="getExcelProveedor"
+              >
+                <span><i class="fas fa-file-excel"></i> EXCEL</span>
+              </button>
+            </template>
           </div>
         </div>
         <div class="card-body">
@@ -182,6 +191,7 @@
 </template>
 
 <script>
+import FileSaver from "file-saver";
 export default {
   data() {
     return {
@@ -190,6 +200,10 @@ export default {
         cRuc: "",
       },
       listProveedor: [],
+      listProveedor: [],
+          listRolPermisoByUsuario: JSON.parse(
+        sessionStorage.getItem("listRolPermisosByUsuario")
+      ),
       pageNumber: 0,
       perPage: 10,
     };
@@ -239,6 +253,20 @@ export default {
         .then((response) => {
           this.inicializarPAginacion();
           this.listProveedor = response.data;
+        });
+    },
+        getExcelProveedor() {
+      var url = "/operacion/Proveedor/export";
+      axios
+        .post(
+          url,
+          {
+            params: { listProveedor: JSON.stringify(this.listProveedor) },
+          },
+          { responseType: "blob" }
+        )
+        .then((response) => {
+          FileSaver.saveAs(response.data, "Proveedor.xlsx");
         });
     },
     nextPage() {

@@ -201,7 +201,7 @@
                           >
                             <thead>
                               <tr>
-                                <th>Fecha</th>
+                                <th >Fecha</th>
                                 <th>Fecha de Salida</th>
                                 <th>Vendedor</th>
                                 <th>Hora Salida</th>
@@ -211,6 +211,7 @@
                                 <th>Observación</th>
                                 <th>Acción</th>
                               </tr>
+
                             </thead>
                             <tbody>
                               <tr
@@ -218,16 +219,24 @@
                                 :key="index"
                               >
                                 <!-- <td>{{ item.fecha | moment("DD - MM - Y") }}</td> -->
-                                <td>
+                                <td @click.prevent="getlistClientxIndex(item.id )">
                                   {{
                                     item.created_at.substring(0, 10)
                                       | moment("DD - MM - Y")
                                   }}
                                 </td>
-                                <td>
+                                <td @click.prevent="getlistClientxIndex(item.id )">
                                   {{ item.fecha | moment("DD - MM - Y") }}
+
                                 </td>
-                                <td>{{ item.user.fullname }}</td>
+
+
+                                <td @click.prevent="getlistClientxIndex(item.id )">{{ item.user.fullname }}
+
+
+
+                                </td>
+
                                 <td v-text="item.horasalida"></td>
                                 <td v-text="item.horaretorno"></td>
                                 <td
@@ -238,6 +247,7 @@
                                   v-text="item.motivopapeletasalida.nombre"
                                 ></td>
                                 <td v-text="item.observacion"></td>
+
                                 <td>
                                   <button
                                     class="btn btn-primary btn-sm"
@@ -315,7 +325,19 @@
 
                             /> -->
                                 </td>
+
+
                               </tr>
+
+                                        <th >Cliente</th>
+                                <tr >
+                                        <div v-for="(item, index) in listClientxId"
+                                                                        :key="index">
+                                            <td   >{{ item.cliente.razonsocial }}</td>
+
+                                        </div>
+                                 </tr>
+
                             </tbody>
                           </table>
                           <div class="card-footer">
@@ -480,6 +502,7 @@
                                 <td
                                   v-text="item.papeletasalida.user.fullname"
                                 ></td>
+
                                 <td
                                   v-text="item.papeletasalida.horaretorno"
                                 ></td>
@@ -508,6 +531,8 @@
                                   PDF
                                 </button>
                               </tr>
+
+
                             </tbody>
                           </table>
                           <div class="card-footer">
@@ -617,12 +642,14 @@
 
 
 import FileSaver from "file-saver";
+
 export default {
+
+
   data() {
     return {
       fillBsqPapeletaSalida: {
         cNombre: "",
-
         nIdVendedor: "",
         itemid: "",
         dFecha: "",
@@ -638,7 +665,6 @@ export default {
       txtrechazo: {
         margin: 15,
       },
-
       listDetPapeletaSalida: [],
       listModalVendedorAdmin: [],
       listVendedorAdmin: [],
@@ -650,6 +676,7 @@ export default {
       listClient: [],
       listPapeleByVendedor: [],
       listPapeleByClient: [],
+      listClientxId: [],
       listRolPermisoByUsuario: JSON.parse(
         sessionStorage.getItem("listRolPermisosByUsuario")
       ),
@@ -911,6 +938,7 @@ export default {
         })
         .then((response) => {
           this.listPapeleByVendedor = response.data;
+          //console.log(response.data)
         });
     },
 
@@ -940,38 +968,6 @@ export default {
           this.listModalVendedorAdmin = response.data;
         });
     },
-    /*     getlistEstadoPedido(item) {
-      var url = "/administracion/cotizacion/buscaEstado";
-      axios.get(url,{
-          params:{
-              item : item,
-          }
-      }).then((response) => {
-
-        //this.fillBsqPapeletaSalida.nIdtEstadoCoti =  response.data.estadopedido.nombre ;
-       //this.fillBsqPapeletaSalida.nIdtEstadoCoti = response.data.estadopedido_id;
-         this.listPapeleByVendedor = response.data;
-
-      });
-    }, */
-
-    /*     setEditarPedido() {
-      var url = "/administracion/cotizacion/editEstadoCotizacion";
-      axios
-        .post(url, {
-          itemid: this.fillBsqPapeletaSalida.itemid,
-          nIdtEstadoCoti: this.fillBsqPapeletaSalida.nIdtEstadoCoti,
-           cMotivoRechazo: this.fillBsqPapeletaSalida.cMotivoRechazo,
-        })
-        .then((response) => {
-
-            this.fillBsqPapeletaSalida.cMotivoRechazo ="",
-            this.listPapeleByVendedor = response.data;
-           // this.getlistPapeleByVendedor();
-
-
-        });
-    }, */
 
     getPdfPSalidabyVendedor(item) {
       var config = { responseType: "blob" };
@@ -1014,6 +1010,17 @@ export default {
         });
     },
 
+    getlistClientxIndex(papeletaId){
+
+        var url = "/administracion/papeletasalida/getlistClientxIndex";
+        axios.post(url,{
+            papeletaId: papeletaId,
+        }).then((response)=>{
+     console.log(response.data)
+     this.listClientxId  = response.data
+        })
+    },
+
     nextPage() {
       this.pageNumber++;
     },
@@ -1022,6 +1029,7 @@ export default {
     },
     selectPage(page) {
       this.pageNumber = page;
+      this.listClientxId =[]
     },
 
     inicializarPaginacion() {
