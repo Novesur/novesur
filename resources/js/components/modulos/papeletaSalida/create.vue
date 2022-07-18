@@ -64,9 +64,7 @@
                           <div class="col-md-4">
                             <el-time-picker
                               v-model="fillPapeletasalida.tHoraSalida"
-                              :picker-options="{
-                                selectableRange: '08:00:00 - 18:00:00',
-                              }"
+                              :picker-options="rangoFechaPapeleta"
                               placeholder="Ingrese la Hora"
                               format="hh:mm:ss A"
                               value-format="hh:mm:ss A"
@@ -106,6 +104,7 @@
                               placeholder="Ingrese una Fecha"
                               format="dd/MM/yyyy"
                               value-format="yyyy-MM-dd"
+
                             >
                             </el-date-picker>
                           </div>
@@ -284,7 +283,7 @@
                   <div class="col-md-4 offset-4">
                     <button
                       class="btn btn-flat btn-info btnWidth"
-                      @click.prevent="setRegistrarPapeletaSalida"
+                      @click.prevent="cargaRangoHorasPapeleta"
                     >
                       Guardar
                     </button>
@@ -372,6 +371,9 @@ export default {
       ocultarModal: {
         display: "none",
       },
+      rangoFechaPapeleta: {
+           selectableRange: "'08:00:00 - 17:00:00'"
+      },
       error: 0,
       mensajeError: [],
     };
@@ -379,15 +381,46 @@ export default {
   mounted() {
     this.getlistVendedorxUsu();
     this.getListarMotivo();
-    this.setConfigTime();
+   this.setConfigTime();
+  //  this.cargaRangoHorasPapeleta();
 
 
-    this.fillPapeletasalida.cFecha = new Date();
+
+
+    //this.fillPapeletasalida.cFecha = new Date();
   },
   computed: {},
   methods: {
 
+      cargaRangoHorasPapeleta(){
+          const hoy = new Date();
+         // let horaActual = hoy.getHours().toString().padStart(2,'0') + ':' + hoy.getMinutes().toString().padStart(2,'0') + ':' + hoy.getSeconds().toString().padStart(2,'0');
+          let horaSalida = this.fillPapeletasalida.tHoraSalida.toString().substring(16,25)
+          let vHoraSalida = horaSalida.toString().substring(0,2)
+          let vMinSalida = horaSalida.toString().substring(3,5)
 
+
+          //var today  = new Date();
+    /*       var vfecha = today.toLocaleDateString("es");
+             var vfechaPapeleta = this.fillPapeletasalida.cFecha.toLocaleDateString("es") */
+
+          var minHoraASctual = hoy.getHours() * 60 + hoy.getMinutes();
+
+
+
+          var minutosHoraSalida = Number(vHoraSalida) * 60 + Number(vMinSalida);
+
+
+alert(minutosHoraSalida )
+
+                //  alert(minHoraASctual +' - '+ vMinSalida +' - '+ horaSalida)
+
+           //alert(horaActual +' - ' + horaSalida  )
+
+
+
+
+      },
 
       setResetCamposClientTemp(){
                     var url = "/administracion/papeletasalida/CleanTempClient";
@@ -436,8 +469,9 @@ export default {
       },
 
     setConfigTime() {
-      this.fillPapeletasalida.tHoraSalida = "08:00:00 AM";
-      this.fillPapeletasalida.tHoraRetorno = "05:00:00 PM";
+      this.fillPapeletasalida.tHoraSalida = new Date(2016, 9, 10, 8, 0);
+      this.fillPapeletasalida.tHoraRetorno = new Date(2016, 9, 10, 17, 0);
+      this.fillPapeletasalida.cFecha= new Date();
     },
 
     getlistVendedorxUsu() {

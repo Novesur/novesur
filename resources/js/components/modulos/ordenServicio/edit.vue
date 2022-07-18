@@ -212,7 +212,7 @@
                                     type="text"
                                     class="form-control"
                                     v-model="fillEditOrdenServicio.cCantidad"
-                                    v-int
+
                                   />
                                 </div>
 
@@ -412,7 +412,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          v-int
+
                           v-model="fillEditOrdenServicio.cCantidadEdit"
                         />
                       </div>

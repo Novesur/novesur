@@ -145,6 +145,9 @@ Route::post('/administracion/reportes/movimientoxProducto', 'Administracion\Repo
 
 ///  Almacen
 Route::get('/administracion/almacen/listAlmacen', 'Administracion\AlmacenController@index');
+Route::get('/administracion/almacen/AlmacenbyEstado', 'Administracion\AlmacenController@AlmacenbyEstado');
+
+
 
 //Ventas
 Route::get('/administracion/ventas/getListarStockProds', 'Administracion\VentaController@store');
@@ -376,14 +379,85 @@ Route::get('/administracion/Menu/ListMenuDetallebyDate', 'Administracion\MenuCon
 Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
 Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
 
+
+/// Platos Menu
+Route::post('/administracion/Plato/CrearPlatoEntrada', 'Administracion\PlatoController@CrearPlatoEntrada');
+Route::post('/administracion/Plato/CrearPlatoSegundo', 'Administracion\PlatoController@CrearPlatoSegundo');
+Route::post('/administracion/Plato/CrearPlatoExtra', 'Administracion\PlatoController@CrearPlatoExtra');
+Route::get('/administracion/Plato/getListarPEntrada', 'Administracion\PlatoController@getListarPEntrada');
+Route::post('/administracion/Plato/CreateDetallePlato', 'Administracion\PlatoController@CreateDetallePlato');
+Route::post('/administracion/Plato/CrearPlatoSegundo', 'Administracion\PlatoController@CrearPlatoSegundo');
+Route::get('/administracion/Plato/getListarPSegundo', 'Administracion\PlatoController@getListarPSegundo');
+Route::get('/administracion/Plato/getListarPExtra', 'Administracion\PlatoController@getListarPExtra');
+Route::get('/administracion/plato/listEntrada', 'Administracion\PlatoController@listEntrada');
+Route::get('/administracion/plato/listSegundo', 'Administracion\PlatoController@listSegundo');
+Route::get('/administracion/plato/listExtra', 'Administracion\PlatoController@listExtra');
+
+//// Pedido Entrada
+Route::post('/administracion/PedidoEntrada/create', 'Administracion\PedidoEntradaController@create');
+Route::get('/administracion/PedidoEntrada/list', 'Administracion\PedidoEntradaController@list');
+Route::get('/administracion/PedidoEntrada/listNow', 'Administracion\PedidoEntradaController@listNow');
+
+
+
+
+/// Pedido Segundo
+Route::post('/administracion/PedidoSegundo/create', 'Administracion\PedidoSegundoController@create');
+Route::get('/administracion/PedidoSegundo/list', 'Administracion\PedidoSegundoController@list');
+Route::get('/administracion/PedidoSegundo/listNow', 'Administracion\PedidoSegundoController@listNow');
+
+
+/// Pedido Extra
+Route::post('/administracion/PedidoExtra/create', 'Administracion\PedidoExtraController@create');
+Route::get('/administracion/PedidoExtra/list', 'Administracion\PedidoExtraController@list');
+Route::get('/administracion/PedidoExtra/listNow', 'Administracion\PedidoExtraController@listNow');
+
+
 /// Orden de Produccion
-Route::post('/administracion/ordenProduccion/addOrden', 'Administracion\OrdenProduccionController@addOrden');
-Route::get('/administracion/ordenProduccion/eliminarTemporder', 'Administracion\OrdenProduccionController@eliminarTemporder');
-Route::post('/administracion/ordenProduccion/addMObra', 'Administracion\OrdenProduccionController@addMObra');
-Route::get('/administracion/ordenProduccion/CleanMaterialManoOBra', 'Administracion\OrdenProduccionController@CleanMaterialManoOBra');
-Route::post('/administracion/ordenProduccion/addRequerimientos', 'Administracion\OrdenProduccionController@addRequerimientos');
-Route::get('/administracion/ordenProduccion/cleanRequerimientos', 'Administracion\OrdenProduccionController@cleanRequerimientos');
-Route::post('/administracion/OrdenProduccion/create', 'Administracion\OrdenProduccionController@create');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// Informe de Produccion
+Route::post('/administracion/InformeProduccion/CargaInfoProduccion', 'Administracion\InformeProduccionController@CargaInfoProduccion');
+Route::get('/administracion/InformeProduccion/getListReqMatInfoProduc', 'Administracion\InformeProduccionController@getListReqMatInfoProduc');
+Route::get('/administracion/InformeProduccion/getListReqManoObraProduc', 'Administracion\InformeProduccionController@getListReqManoObraProduc');
+Route::get('/administracion/InformeProduccion/getOtrosRequerimientosProduc', 'Administracion\InformeProduccionController@getOtrosRequerimientosProduc');
+Route::get('/administracion/InformeProduccion/list', 'Administracion\InformeProduccionController@list');
+Route::post('/administracion/InformeProduccion/saveReqMateriales', 'Administracion\InformeProduccionController@saveReqMateriales');
+Route::post('/administracion/InformeProduccion/saveOtrosRequerimientos', 'Administracion\InformeProduccionController@saveOtrosRequerimientos');
+Route::post('/administracion/InformeProduccion/saveMObra', 'Administracion\InformeProduccionController@saveMObra');
+Route::post('/administracion/InformeProduccion/DeleteOtrosReque', 'Administracion\InformeProduccionController@DeleteOtrosReque');
+Route::post('/administracion/InformeProduccion/DeleteManodeObra', 'Administracion\InformeProduccionController@DeleteManodeObra');
+Route::post('/administracion/InformeProduccion/DeleteReqMateriales', 'Administracion\InformeProduccionController@DeleteReqMateriales');
+Route::post('/administracion/InformeProduccion/setGenerarInfoProduccionPdf', 'Administracion\InformeProduccionController@setGenerarInfoProduccionPdf');
+
+
+//// Requerimientos de Materiales
+
+Route::post('/administracion/RequerimientoMateriales/create', 'Administracion\RequerimientoMaterialesController@create');
+Route::post('/administracion/RequerimientoMateriales/addOrden', 'Administracion\RequerimientoMaterialesController@addOrden');
+Route::get('/administracion/RequerimientoMateriales/eliminarTemporder', 'Administracion\RequerimientoMaterialesController@eliminarTemporder');
+Route::post('/administracion/RequerimientoMateriales/addMObra', 'Administracion\RequerimientoMaterialesController@addMObra');
+Route::get('/administracion/RequerimientoMateriales/CleanMaterialManoOBra', 'Administracion\RequerimientoMaterialesController@CleanMaterialManoOBra');
+Route::post('/administracion/RequerimientoMateriales/addRequerimientos', 'Administracion\RequerimientoMaterialesController@addRequerimientos');
+Route::get('/administracion/RequerimientoMateriales/cleanRequerimientos', 'Administracion\RequerimientoMaterialesController@cleanRequerimientos');
+Route::get('/administracion/RequerimientoMateriales/list', 'Administracion\RequerimientoMaterialesController@list');
+Route::post('/administracion/RequerimientoMateriales/setGenerarOrderPrduccionPdf', 'Administracion\RequerimientoMaterialesController@setGenerarOrderPrduccionPdf');
+
+
+
 
 
 

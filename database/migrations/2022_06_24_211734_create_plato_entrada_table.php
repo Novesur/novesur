@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenusegundoTable extends Migration
+class CreatePlatoEntradaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateMenusegundoTable extends Migration
      */
     public function up()
     {
-        Schema::create('menusegundo', function (Blueprint $table) {
+        Schema::create('plato_entrada', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',50)->required();
-            $table->date('fecha')->required();
-            $table->char('estado',1)->required();
+            $table->string('nombre',150)->unique()->required();
+            $table->char('estado',1);
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
@@ -29,6 +30,6 @@ class CreateMenusegundoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menusegundo');
+        Schema::dropIfExists('plato_entrada');
     }
 }

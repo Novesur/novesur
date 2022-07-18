@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Administracion;
 
 use App\DetalleMenu;
+use App\DetallePlato;
 use App\Exports\DetalleMenuExport;
 use App\Http\Controllers\Controller;
 use App\Menu;
-use App\MenuEntrada;
-use App\MenuExtra;
-use App\MenuSegundo;
 use App\TipoMenu;
 use App\TipoPlato;
 use Illuminate\Http\Request;
@@ -31,8 +29,10 @@ class MenuController extends Controller
 
     public function create(Request $request)
     {
-        $date = Carbon::now();
+
+        /*        $date = Carbon::now();
         $date = Carbon::parse($request->cFecha)->format('Y-m-d');
+
 
         if ($request->tipoPlato == 1) {
             $menuEntrada = new MenuEntrada();
@@ -59,74 +59,132 @@ class MenuController extends Controller
             $menuExtra->estado = 'P';
             $menuExtra->save();
             return response()->json(['message' => 'Menu Extra agregado', 'icon' => 'success'], 200);
-        }
+        } */
     }
 
     public function createMenu(Request $request)
     {
 
+
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
-        $hora = $date->toTimeString();
+        $hora = $date->format('H:i');
 
         $menu = new Menu();
-        $menu->user_id = $request->nIdUser;
+        $menu->tipomenu_id = $request->nIdTipo;
         $menu->fecha = $fecha;
         $menu->hora = $hora;
-        $menu->observacion = mb_strtoupper($request->cObservacion);
-        $menu->estado = 'E';
+        $menu->user_id = $request->nIdUser;
         $menu->save();
 
-        $detallemenu = new DetalleMenu();
-        $detallemenu->menu_id =  $menu->id;
-
-
-        if ($request->nIdTipoEntrada == null) {
-            $detallemenu->menuentrada_id = 1;
-            $detallemenu->cantEntrada = 0;
-        } else {
-            $detallemenu->menuentrada_id = $request->nIdTipoEntrada;
-            $detallemenu->cantEntrada = $request->numEntrada;
+        ///// SOLO  ENTRADA  //////////
+        if ($request->nIdTipo == 1) {
+            $detalleMenu = new DetalleMenu();
+            $detalleMenu->menu_id = $menu->id;
+            $detalleMenu->cant_entrada = $request->numEntrada;
+            $detalleMenu->plato_entrada_id = $request->numEntrada;
+            $detalleMenu->observacionEntrada = $request->cObsEntrada;
+            $detalleMenu->cant_segundo = 0;
+            $detalleMenu->plato_segundo_id = 1;
+            $detalleMenu->observacionSegundo = NULL;
+            $detalleMenu->cant_extra = 0;
+            $detalleMenu->plato_extra_id = 1;
+            $detalleMenu->observacionExtra = NULL;
+            $detalleMenu->save();
         }
 
 
-        if ($request->nIdTipoSegundo == null) {
-            $detallemenu->menusegundo_id = 1;
-            $detallemenu->cantSegundo = 0;
-        } else {
-            $detallemenu->menusegundo_id = $request->nIdTipoSegundo;
-            $detallemenu->cantSegundo = $request->numSegundo;
-        }
+            ///// SOLO  SEGUNDA  //////////
+            if ($request->nIdTipo == 2) {
+                $detalleMenu = new DetalleMenu();
+                $detalleMenu->menu_id = $menu->id;
+                $detalleMenu->cant_entrada = 0;
+                $detalleMenu->plato_entrada_id = 1;
+                $detalleMenu->observacionEntrada = NULL;
+                $detalleMenu->cant_segundo = $request->numSegundo;
+                $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
+                $detalleMenu->observacionSegundo = $request->cObsSegundo;
+                $detalleMenu->cant_extra = 0;
+                $detalleMenu->plato_extra_id = 1;
+                $detalleMenu->observacionExtra = NULL;
+                $detalleMenu->save();
+            }
+
+            ////// MENU COMPLETO //////////////
+            if ($request->nIdTipo == 3) {
+                $detalleMenu = new DetalleMenu();
+                $detalleMenu->menu_id = $menu->id;
+                $detalleMenu->cant_entrada = $request->numEntrada;
+                $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
+                $detalleMenu->observacionEntrada = $request->cObsEntrada;
+                $detalleMenu->cant_segundo = $request->numSegundo;
+                $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
+                $detalleMenu->observacionSegundo = $request->cObsSegundo;
+                $detalleMenu->cant_extra = 0;
+                $detalleMenu->plato_extra_id = 1;
+                $detalleMenu->observacionExtra = NULL;
+                $detalleMenu->save();
+            }
 
 
-        if ($request->nIdTipoExtra == null) {
-            $detallemenu->menuextra_id = 1;
-            $detallemenu->cantExtra = 0;
-        } else {
-            $detallemenu->menuextra_id = $request->nIdTipoExtra;
-            $detallemenu->cantExtra = $request->numExtra;
-        }
-        $detallemenu->tipomenu_id = $request->nIdTipo;
-        $detallemenu->save();
+            /////  SOLO  EXTRA  ////////
+            if ($request->nIdTipo == 4) {
+                $detalleMenu = new DetalleMenu();
+                $detalleMenu->menu_id = $menu->id;
+                $detalleMenu->cant_entrada = 0;
+                $detalleMenu->plato_entrada_id = 1;
+                $detalleMenu->observacionEntrada = NULL;
+                $detalleMenu->cant_segundo = 0;
+                $detalleMenu->plato_segundo_id = 1;
+                $detalleMenu->observacionSegundo = NULL;
+                $detalleMenu->cant_extra = $request->numExtra;
+                $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
+                $detalleMenu->observacionExtra = $request->cObsExtra;
+                $detalleMenu->save();
+            }
+
+            ///////  EXTRA  CON  ENTRADA ///////
+
+            if ($request->nIdTipo == 5) {
+                $detalleMenu = new DetalleMenu();
+                $detalleMenu->menu_id = $menu->id;
+                $detalleMenu->cant_entrada = $request->numEntrada;
+                $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
+                $detalleMenu->observacionEntrada = $request->cObsEntrada;
+                $detalleMenu->cant_segundo = 0;
+                $detalleMenu->plato_segundo_id = 1;
+                $detalleMenu->observacionSegundo = NULL;
+                $detalleMenu->cant_extra = $request->numExtra;
+                $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
+                $detalleMenu->observacionExtra = $request->cObsExtra;
+                $detalleMenu->save();
+            }
+
     }
     public function ListMenuEntrada(Request $request)
     {
-        $fecha = substr($request->dFecha, 0, -14);
-        $dato = MenuEntrada::where('fecha', $fecha)->where('estado', 'P')->get();
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+        $dato = DetallePlato::with('plato')->where('fecha', $fecha)->where('tipoplato_id', 1)->get();
+
         return $dato;
     }
 
     public function ListMenuSegundo(Request $request)
     {
-        $fecha = substr($request->dFecha, 0, -14);
-        $dato = MenuSegundo::where('fecha', $fecha)->where('estado', 'P')->get();
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+        $dato = DetallePlato::with('plato')->where('fecha', $fecha)->where('tipoplato_id', 2)->get();
+
         return $dato;
     }
 
     public function ListMenuExtra(Request $request)
     {
-        $fecha = substr($request->dFecha, 0, -14);
-        $dato = MenuExtra::where('fecha', $fecha)->where('estado', 'P')->get();
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+        $dato = DetallePlato::with('plato')->where('fecha', $fecha)->where('tipoplato_id', 3)->get();
+
         return $dato;
     }
 
@@ -134,18 +192,25 @@ class MenuController extends Controller
     {
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
-        $dato = DetalleMenu::with('menu', 'menu.user', 'menuentrada', 'menusegundo', 'menuextra', 'tipomenu')->whereHas('menu', function (Builder $query) use ($fecha) {
-            $query->where('fecha', $fecha)->where('estado', 'E');
+        $dato = DetalleMenu::with('menu', 'menu.user','menu.tipomenu', 'plato_entrada', 'plato_segundo', 'plato_extra')->whereHas('menu', function (Builder $query) use ($fecha) {
+            $query->where('fecha', $fecha);
         })->get();
         return $dato;
+
+
+
+        /*    $dato = DetalleMenu::with('menu', 'menu.user')->whereHas('menu', function (Builder $query) use ($fecha) {
+            $query->where('fecha', $fecha)->where('estado', 'E');
+        })->get();
+        return $dato; */
     }
 
     public function ListMenuDetallebyDate(Request $request)
     {
         $fechainicio = substr($request->dFechainicio, 0, -14);
         $fechafin = substr($request->dFechafin, 0, -14);
-        $dato = DetalleMenu::with('menu', 'menu.user', 'menuentrada', 'menusegundo', 'menuextra', 'tipomenu')->whereHas('menu', function (Builder $query) use ($fechainicio, $fechafin) {
-            $query->whereBetween('fecha', [$fechainicio, $fechafin])->where('estado', 'E');
+        $dato = DetalleMenu::with('menu', 'menu.user','menu.tipomenu', 'plato_entrada', 'plato_segundo', 'plato_extra')->whereHas('menu', function (Builder $query) use ($fechainicio, $fechafin) {
+            $query->whereBetween('fecha', [$fechainicio, $fechafin]);
         })->get();
         return $dato;
     }
@@ -153,8 +218,8 @@ class MenuController extends Controller
     public function setAnular(Request $request)
     {
         $menu = Menu::find($request->item);
-        $menu->estado = 'A';
-        $menu->save();
+        $menu->delete();
+
     }
 
     public function export(Request $request)

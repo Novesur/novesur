@@ -609,9 +609,16 @@ export default new Router({
         /// Menus ///////////
 
         {
-            path: '/menu/create',
-            name: 'menu.create',
-            component: require('./components/modulos/menu/create').default,
+            path: '/plato/create',
+            name: 'plato.create',
+            component: require('./components/modulos/menu/plato').default,
+
+        },
+
+        {
+            path: '/pedidoCreate/create',
+            name: 'pedidoCreate.create',
+            component: require('./components/modulos/menu/pedidoCreate').default,
 
         },
 
@@ -630,16 +637,34 @@ export default new Router({
         },
 
 
+
 //// ORDEN  DE PRODUCCION  /////////
 
 {
-    path: '/ordenproducccion/create',
-    name: 'ordenproducccion.create',
-    component: require('./components/modulos/ordenproduccion/create').default,
-
+    path: '/requerimientoMateriales/create',
+    name: 'requerimientoMateriales.create',
+    component: require('./components/modulos/requerimientoMateriales/create').default,
 },
 
 
+{
+    path: '/requerimientoMateriales/list',
+    name: 'requerimientoMateriales.list',
+    component: require('./components/modulos/requerimientoMateriales/list').default,
+},
+
+//// INFORME DE PRODUCCION  ////
+{
+    path: '/informeProduccion/create',
+    name: 'informeProduccion.create',
+    component: require('./components/modulos/informeProduccion/create').default,
+},
+
+{
+    path: '/informeProduccion/list',
+    name: 'informeProduccion.list',
+    component: require('./components/modulos/informeProduccion/list').default,
+},
 
 
     ],

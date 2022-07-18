@@ -653,7 +653,6 @@ export default {
           config
         )
         .then((response) => {
-          console.log(response.data);
           var oMyBlob = new Blob([response.data], { type: "application/pdf" });
           var url = URL.createObjectURL(oMyBlob);
           window.open(url);

@@ -75,30 +75,36 @@
                 >
                   <thead>
                     <tr>
-                      <th>Fecha</th>
-                            <th>Vendedor</th>
-                            <th>cant. Entrada</th>
-                            <th>Entrada</th>
-                            <th>cant. Segundo</th>
-                            <th>Segundo</th>
-                            <th>cant. Extra</th>
-                            <th>Extra</th>
-                            <th>Tipo de Menu</th>
-                            <th>Observación</th>
+                        <th>Fecha</th>
+                        <th>Vendedor</th>
+                        <th>cant. Entrada</th>
+                        <th>Entrada</th>
+                        <th>Observación_Entrada</th>
+                        <th>cant. Segundo</th>
+                        <th>Segundo</th>
+                        <th>Observación_Segundo</th>
+                        <th>cant. Extra</th>
+                        <th>Extra</th>
+                        <th>Observación_Extra</th>
+                        <th>Tipo de Menu</th>
+
+                        <th>Acción</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(item,index) in listeMenuDetallexFecha" :key="index">
-                      <td>{{ item.menu.fecha | moment("DD - MM - Y") }}</td>
-                             <td>{{ item.menu.user.fullname }}</td>
-                            <td v-text="item.cantEntrada"></td>
-                            <td v-text="item.menuentrada.nombre"></td>
-                            <td v-text="item.cantSegundo"></td>
-                            <td v-text="item.menusegundo.nombre"></td>
-                              <td v-text="item.cantExtra"></td>
-                            <td v-text="item.menuextra.nombre"></td>
-                            <td v-text="item.tipomenu.nombre"></td>
-                            <td v-text="item.menu.observacion"></td>
+                                                <tr v-for="(item,index) in listeMenuDetallexFecha" :key="index">
+                                                        <td>{{ item.menu.fecha | moment("DD - MM - Y") }}</td>
+                                                        <td>{{ item.menu.user.fullname }}</td>
+                                                        <td v-text="item.cant_entrada"></td>
+                                                        <td v-text="item.plato_entrada.nombre"></td>
+                                                         <td v-text="item.observacionEntrada"></td>
+                                                        <td v-text="item.cant_segundo"></td>
+                                                        <td v-text="item.plato_segundo.nombre"></td>
+                                                         <td v-text="item.observacionSegundo"></td>
+                                                        <td v-text="item.cant_extra"></td>
+                                                        <td v-text="item.plato_extra.nombre"></td>
+                                                        <td v-text="item.observacionExtra"></td>
+                                                        <td v-text="item.menu.tipomenu.nombre"></td>
 
 
                     </tr>

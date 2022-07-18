@@ -25,9 +25,9 @@ class UsuarioController extends Controller
     {
         if (!$request->ajax()) return redirect('/');
         $user = new User;
-        $user->firstname = $request->cFirstname;
-        $user->secondname = $request->cSecondname;
-        $user->lastname = $request->cLastname;
+        $user->firstname = strtoupper($request->cFirstname);
+        $user->secondname = strtoupper($request->cSecondname);
+        $user->lastname = strtoupper($request->cLastname);
         $user->username = $request->cUsername;
         $user->email = $request->cEmail;
         $user->celular = $request->cCelular;
@@ -57,9 +57,9 @@ class UsuarioController extends Controller
         $Usuario = User::where('id', $request->nIdUsuario)->first();
 
         if ($Usuario) {
-            $Usuario->firstname = $request->cFirstname;
-            $Usuario->secondname = $request->cSecondname;
-            $Usuario->lastname = $request->cLastname;
+            $Usuario->firstname = strtoupper($request->cFirstname);
+            $Usuario->secondname = strtoupper($request->cSecondname);
+            $Usuario->lastname = strtoupper($request->cLastname);
             $Usuario->username = $request->cUsername;
             $Usuario->email = $request->cEmail;
             $Usuario->celular = $request->cCelular;

@@ -229,10 +229,10 @@
 
 
                         <template v-if="item.estadopedido == 'ANULADO'">
-                        <td v-text="item.observacion"></td>
+                            <td></td>
                         </template>
                         <template v-else>
-                            <td></td>
+                            <td v-text="item.observacion"></td>
                         </template>
 
 

@@ -14,12 +14,14 @@
             <th>Vendedor</th>
             <th>cant. Entrada</th>
             <th>Entrada</th>
+            <th>Observación_Entrada</th>
             <th>cant. Segundo</th>
             <th>Segundo</th>
+            <th>Observación_Segundo</th>
             <th>cant. Extra</th>
             <th>Extra</th>
+            <th>Observación_Extra</th>
             <th>Tipo de Menu</th>
-            <th>Observación</th>
         </tr>
         </thead>
         <tbody>
@@ -28,14 +30,16 @@
             <tr>
                 <td>{{ date('d-m-Y', strtotime($data->menu->fecha)) }}</td>
                 <td>{{strtoupper($data->menu->user->secondname)}} {{strtoupper($data->menu->user->lastname)}}   {{strtoupper($data->menu->user->firstname)}}</td>
-                <td>{{$data->cantEntrada}} </td>
-                <td>{{$data->menuentrada->nombre}} </td>
-                <td>{{$data->cantSegundo}} </td>
-                <td>{{$data->menusegundo->nombre}} </td>
-                <td>{{$data->cantExtra}} </td>
-                <td>{{$data->menuextra->nombre}} </td>
-                <td>{{$data->tipomenu->nombre}} </td>
-                <td>{{$data->menu->observacion}} </td>
+                <td>{{$data->cant_entrada}} </td>
+                <td>{{$data->plato_entrada->nombre}} </td>
+                <td>{{$data->observacionEntrada}} </td>
+                <td>{{$data->cant_segundo}} </td>
+                <td>{{$data->plato_segundo->nombre}} </td>
+                <td>{{$data->observacionSegundo}} </td>
+                <td>{{$data->cant_extra}} </td>
+                <td>{{$data->plato_extra->nombre}} </td>
+                <td>{{$data->observacionExtra}} </td>
+                <td>{{$data->menu->tipomenu->nombre}} </td>
 
             </tr>
             @endforeach

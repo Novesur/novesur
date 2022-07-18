@@ -12,23 +12,22 @@ class DetalleMenu extends Model
         return $this->belongsTo(Menu::class);
     }
 
-    public function menuentrada()
-    {
-        return $this->belongsTo(MenuEntrada::class);
+    public function plato_entrada(){
+        return $this->belongsTo(PlatoEntrada::class);
     }
 
-    public function menusegundo()
-    {
-        return $this->belongsTo(MenuSegundo::class);
+    public function plato_segundo(){
+        return $this->belongsTo(PlatoSegundo::class);
     }
 
-    public function menuextra()
-    {
-        return $this->belongsTo(MenuExtra::class);
+    public function plato_extra(){
+        return $this->belongsTo(PlatoExtra::class);
     }
 
-    public function tipomenu()
-    {
-        return $this->belongsTo(TipoMenu::class);
-    }
+
+
+
+
+
+
 }

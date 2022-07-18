@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
-class CreateMaterialOrdenproducTable extends Migration
+class CreateMaterialReqmaterialesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +13,17 @@ class CreateMaterialOrdenproducTable extends Migration
      */
     public function up()
     {
-        Schema::create('material_ordenproduc', function (Blueprint $table) {
+        Schema::create('material_reqmateriales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ordenproduccion_id');
-            $table->foreign('ordenproduccion_id')->references('id')->on('ordenproduccion');
+            $table->unsignedBigInteger('pk_ReqMateriales');
+            $table->foreign('pk_ReqMateriales')->references('id')->on('requerimiento_materiales');
             $table->unsignedBigInteger('producto_id')->required();
             $table->foreign('producto_id')->references('id')->on('producto');
             $table->integer('cantidad')->required();
-            $table->timestamps();
+            $table->unsignedBigInteger('unidmedida_id');
+            $table->foreign('unidmedida_id')->references('id')->on('unidmedida');
+            $table->date('fecha')->required();
+
         });
     }
 
@@ -32,6 +34,6 @@ class CreateMaterialOrdenproducTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('material_ordenproduc');
+        Schema::dropIfExists('material_reqmateriales');
     }
 }

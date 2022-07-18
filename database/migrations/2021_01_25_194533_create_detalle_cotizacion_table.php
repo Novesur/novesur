@@ -23,6 +23,7 @@ class CreateDetalleCotizacionTable extends Migration
             $table->unsignedBigInteger('producto_id')->required();
             $table->foreign('producto_id')->references('id')->on('producto');
             $table->decimal('punit', 8, 3)->required();
+            $table->decimal('pventa', 8, 3)->nullable();
         });
 
     }

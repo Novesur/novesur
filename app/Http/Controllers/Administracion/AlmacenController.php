@@ -13,9 +13,16 @@ class AlmacenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $dato = Almacen::all();
+
+        return $dato;
+    }
+
+    public function AlmacenbyEstado()
+    {
+        $dato = Almacen::where('estado','A')->get();
 
         return $dato;
     }

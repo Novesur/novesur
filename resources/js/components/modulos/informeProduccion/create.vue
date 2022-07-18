@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Orden de Producción</h1>
+            <h1 class="m-0 text-dark">Informe de Producción</h1>
           </div>
         </div>
       </div>
@@ -19,10 +19,36 @@
           </div>
         </div>
         <div class="card-body">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-9">
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label"
+                    >Cod. Reque. Materiales</label
+                  >
+                  <div class="col-md-3 input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="fillCrearInfoProduccion.codRequMateriales"
+                    />
+                  </div>
+                  <span class="input-group-btn">
+                    <button
+                      class="btn btn-info btn"
+                      @click.prevent="buscaxCodRequMateriales"
+                    >
+                      Buscar
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="container-fluid">
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">Formulario Orden de Producción</h3>
+                <h3 class="card-title">Formulario Informe de Producción</h3>
               </div>
               <div class="card-body">
                 <form role="form">
@@ -35,7 +61,7 @@
                           >
                           <div class="col-md-10">
                             <el-select
-                              v-model="fillCrearOrdenProduccion.nIdproduct"
+                              v-model="fillCrearInfoProduccion.nIdproduct"
                               style="width: 800px"
                               filterable
                               placeholder="Select"
@@ -68,9 +94,31 @@
                               type="text"
                               class="form-control"
                               v-int
-                              v-model="fillCrearOrdenProduccion.cCantprod"
-
+                              v-model="fillCrearInfoProduccion.cCantprod"
                             />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-md-2 col-form-label"
+                            >Unid. Medida</label
+                          >
+                          <div class="col-md-6">
+                            <el-select
+                              v-model="fillCrearInfoProduccion.nIdUnidMed"
+                              placeholder="Select"
+                              style="width: 70%"
+                            >
+                              <el-option
+                                v-for="item in listUnidMed"
+                                :key="item.id"
+                                :label="item.nombre"
+                                :value="item.id"
+                              >
+                              </el-option>
+                            </el-select>
                           </div>
                         </div>
                       </div>
@@ -81,11 +129,11 @@
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label"
-                          >Preferencias de Pago</label
+                          >Cliente-Ref</label
                         >
                         <div class="col-md-9">
                           <el-select
-                            v-model="fillCrearOrdenProduccion.nIdTipoPago"
+                            v-model="fillCrearInfoProduccion.nIdTipoPago"
                             placeholder="Select"
                             style="width: 70%"
                           >
@@ -103,27 +151,36 @@
                   </div>
 
                   <div
-                    v-if="fillCrearOrdenProduccion.nIdTipoPago == 1"
+                    v-if="fillCrearInfoProduccion.nIdTipoPago == 1"
                     class="col-md-9"
                   >
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                       <div class="form-group row">
-                        <label class="col-md-6 col-form-label"
+                        <label class="col-md-3 col-form-label"
                           >Para Stock</label
                         >
-                        <div class="col-md-5">
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="fillCrearOrdenProduccion.cCantstock"
-                          />
+                        <div class="col-md-9">
+                          <el-select
+                            v-model="fillCrearInfoProduccion.nidAlmacen"
+                            style="width: 90%"
+                            filterable
+                            placeholder="Select"
+                          >
+                            <el-option
+                              v-for="item in listAlmacen"
+                              :key="item.id"
+                              :label="item.nombre"
+                              :value="item.id"
+                            >
+                            </el-option>
+                          </el-select>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div
-                    v-if="fillCrearOrdenProduccion.nIdTipoPago == 2"
+                    v-if="fillCrearInfoProduccion.nIdTipoPago == 2"
                     class="col-md-12"
                   >
                     <div class="col-md-6">
@@ -136,7 +193,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              v-model="fillCrearOrdenProduccion.cRuc"
+                              v-model="fillCrearInfoProduccion.cRuc"
                             />
                             <div class="col">
                               <span
@@ -160,7 +217,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            v-model="fillCrearOrdenProduccion.cRSocial"
+                            v-model="fillCrearInfoProduccion.cRSocial"
                             :disabled="true"
                           />
                         </div>
@@ -177,10 +234,10 @@
                           >
                           <div class="col-md-6">
                             <el-date-picker
-                              v-model="fillCrearOrdenProduccion.FInicio"
+                              v-model="fillCrearInfoProduccion.FInicio"
                               type="date"
                               placeholder="Indique la fecha"
-                                  format="dd/MM/yyyy"
+                              format="dd/MM/yyyy"
                               value-format="yyyy-MM-dd"
                             >
                             </el-date-picker>
@@ -196,11 +253,11 @@
                             >
                             <div class="col-md-6">
                               <el-date-picker
-                                v-model="fillCrearOrdenProduccion.FFinal"
+                                v-model="fillCrearInfoProduccion.FFinal"
                                 type="date"
                                 placeholder="Indique la fecha"
                                 format="dd/MM/yyyy"
-                               value-format="yyyy-MM-dd"
+                                value-format="yyyy-MM-dd"
                               >
                               </el-date-picker>
                             </div>
@@ -218,14 +275,13 @@
                             >Duracion</label
                           >
                           <div class="col-md-3">
-
-                              <p v-if="calculoFechas">{{ calculoFechas}} Día(s)</p>
-
+                            <p v-if="calculoFechas">
+                              {{ String(calculoFechas).padStart(2, 0) }} Día(s)
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
-
                   </div>
 
                   <!-- INICIO  DE REQUERIMIENTOS DE MATERIALES -->
@@ -248,7 +304,9 @@
 
                                 <div class="col-md-10">
                                   <el-select
-                                    v-model="fillCrearOrdenProduccion.nIdmaterial"
+                                    v-model="
+                                      fillCrearInfoProduccion.nIdmaterial
+                                    "
                                     style="width: 90%"
                                     filterable
                                     placeholder="Select"
@@ -276,8 +334,52 @@
                                     type="text"
                                     class="form-control"
                                     v-int
-                                    v-model="fillCrearOrdenProduccion.cCantMaterial"
+                                    v-model="
+                                      fillCrearInfoProduccion.cCantMaterial
+                                    "
                                   />
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-md-4 col-form-label"
+                                    >MEDIDA</label
+                                  >
+                                  <div class="col-md-4">
+                                    <el-select
+                                      v-model="
+                                        fillCrearInfoProduccion.nIdUnidMedMat
+                                      "
+                                      placeholder="Select"
+                                      style="width: 70%"
+                                    >
+                                      <el-option
+                                        v-for="item in listUnidMed"
+                                        :key="item.id"
+                                        :label="item.nombre"
+                                        :value="item.id"
+                                      >
+                                      </el-option>
+                                    </el-select>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-md-4 col-form-label"
+                                    >C.U</label
+                                  >
+                                  <div class="col-md-4">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      v-model="
+                                        fillCrearInfoProduccion.cCostUnit
+                                      "
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -324,28 +426,46 @@
                     <thead>
                       <tr>
                         <th>Codigo</th>
-                        <th>Cantidad</th>
                         <th>Descripcion</th>
+                        <th>Cantidad</th>
+                        <th>Unid. Medida</th>
+                        <th>C.U</th>
+                        <th>Total</th>
+                        <th>Acción</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, index) in listartempProduccion" :key="index">
-                        <td v-text="item.codigo"></td>
-                        <td v-text="item.cantidad"></td>
+                      <tr
+                        v-for="(item, index) in ListReqMatInfoProduc"
+                        :key="index"
+                      >
+                        <td v-text="item.producto.codigo"></td>
 
                         <td
                           v-text="
-                            item.productoFamilia +
+                            item.producto.familia.nombre +
                             ' ' +
-                            item.productoSubfamilia +
+                            item.producto.subfamilia.nombre +
                             ', MARCA :' +
-                            item.productoMarca +
+                            item.producto.marca.nombre +
                             ', MODELO/TIPO :' +
-                            item.productoModelotipo +
+                            item.producto.modelotipo.nombre +
                             ', MATERIAL :' +
-                            item.material
+                            item.producto.material.nombre
                           "
                         ></td>
+                        <td v-text="item.cantidad"></td>
+                        <td v-text="item.unidmedida.nombre"></td>
+                        <td v-text="item.costunit"></td>
+                        <td v-text="item.total"></td>
+                        <td>
+                          <button
+                            class="btn btn-danger btn-sm"
+                            @click="DeleteReqMateriales(item.id)"
+                          >
+                            <i class="far fa-trash-alt"></i> Eliminar
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -389,16 +509,32 @@
               </div>
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-md-2 col-form-label"
-                    >PERSONAL</label
-                  >
+                  <label class="col-md-2 col-form-label">PERSONAL</label>
 
                   <div class="col-md-6">
-                <input
-                                    type="text"
-                                    class="form-control"
-                                    v-model="fillCrearOrdenProduccion.cPersonal"
-                                  />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="fillCrearInfoProduccion.cPersonal"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label"></label>
+                  <div class="col-md-6">
+                    <el-radio
+                      v-model="fillCrearInfoProduccion.radTipoTiempo"
+                      @change="onChange($event)"
+                      label="1"
+                      checked
+                      >POR DIAS
+                    </el-radio>
+                    <el-radio
+                      v-model="fillCrearInfoProduccion.radTipoTiempo"
+                      @change="onChange($event)"
+                      label="2"
+                      >POR HORAS
+                    </el-radio>
                   </div>
                 </div>
 
@@ -408,28 +544,25 @@
                     <input
                       type="text"
                       class="form-control"
-                      v-model="fillCrearOrdenProduccion.cDiasMObra"
+                      :disabled="validatedDias"
+                      v-model="fillCrearInfoProduccion.cDiasMObra"
                       v-int
                     />
                   </div>
-
-
                 </div>
 
-
-                       <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-md-2 col-form-label">HORAS</label>
                   <div class="col-md-2">
                     <input
                       type="text"
                       class="form-control"
-                      v-model="fillCrearOrdenProduccion.cHorasMObra"
+                      :disabled="validateHoras"
+                      v-model="fillCrearInfoProduccion.cHorasMObra"
                       v-int
                     />
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -468,13 +601,25 @@
                   <th>Personal</th>
                   <th>Días</th>
                   <th>Horas</th>
+                  <th>Acción</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in listartempMobra" :key="index">
+                <tr
+                  v-for="(item, index) in ListManoObraInfoProduc"
+                  :key="index"
+                >
                   <td v-text="item.personal"></td>
                   <td v-text="item.dias"></td>
                   <td v-text="item.horas"></td>
+                  <td>
+                      <button
+                            class="btn btn-danger btn-sm"
+                            @click="DeleteManodeObra(item.id)"
+                          >
+                            <i class="far fa-trash-alt"></i> Eliminar
+                          </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -498,41 +643,24 @@
               </div>
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-md-2 col-form-label"
-                    >DESCRIPCION</label
-                  >
+                  <label class="col-md-2 col-form-label">DESCRIPCION</label>
 
                   <div class="col-md-10">
-                     <input
+                    <input
                       type="text"
                       class="form-control"
-                      v-model="fillCrearOrdenProduccion.cDescripcion"
+                      v-model="fillCrearInfoProduccion.cDescripcion"
                     />
                   </div>
                 </div>
-                  <div class="form-group row">
-                  <label class="col-md-2 col-form-label">DIAS</label>
+
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label">CANTIDAD</label>
                   <div class="col-md-2">
                     <input
                       type="text"
                       class="form-control"
-                      v-int
-                      v-model="fillCrearOrdenProduccion.cDiasReq"
-                    />
-                  </div>
-
-
-                </div>
-
-
-                       <div class="form-group row">
-                  <label class="col-md-2 col-form-label">HORAS</label>
-                  <div class="col-md-2">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-int
-                      v-model="fillCrearOrdenProduccion.cHorasRequ"
+                      v-model="fillCrearInfoProduccion.cCantidadReq"
                     />
                   </div>
                 </div>
@@ -546,7 +674,7 @@
               <button
                 class="btn btn-flat btnWidth"
                 style="background-color: #9b59b6; color: white"
-                @click.prevent="setAddRequerimientos"
+                @click.prevent="setAddOtrosRequerimientos"
               >
                 Agregar
               </button>
@@ -576,24 +704,32 @@
               <thead>
                 <tr>
                   <th>Descripción</th>
-                  <th>Días</th>
-                  <th>Horas</th>
+                  <th>Cantidad</th>
+                  <th>Acción</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in listartempRequerimientos" :key="index">
+                <tr
+                  v-for="(item, index) in ListOtrosReqInfoProduc"
+                  :key="index"
+                >
                   <td v-text="item.descripcion"></td>
-                  <td v-text="item.dias"></td>
-                  <td v-text="item.horas"></td>
-
-
+                  <td v-text="item.cantidad"></td>
+                  <td>
+                        <button
+                            class="btn btn-danger btn-sm"
+                            @click="DeleteOtrosReque(item.id)"
+                          >
+                            <i class="far fa-trash-alt"></i> Eliminar
+                          </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="card-footer">
+<!--         <div class="card-footer">
           <div class="row">
             <div class="col-md-4 offset-4">
               <button
@@ -610,7 +746,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -651,17 +787,16 @@
 export default {
   data() {
     return {
-      fillCrearOrdenProduccion: {
-        nIdProveedor: this.$attrs.id,
+      fillCrearInfoProduccion: {
         nIdproduct: "",
         cReferencia: "",
         cDocumento: "",
         cFechaEmision: "",
-        cCantstock: "",
+        nidAlmacen: "",
         cRSocial: "",
         cRuc: "",
         nIdmaterial: "",
-        cCantMaterial:"",
+        cCantMaterial: "",
         cCantidad: "",
         cCantprod: "",
         nIdTipoPago: "",
@@ -670,20 +805,26 @@ export default {
         FInicio: "",
         FFinal: "",
         cDuracion: "",
-        cPersonal:"",
-        cDiasMObra:"",
-        cHorasMObra:"",
-        cDescripcion:"",
-        cDiasReq: "",
-        cHorasRequ : "",
-
+        cPersonal: "",
+        cDiasMObra: "",
+        cHorasMObra: "",
+        cDescripcion: "",
+        cCantidadReq: "",
+        nIdUnidMed: "",
+        nIdUnidMedMat: "",
+        radTipoTiempo: "1",
+        codRequMateriales: "",
+        cCostUnit: "",
       },
-
+      listAlmacen: [],
       listUnidMed: [],
       listProd: [],
+      ListReqMatInfoProduc: [],
+      ListManoObraInfoProduc: [],
+      ListOtrosReqInfoProduc: [],
       listartempProduccion: [],
-      listartempMobra:[],
-      listartempRequerimientos:[],
+      listartempMobra: [],
+      listartempRequerimientos: [],
       listDescripPago: [
         {
           value: "1",
@@ -695,6 +836,9 @@ export default {
         },
       ],
       listTipoCambio: [],
+
+      validatedDias: false,
+      validateHoras: true,
 
       modalShow: false,
       mostrarModal: {
@@ -708,33 +852,213 @@ export default {
       mensajeError: [],
     };
   },
+
   mounted() {
-    this.getListarByProveedor();
     this.getListarproductosByName();
     this.getlistTipoCambio();
     this.defaultDiaHora();
-    //this.fillCrearOrdenProduccion.FInicio = moment(new Date()).format('YYYY-MM-D');
+    this.getListarUnidadMedida();
+    this.getListarAlmacen();
   },
 
-
   methods: {
+    CargaInfoProduccion() {
+      var url = "/administracion/InformeProduccion/CargaInfoProduccion";
+      axios
+        .post(url, {
+          codRequMateriales: this.fillCrearInfoProduccion.codRequMateriales,
+        })
+        .then((response) => {
+          if (response.data.icon == "warning") {
+            Swal.fire({
+              position: "center",
+              icon: response.data.icon,
+              title: response.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.fillCrearInfoProduccion.cRSocial = "";
+          }
 
-    defaultDiaHora(){
-      this.fillCrearOrdenProduccion.cDiasReq = 0
-      this.fillCrearOrdenProduccion.cHorasRequ = 0
-      this.fillCrearOrdenProduccion.cDiasMObra = 0
-      this.fillCrearOrdenProduccion.cHorasMObra = 0
+          this.fillCrearInfoProduccion.nIdproduct = response.data.producto_id;
+          this.fillCrearInfoProduccion.cCantprod = response.data.cantidad;
+          this.fillCrearInfoProduccion.nIdUnidMed = response.data.unidmedida_id;
+          this.fillCrearInfoProduccion.FInicio = response.data.fechainicio;
+          this.fillCrearInfoProduccion.FFinal = response.data.fechafinal;
+
+          if (response.data.cliente_id == "202") {
+            this.fillCrearInfoProduccion.nIdTipoPago =
+              this.listDescripPago[0].value;
+            this.fillCrearInfoProduccion.nidAlmacen = response.data.almacen_id;
+          } else {
+            this.fillCrearInfoProduccion.nIdTipoPago =
+              this.listDescripPago[1].value;
+            this.fillCrearInfoProduccion.cRSocial =
+              response.data.cliente.razonsocial;
+          }
+
+          this.cargaRequeMateriales(
+            this.fillCrearInfoProduccion.codRequMateriales
+          );
+        });
+    },
+
+    buscaxCodRequMateriales() {
+      this.CargaInfoProduccion();
+    },
+
+    cargaRequeMateriales(codReqMat) {
+      var url = "/administracion/InformeProduccion/getListReqMatInfoProduc";
+      axios
+        .get(url, {
+          params: {
+            codReqMat,
+          },
+        })
+        .then((response) => {
+          this.ListReqMatInfoProduc = response.data;
+          this.cargaReqManoObraProduc(codReqMat);
+        });
+    },
+
+    DeleteReqMateriales(item) {
+      Swal.fire({
+        title: "Desea eliminar el Registro?",
+        text: "En caso de querer recuperarlo consulte con el administrador de sistemas!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borralo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            "Borrado!",
+            "El item seleccionado a sido eliminado.",
+            "success"
+          );
+          var url = "/administracion/InformeProduccion/DeleteReqMateriales";
+          axios
+            .post(url, {
+              item,
+            })
+            .then(() => {
+              this.CargaInfoProduccion();
+            });
+        }
+      });
+    },
+    cargaReqManoObraProduc(codReqMat) {
+      var url = "/administracion/InformeProduccion/getListReqManoObraProduc";
+      axios
+        .get(url, {
+          params: {
+            codReqMat,
+          },
+        })
+        .then((response) => {
+          this.ListManoObraInfoProduc = response.data;
+          this.OtrosRequerimientosObraProduc(codReqMat);
+        });
+    },
+
+    DeleteManodeObra(item){
+      Swal.fire({
+        title: "Desea eliminar el Registro?",
+        text: "En caso de querer recuperarlo consulte con el administrador de sistemas!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borralo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            "Borrado!",
+            "El item seleccionado a sido eliminado.",
+            "success"
+          );
+          var url = "/administracion/InformeProduccion/DeleteManodeObra";
+          axios
+            .post(url, {
+              item,
+            })
+            .then(() => {
+              this.CargaInfoProduccion();
+            });
+        }
+      });
+    },
+    OtrosRequerimientosObraProduc(codReqMat) {
+      var url =
+        "/administracion/InformeProduccion/getOtrosRequerimientosProduc";
+      axios
+        .get(url, {
+          params: {
+            codReqMat,
+          },
+        })
+        .then((response) => {
+          this.ListOtrosReqInfoProduc = response.data;
+        });
+    },
+
+    DeleteOtrosReque(item){
+            Swal.fire({
+        title: "Desea eliminar el Registro?",
+        text: "En caso de querer recuperarlo consulte con el administrador de sistemas!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borralo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            "Borrado!",
+            "El item seleccionado a sido eliminado.",
+            "success"
+          );
+          var url = "/administracion/InformeProduccion/DeleteOtrosReque";
+          axios
+            .post(url, {
+              item,
+            })
+            .then(() => {
+              this.CargaInfoProduccion();
+            });
+        }
+      });
+
+    },
+
+    onChange(e) {
+      if (e == 1) {
+        this.fillCrearInfoProduccion.cHorasMObra = 0;
+        this.validateHoras = true;
+        this.validatedDias = false;
+      }
+      if (e == 2) {
+        this.fillCrearInfoProduccion.cDiasMObra = 0;
+        this.validateHoras = false;
+        this.validatedDias = true;
+      }
+    },
+    defaultDiaHora() {
+      this.fillCrearInfoProduccion.cCantidadReq = 0;
+      this.fillCrearInfoProduccion.cDiasMObra = 0;
+      this.fillCrearInfoProduccion.cHorasMObra = 0;
     },
 
     consultaRuc() {
       var url = "/administracion/cliente/consultaRuc";
       axios
         .post(url, {
-          cRuc: this.fillCrearOrdenProduccion.cRuc,
+          cRuc: this.fillCrearInfoProduccion.cRuc,
         })
         .then((response) => {
           if (response.data.success == false) {
-            (this.fillCrearOrdenProduccion.cRSocial = ""),
+            (this.fillCrearInfoProduccion.cRSocial = ""),
               Swal.fire({
                 position: "center",
                 icon: "info",
@@ -743,96 +1067,72 @@ export default {
                 timer: 2000,
               });
           } else {
-            this.fillCrearOrdenProduccion.cRSocial = response.data.razonSocial;
+            this.fillCrearInfoProduccion.cRSocial = response.data.razonSocial;
             /*        (this.fillRegistrarCliente.cDireccion = response.data.direccion),
-              (this.estadobutton = false);
-            this.disabledbtnRuc = true; */
+                          (this.estadobutton = false);
+                        this.disabledbtnRuc = true; */
           }
         });
     },
 
-    setAddMObra(){
-
-     var url = "/administracion/ordenProduccion/addMObra";
+    setAddMObra() {
+      var url = "/administracion/InformeProduccion/saveMObra";
       axios
         .post(url, {
-          cPersonal: this.fillCrearOrdenProduccion.cPersonal,
-          cDiasMObra: this.fillCrearOrdenProduccion.cDiasMObra,
-          cHorasMObra : this.fillCrearOrdenProduccion.cHorasMObra
+          codRequMateriales: this.fillCrearInfoProduccion.codRequMateriales,
+          cPersonal: this.fillCrearInfoProduccion.cPersonal,
+          cDiasMObra: this.fillCrearInfoProduccion.cDiasMObra,
+          cHorasMObra: this.fillCrearInfoProduccion.cHorasMObra,
         })
         .then((response) => {
-         this.listartempMobra = response.data.datos;
-         this.setcleanListMObra();
-
+          this.CargaInfoProduccion();
         });
     },
 
-    setcleanListMObra(){
-      this.fillCrearOrdenProduccion.cPersonal ='',
-      this.fillCrearOrdenProduccion.cDiasMObra =''
-      this.fillCrearOrdenProduccion.cHorasMObra =''
+    setcleanListMObra() {
+      (this.fillCrearInfoProduccion.cPersonal = ""),
+        (this.fillCrearInfoProduccion.cDiasMObra = "");
+      this.fillCrearInfoProduccion.cHorasMObra = "";
     },
 
-
-
-    setAddRequerimientos(){
-       var url = "/administracion/ordenProduccion/addRequerimientos";
+    setAddOtrosRequerimientos() {
+      var url = "/administracion/InformeProduccion/saveOtrosRequerimientos";
       axios
         .post(url, {
-          cDescripcion: this.fillCrearOrdenProduccion.cDescripcion,
-          cDiasReq: this.fillCrearOrdenProduccion.cDiasReq,
-          cHorasRequ : this.fillCrearOrdenProduccion.cHorasRequ
-
+          codRequMateriales: this.fillCrearInfoProduccion.codRequMateriales,
+          cDescripcion: this.fillCrearInfoProduccion.cDescripcion,
+          cCantidadReq: this.fillCrearInfoProduccion.cCantidadReq,
         })
         .then((response) => {
-         this.listartempRequerimientos = response.data.datos;
-         this.setLimpiaRequerimientos();
+          this.CargaInfoProduccion();
         });
     },
 
-    setLimpiaRequerimientos(){
-      this.fillCrearOrdenProduccion.cDescripcion = '',
-      this.fillCrearOrdenProduccion.cDiasReq = '',
-      this.fillCrearOrdenProduccion.cHorasRequ = ''
-
+    setLimpiaRequerimientos() {
+      (this.fillCrearInfoProduccion.cDescripcion = ""),
+        (this.fillCrearInfoProduccion.cCantidadReq = 0);
     },
-
-    getListarByProveedor() {
-      var url = "/administracion/proveedor/getListarProveedorById";
-      axios
-        .get(url, {
-          params: {
-            nIdProveedor: this.fillCrearOrdenProduccion.nIdProveedor,
-          },
-        })
-        .then((response) => {
-          this.fillCrearOrdenProduccion.cCodProduct = response.data.nombre;
-        });
-    },
-
-    /*     getlistDescricionPago() {
-      var url = "/administracion/pago/index";
-      axios.get(url).then((response) => {
-        this.listDescripPago = response.data;
-        this.fillCrearOrdenProduccion.nIdDescripPago =
-          this.listDescripPago[0].id;
-      });
-    }, */
 
     getlistTipoCambio() {
       var url = "/administracion/ordenCompra/TipoCambio";
       axios.get(url).then((response) => {
         this.listTipoCambio = response.data;
-        this.fillCrearOrdenProduccion.nIdTipoMoneda = this.listTipoCambio[0].id;
+        this.fillCrearInfoProduccion.nIdTipoMoneda = this.listTipoCambio[0].id;
       });
     },
 
+    getListarAlmacen() {
+      var url = "/administracion/almacen/AlmacenbyEstado";
+      axios.get(url).then((response) => {
+        this.listAlmacen = response.data;
+      });
+    },
     getListarproductosByName() {
       var url = "/administracion/detallecotizancion/listProdByName";
       axios
         .get(url, {
           params: {
-            nIdmaterial: this.fillCrearOrdenProduccion.nIdmaterial,
+            nIdmaterial: this.fillCrearInfoProduccion.nIdmaterial,
           },
         })
         .then((response) => {
@@ -841,7 +1141,7 @@ export default {
     },
 
     limpiarCriteriosBsq() {
-      this.fillCrearOrdenProduccion.cCodProduct = "";
+      this.fillCrearInfoProduccion.cCodProduct = "";
     },
     setRegistrarOProduccion() {
       if (this.validaOrdenProduccion()) {
@@ -855,33 +1155,33 @@ export default {
       var url = "/administracion/OrdenProduccion/create";
       axios
         .post(url, {
-          nIdproduct : this.fillCrearOrdenProduccion.nIdproduct,
-          cCantprod : this.fillCrearOrdenProduccion.cCantprod,
-          cCantstock : this.fillCrearOrdenProduccion.cCantstock,
-          cRuc : this.fillCrearOrdenProduccion.cRuc,
-          FInicio : this.fillCrearOrdenProduccion.FInicio,
-          FFinal : this.fillCrearOrdenProduccion.FFinal,
-          nIdUser: this.fillCrearOrdenProduccion.nIdUser,
+          nIdproduct: this.fillCrearInfoProduccion.nIdproduct,
+          cCantprod: this.fillCrearInfoProduccion.cCantprod,
+          nidAlmacen: this.fillCrearInfoProduccion.nidAlmacen,
+          cRuc: this.fillCrearInfoProduccion.cRuc,
+          FInicio: this.fillCrearInfoProduccion.FInicio,
+          FFinal: this.fillCrearInfoProduccion.FFinal,
+          nIdUser: this.fillCrearInfoProduccion.nIdUser,
+          Duracionfechas: this.calculoFechas,
+          nIdUnidMed: this.fillCrearInfoProduccion.nIdUnidMed,
 
-       //Requerimientos de Materiales ////
-          nIdmaterial : this.fillCrearOrdenProduccion.nIdmaterial,
-          cCantMaterial : this.fillCrearOrdenProduccion.cCantMaterial,
-       //Fin de Requerimientos de Materiales ////
+          //Requerimientos de Materiales ////
+          nIdmaterial: this.fillCrearInfoProduccion.nIdmaterial,
+          cCantMaterial: this.fillCrearInfoProduccion.cCantMaterial,
+          //Fin de Requerimientos de Materiales ////
 
-       //// Requerimientos de Mano de Obra /////
-        cPersonal : this.fillCrearOrdenProduccion.cPersonal,
-        cDiasMObra : this.fillCrearOrdenProduccion.cDiasMObra,
-        cHorasMObra : this.fillCrearOrdenProduccion.cHorasMObra,
-        //// Fin de Requerimientos de Mano de Obra /////
+          //// Requerimientos de Mano de Obra /////
+          cPersonal: this.fillCrearInfoProduccion.cPersonal,
+          cDiasMObra: this.fillCrearInfoProduccion.cDiasMObra,
+          cHorasMObra: this.fillCrearInfoProduccion.cHorasMObra,
+          //// Fin de Requerimientos de Mano de Obra /////
 
-        ///// Otros Requerimientos //////
-            cDescripcion : this.fillCrearOrdenProduccion.cDescripcion,
-            cDiasReq: this.fillCrearOrdenProduccion.cDiasReq,
-            cHorasRequ : this.fillCrearOrdenProduccion.cHorasRequ,
+          ///// Otros Requerimientos //////
+          cDescripcion: this.fillCrearInfoProduccion.cDescripcion,
+
+          cHorasRequ: this.fillCrearInfoProduccion.cHorasRequ,
         })
         .then((response) => {
-
-
           Swal.fire({
             position: "center",
             icon: response.data.icon,
@@ -889,9 +1189,9 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-            this.setCleanMaterial();
-            this.setCleanManoObra();
-            this.setCleanRequerimientos();
+          this.setCleanMaterial();
+          this.setCleanManoObra();
+          this.setCleanRequerimientos();
         });
     },
     abrirModal() {
@@ -901,32 +1201,27 @@ export default {
       this.error = 0;
       this.mensajeError = [];
 
-      if (!this.fillCrearOrdenProduccion.nIdproduct) {
+      if (!this.fillCrearInfoProduccion.nIdproduct) {
         this.mensajeError.push("El campo producto es obligatorio");
       }
-      if (this.fillCrearOrdenProduccion.cCantidad <= 0) {
+      if (this.fillCrearInfoProduccion.cCantprod <= 0) {
         this.mensajeError.push("Cantidad no puede ser menor o igual a cero");
       }
-      if (!this.fillCrearOrdenProduccion.cCantidad) {
+      if (!this.fillCrearInfoProduccion.cCantprod) {
         this.mensajeError.push("Cantidad es campo obligatorio");
       }
-        if (!this.fillCrearOrdenProduccion.cCantstock) {
-        this.mensajeError.push("Stock es campo obligatorio");
-      }
 
-      if (!this.fillCrearOrdenProduccion.FInicio) {
+      if (!this.fillCrearInfoProduccion.FInicio) {
         this.mensajeError.push("Fecha Inicio es campo obligatorio");
       }
 
-        if (!this.fillCrearOrdenProduccion.FFinal) {
+      if (!this.fillCrearInfoProduccion.FFinal) {
         this.mensajeError.push("Fecha Final es campo obligatorio");
       }
 
-         if (!this.fillCrearOrdenProduccion.nIdTipoPago) {
+      if (!this.fillCrearInfoProduccion.nIdTipoPago) {
         this.mensajeError.push("Tipo de Pago es campo obligatorio");
       }
-
-
 
       if (this.mensajeError.length) {
         this.error = 1;
@@ -935,16 +1230,19 @@ export default {
       return this.error;
     },
     setAddPMaterial() {
-      var url = "/administracion/ordenProduccion/addOrden";
+      var url = "/administracion/InformeProduccion/saveReqMateriales";
       axios
         .post(url, {
-          nIdmaterial: this.fillCrearOrdenProduccion.nIdmaterial,
-          cCantMaterial: this.fillCrearOrdenProduccion.cCantMaterial,
+          codRequMateriales: this.fillCrearInfoProduccion.codRequMateriales,
+          nIdmaterial: this.fillCrearInfoProduccion.nIdmaterial,
+          cCantMaterial: this.fillCrearInfoProduccion.cCantMaterial,
+          nIdUnidMedMat: this.fillCrearInfoProduccion.nIdUnidMedMat,
         })
         .then((response) => {
-         this.listartempProduccion = response.data.datos;
-          this.setLimpiaMaterial();
-
+          this.listartempProduccion = response.data.datos;
+          this.CargaInfoProduccion();
+          /*          this.setLimpiaMaterial();
+          this.fillCrearInfoProduccion.cCantMaterial = 0; */
 
           if (response.data.message == "Ya fue agregado anteriormente") {
             Swal.fire({
@@ -958,52 +1256,47 @@ export default {
         });
     },
 
-    setLimpiaMaterial(){
-      this.fillCrearOrdenProduccion.nIdmaterial='',
-      this.fillCrearOrdenProduccion.cCantMaterial = ''
+    setLimpiaMaterial() {
+      (this.fillCrearInfoProduccion.nIdmaterial = ""),
+        (this.fillCrearInfoProduccion.cCantMaterial = 0);
     },
 
-
-
     setLimpiaCampos() {
-      this.fillCrearOrdenProduccion.nIdmaterial = null;
-      this.fillCrearOrdenProduccion.cCantidad = "";
+      this.fillCrearInfoProduccion.nIdmaterial = null;
+      this.fillCrearInfoProduccion.cCantidad = 0;
     },
 
     setResetCampos() {
-      this.fillCrearOrdenProduccion.nIdmaterial = null;
-      this.fillCrearOrdenProduccion.cCantidad = "";
+      this.fillCrearInfoProduccion.nIdmaterial = null;
+      this.fillCrearInfoProduccion.cCantidad = 0;
 
-      this.fillCrearOrdenProduccion.cReferencia = "";
-      this.fillCrearOrdenProduccion.cDocumento = "";
+      this.fillCrearInfoProduccion.cReferencia = "";
+      this.fillCrearInfoProduccion.cDocumento = "";
     },
 
-    setCleanMaterial(){
-           var url = "/administracion/ordenProduccion/eliminarTemporder";
+    setCleanMaterial() {
+      var url = "/administracion/ordenProduccion/eliminarTemporder";
       axios.get(url, {}).then((response) => {
         this.listartempProduccion = response.data.datos;
-      this.setLimpiaMaterial()
+        this.setLimpiaMaterial();
       });
     },
 
-
-
-    setCleanManoObra(){
-           var url = "/administracion/ordenProduccion/CleanMaterialManoOBra";
+    setCleanManoObra() {
+      var url = "/administracion/ordenProduccion/CleanMaterialManoOBra";
       axios.get(url, {}).then((response) => {
         this.listartempMobra = response.data.datos;
-         this.setcleanListMObra();
+        this.setcleanListMObra();
       });
     },
 
-       setCleanRequerimientos(){
-           var url = "/administracion/ordenProduccion/cleanRequerimientos";
+    setCleanRequerimientos() {
+      var url = "/administracion/ordenProduccion/cleanRequerimientos";
       axios.get(url, {}).then((response) => {
         this.listartempRequerimientos = response.data.datos;
-          this.setCleanRequerimientos();
+        this.setLimpiaRequerimientos();
       });
     },
-
 
     setListtemOrders() {
       var url = "/administracion/ordenCompra/ListtempOrden";
@@ -1018,16 +1311,28 @@ export default {
         this.setListtemOrders();
       });
     },
+    getListarUnidadMedida() {
+      var url = "/administracion/KardexDetalle/listUnidMed";
+      axios.get(url).then((response) => {
+        this.listUnidMed = response.data;
+        this.fillCrearInfoProduccion.nIdUnidMed = this.listUnidMed[5].id;
+        this.fillCrearInfoProduccion.nIdUnidMedMat = this.listUnidMed[5].id;
+      });
+    },
   },
-  computed:{
-      calculoFechas(){
-          if (this.fillCrearOrdenProduccion.FFinal != null &&  this.fillCrearOrdenProduccion.FInicio != null){
-
-              let valorfecha =  new Date(this.fillCrearOrdenProduccion.FFinal).getTime()   -  new Date(this.fillCrearOrdenProduccion.FInicio).getTime() ;
-              return valorfecha/86400000
-          }
+  computed: {
+    calculoFechas() {
+      if (
+        this.fillCrearInfoProduccion.FFinal != null &&
+        this.fillCrearInfoProduccion.FInicio != null
+      ) {
+        let valorfecha =
+          new Date(this.fillCrearInfoProduccion.FFinal).getTime() -
+          new Date(this.fillCrearInfoProduccion.FInicio).getTime();
+        return valorfecha / 86400000;
       }
-  }
+    },
+  },
 };
 </script>
 

@@ -162,7 +162,7 @@
           <td align="center" style="background-color:rgba(238, 229, 229, 0.719); font-size: 12px"><strong>Nro</strong></td>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 12px"><strong>CANT</strong></td>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 12px"><strong>CODIGO</strong></td>
-          <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 12px"><strong>DESCRIPCION DE MEDIDOR</strong></td>
+          <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 12px"><strong>DESCRIPCION DEL PRODUCTO</strong></td>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 12px"> <strong>P/UNIT</strong></td>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 12px"><strong>Total S/IGV</strong></td>
         </tr>

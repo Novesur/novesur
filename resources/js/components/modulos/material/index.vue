@@ -165,7 +165,7 @@ export default {
                 }
             }).then(response=>{
               this.inicializarPaginacion();
-               this.listMaterial =  response.data;
+               this.listPEntrada =  response.data;
             })
 
         },

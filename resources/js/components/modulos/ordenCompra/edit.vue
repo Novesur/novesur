@@ -223,7 +223,7 @@
                                     type="text"
                                     class="form-control"
                                     v-model="fillEditOrdenCompra.cCantidad"
-                                    v-int
+
                                   />
                                 </div>
 
@@ -433,7 +433,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          v-int
+
                           v-model="fillEditOrdenCompra.cCantidadEdit"
                         />
                       </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuextraTable extends Migration
+class CreatePlatoExtraTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateMenuextraTable extends Migration
      */
     public function up()
     {
-        Schema::create('menuextra', function (Blueprint $table) {
+        Schema::create('plato_extra', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',50)->required();
-            $table->date('fecha')->required();
-            $table->char('estado',1)->required();
+            $table->string('nombre',150)->unique()->required();
+            $table->char('estado',1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateMenuextraTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menuextra');
+        Schema::dropIfExists('plato_extra');
     }
 }

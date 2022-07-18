@@ -29,8 +29,8 @@ class PapeletaSalidaController extends Controller
     {
 
 
-        DB::beginTransaction();
-        try {
+     /*    DB::beginTransaction();
+        try { */
             // $formatreq = date("Y-m-d");
             $PapeletaSalida = new Papeletasalida;
             $PapeletaSalida->user_id = $request->nIdUser;
@@ -66,12 +66,12 @@ class PapeletaSalidaController extends Controller
                 $clientsPapeletaSalida->direccion = NULL;
                 $clientsPapeletaSalida->save();
             }
-            DB::commit();
+        /*     DB::commit();
             return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
         } catch (\Throwable $e) {
             DB::rollback();
             return response()->json(['message' => 'Error al grabar', 'icon' => 'error'], 200);
-        }
+        } */
     }
 
     public function listPapeleByVendedor(Request $request)

@@ -20,24 +20,19 @@ class OrdenServicioController extends Controller
     {
         $product = Producto::where(['id' => $request->nIdprod])->with('familia', 'marca', 'material', 'modelotipo', 'subfamilia', 'homologacion')->first();
         $products = Session::get('products');
-   /*      $products = ($products != null) ? collect($products) : collect([]);
-        $exists = $products->firstWhere("producto_id", $product->id);
-        if (!empty($exists)) :
-            // return response()->json(['message' => "Ya fue agregado anteriormente"], 422);
-            return response()->json(['datos' => $products, 'message' => 'Ya fue agregado anteriormente', 'icon' => 'error'], 200);
-
-        else : */
-            $articulo = $product;
-            $unidmed = UnidMedida::where(['id' => $request->nIdUnidMed])->first();
-            $tempOrder = new TempOrdenServicio();
-            $tempOrder->fill(['cantidad' => $request->cCantidad, 'unidmedida_id' => $request->nIdUnidMed, 'codigo' => $product->codigo, 'producto_id' => $request->nIdprod, 'punit' => $request->cPrecio, 'total' => $request->cTotal, 'productoFamilia' => $articulo->familia->nombre, 'productoSubfamilia' => $articulo->subfamilia->nombre, 'productoModelotipo' => $articulo->modelotipo->nombre, 'productoMarca' => $articulo->marca->nombre, 'unidmedNombre' => $unidmed->nombre, 'material' => $product->material->nombre, 'homologacion' => $product->homologacion->nombre]);
-            $products->push($tempOrder);
-            Session::put('products', $products);
-            //return response()->json("Grabado");
-            return response()->json(['datos' => $products, 'message' => NULL]);
-
-      /*   endif; */
+        $articulo = $product;
+        $unidmed = UnidMedida::where(['id' => $request->nIdUnidMed])->first();
+        $tempOrder = new TempOrdenServicio();
+        $tempOrder->fill(['cantidad' => $request->cCantidad, 'unidmedida_id' => $request->nIdUnidMed, 'codigo' => $product->codigo, 'producto_id' => $request->nIdprod, 'punit' => $request->cPrecio, 'total' => $request->cTotal, 'productoFamilia' => $articulo->familia->nombre, 'productoSubfamilia' => $articulo->subfamilia->nombre, 'productoModelotipo' => $articulo->modelotipo->nombre, 'productoMarca' => $articulo->marca->nombre, 'unidmedNombre' => $unidmed->nombre, 'material' => $product->material->nombre, 'homologacion' => $product->homologacion->nombre]);
+        $products->push($tempOrder);
+        Session::put('products', $products);
+        return response()->json(['datos' => $products, 'message' => NULL]);
     }
+
+    public function saveOrden(Request $request)
+    {
+    }
+
 
     public function create(Request $request)
     {
@@ -48,10 +43,10 @@ class OrdenServicioController extends Controller
 
 
         $countOrdenServicio = Ordenservicio::count();
-        if($countOrdenServicio == 0){
-            $codpIngreso = 'S0001'.'-'. Carbon::parse($request->cFechaEmision)->format('Y');
-        }else{
-            $codpIngreso = 'S'.sprintf('%04d',$countOrdenServicio +1) .'-'. Carbon::parse($request->cFechaEmision)->format('Y');
+        if ($countOrdenServicio == 0) {
+            $codpIngreso = 'S0001' . '-' . Carbon::parse($request->cFechaEmision)->format('Y');
+        } else {
+            $codpIngreso = 'S' . sprintf('%04d', $countOrdenServicio + 1) . '-' . Carbon::parse($request->cFechaEmision)->format('Y');
         }
 
         if ($request->session()->has('products')) {
@@ -93,10 +88,10 @@ class OrdenServicioController extends Controller
         if ($request->nidProveedor == null) {
             $dato = Ordenservicio::with('proveedor', 'user', 'estadoordencompra', 'pago')->get();
             return $dato;
-        }else{
+        } else {
             $dato = Ordenservicio::with('proveedor', 'user', 'estadoordencompra', 'pago')
-            ->where('proveedor_id', $request->nidProveedor)
-            ->where('estadoordencompra_id', 2)->get();
+                ->where('proveedor_id', $request->nidProveedor)
+                ->where('estadoordencompra_id', 2)->get();
             return $dato;
         }
     }
@@ -117,30 +112,31 @@ class OrdenServicioController extends Controller
         return $pdf->download('invoice.pdf');;
     }
 
-    public function setDarBajaOrderServicio(Request $request){
+    public function setDarBajaOrderServicio(Request $request)
+    {
 
         $ordencompra = Ordenservicio::where('codigo', $request->codigo)->first();
         $ordencompra->estadoordencompra_id = '1';
         $ordencompra->save();
     }
 
-    public function CargaDatosOrdenServicio(Request $request){
+    public function CargaDatosOrdenServicio(Request $request)
+    {
 
         $codOrderServicio = Ordenservicio::where('codigo', $request->nidOrdenServicio)->first();
         $dato = Detalleordenservicio::with('ordenservicio', 'ordenservicio.proveedor')->where('id', $codOrderServicio->id)->first();
         return $dato;
-
     }
 
     public function ListXProduct(Request $request)
     {
-               $nIdprod = $request->nIdprod;
+        $nIdprod = $request->nIdprod;
 
-               $dato =  Detalleordenservicio::with('ordenservicio','unidmedida','producto','ordenservicio.proveedor')
-                   ->whereHas('ordenservicio', function (Builder $query) use ($nIdprod) {$query->where('producto_id', $nIdprod);
-                   })->get();
+        $dato =  Detalleordenservicio::with('ordenservicio', 'unidmedida', 'producto', 'ordenservicio.proveedor')
+            ->whereHas('ordenservicio', function (Builder $query) use ($nIdprod) {
+                $query->where('producto_id', $nIdprod);
+            })->get();
 
-                   return $dato;
+        return $dato;
     }
-
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManobraOrdenproducTable extends Migration
+class CreateManobraReqmaterialesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateManobraOrdenproducTable extends Migration
      */
     public function up()
     {
-        Schema::create('manobra_ordenproduc', function (Blueprint $table) {
+        Schema::create('manobra_reqmateriales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ordenproduccion_id');
-            $table->foreign('ordenproduccion_id')->references('id')->on('ordenproduccion');
+            $table->unsignedBigInteger('pk_ReqMateriales');
+            $table->foreign('pk_ReqMateriales')->references('id')->on('requerimiento_materiales');
             $table->string('personal',150)->nullable();
             $table->integer('dias')->required();
             $table->integer('horas')->required();
-            $table->timestamps();
+
         });
     }
 
@@ -31,6 +31,6 @@ class CreateManobraOrdenproducTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manobra_ordenproduc');
+        Schema::dropIfExists('manobra_reqmateriales');
     }
 }
