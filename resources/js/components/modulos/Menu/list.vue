@@ -117,9 +117,9 @@
                                                     clearable>
                                                     <v-row align="right">
                                                         <el-option v-for="item in this.listMenuEntrada"
-                                                            :key="item.id"
+                                                            :key="item.plato_entrada.nombre.id"
                                                             :label="item.plato_entrada.nombre"
-                                                            :value="item.id"
+                                                            :value="item.plato_entrada.id"
                                                             :disabled="EstadoMenuEntrada">
                                                         </el-option>
                                                     </v-row>
@@ -157,8 +157,8 @@
                                                     placeholder="Seleccione una Tipo" :style="{ width: '350px' }"
                                                     clearable>
                                                     <v-row align="right">
-                                                        <el-option v-for="item in this.listMenuSegundo" :key="item.id"
-                                                            :label="item.plato_segundo.nombre" :value="item.id"
+                                                        <el-option v-for="item in this.listMenuSegundo" :key="item.plato_segundo.id"
+                                                            :label="item.plato_segundo.nombre" :value="item.plato_segundo.id"
                                                             :disabled="EstadoMenuSegundo">
                                                         </el-option>
                                                     </v-row>
@@ -199,8 +199,8 @@
                                                     placeholder="Seleccione una Tipo" :style="{ width: '350px' }"
                                                     clearable>
                                                     <v-row align="right">
-                                                        <el-option v-for="item in this.listMenuExtra" :key="item.id"
-                                                            :label="item.plato_extra.nombre" :value="item.id"
+                                                        <el-option v-for="item in this.listMenuExtra" :key="item.plato_extra.nombre.id"
+                                                            :label="item.plato_extra.nombre" :value="item.plato_extra.nombre.id"
                                                             :disabled="EstadoMenuExtra">
                                                         </el-option>
                                                     </v-row>
@@ -623,6 +623,7 @@ console.log(response.data)
             axios
                 .get(url)
                 .then((response) => {
+                    console.log(response.data)
                     this.listMenuEntrada = response.data;
                 });
 
@@ -753,7 +754,7 @@ console.log(response.data)
                 });
         },
 
-        getPdfPSalidabyVendedor(item) {
+/*         getPdfPSalidabyVendedor(item) {
             var config = { responseType: "blob" };
             var url = "/administracion/papeletasalida/PapeletasalidaPdf";
             axios
@@ -772,7 +773,7 @@ console.log(response.data)
                     window.open(url);
                     //window.print();
                 });
-        },
+        }, */
 
         getlistClientAdmin() {
             var url = "/administracion/cliente/getListarAllCliente";

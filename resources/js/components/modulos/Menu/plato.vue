@@ -559,7 +559,10 @@ export default {
         }
     },
   mounted(){
-this.getListarTipoPlato();
+
+/*    this.setBuscarPEntrada();
+   this.setBuscarPSegundo();
+   this.setBuscarPExtra(); */
 //Carga la fecha Actual
 /*  this.fillCrearPlato.dFecha = new Date(); */
   },
@@ -595,7 +598,8 @@ this.getListarTipoPlato();
             timer: 2000,
           });
           this.fillCrearPlato.cNomEntrada=''
-          //this.$router.push("/proveedor");
+          this.setBuscarPEntrada();
+          
         });
     },
    setValidarPEntrada() {
@@ -607,7 +611,7 @@ this.getListarTipoPlato();
     },
 
 
-setGuardarPSegundo(){
+/* setGuardarPSegundo(){
     var url = "/administracion/Plato/CrearPlatoSegundo";
       axios
         .post(url, {
@@ -622,8 +626,9 @@ setGuardarPSegundo(){
             timer: 2000,
           });
           this.fillCrearPlato.cNomSegundo =''
+          this.setBuscarPSegundo();
         });
-},
+}, */
 
    setValidarPSegundo() {
       if (this.validarRegistrarPSegundo()) {
@@ -736,7 +741,7 @@ setGuardarPSegundo(){
             timer: 2000,
           });
           this.fillCrearPlato.cNomSegundo=''
-          //this.$router.push("/proveedor");
+        this.setBuscarPSegundo();
         });
     },
 
@@ -756,6 +761,7 @@ setGuardarPSegundo(){
             timer: 2000,
           });
           this.fillCrearPlato.cNomExtra=''
+          this.setBuscarPExtra();
           //this.$router.push("/proveedor");
         });
     },
