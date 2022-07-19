@@ -57,7 +57,7 @@
         <tr>
           <td colspan="2" align="center" style="font-size: 11px"><strong>VENTA DE MEDIDORES, ACCESORIOS Y INSUMOS PARA AGUA POTABLE SERVICIO DE INSTALACION, CONTRASTACION Y REPARACION DE MEDIDORES DE AGUA</strong></td>
         </tr>
-    </table>
+</table>
 
       <table width="100%" border="0">
         <tr>
@@ -210,7 +210,7 @@
 
 </table>
 
-      <table width="100%" border="1" align="center" style="margin-top: 5px" >
+<table width="100%" border="1" align="center" style="margin-top: 5px" >
 
         <tr>
           <td colspan="3" align="center" style="font-size: 12px"><strong>CUENTAS CORRIENTES INVERSIONES NOVESUR</strong></td>
@@ -232,12 +232,12 @@
         </tr>
       </table>
       <br>
-      <table width="100%" border="0">
+<table width="100%" border="0">
         <tr>
           <td colspan="2"><strong>Condiciones Comerciales :</strong></td>
         </tr>
         <tr>
-          <td width="13%" style="font-size: 11px"><strong>Validez de Oferta  :</strong></td>
+          <td width="23%" style="font-size: 11px"><strong>Validez de Oferta  :</strong></td>
           <td width="90%" style="font-size: 10px">{{$coti->validezoferta}}</td>
         </tr>
         <tr>
@@ -269,17 +269,17 @@
             <td style="font-size: 14px"><strong>{{$coti->observacion}}</strong> </td>
         </tr>
 
-      </table>
+</table>
 
    <h6 style="font-weight:normal; margin-bottom: 0px">Atentamente</h6>
 
-   <h6 style="margin-top: 0px;font-weight:normal; margin-left: 40px" >
+<h6 style=" position: center; margin-top: 0px;font-weight:normal; margin-left: 40px" >
      {{$coti->user->gradousers->cod .' '. $coti->user->firstname .' '.$coti->user->secondname }}<br />
     Coordinador Comercial
-   </h6>
-<footer style=" position: absolute;bottom: 0;">
-       <h6 style="text-align: center; margin-bottom: 0px;font-weight:normal">Jr. Monte Abeto 376 Urb. Monterrico Sur - santiago de Surco</h6>
-       <h6 style="text-align: center; margin-top: 0px;font-weight:normal">Ventas@novesur.com / www.novesur.com</h6>
+</h6>
+<footer style="position: center; margin-top:50px ">
+  <h6 style="text-align: center; margin-bottom: 0px;font-weight:normal">Jr. Monte Abeto 376 Urb. Monterrico Sur - santiago de Surco<br>
+    Ventas@novesur.com / www.novesur.com<span style="text-align: center"></span><span style="text-align: right"></span><span style="text-align: justify"></span><span style="text-align: center"></span></h6>
 </footer>
 </body>
 </html>

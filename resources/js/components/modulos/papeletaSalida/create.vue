@@ -283,7 +283,7 @@
                   <div class="col-md-4 offset-4">
                     <button
                       class="btn btn-flat btn-info btnWidth"
-                      @click.prevent="cargaRangoHorasPapeleta"
+                      @click.prevent="setRegistrarPapeletaSalida"
                     >
                       Guardar
                     </button>
@@ -381,7 +381,8 @@ export default {
   mounted() {
     this.getlistVendedorxUsu();
     this.getListarMotivo();
-   this.setConfigTime();
+       this.fillPapeletasalida.cFecha= new Date();
+  // this.setConfigTime();
   //  this.cargaRangoHorasPapeleta();
 
 
@@ -410,8 +411,6 @@ export default {
 
           var minutosHoraSalida = Number(vHoraSalida) * 60 + Number(vMinSalida);
 
-
-alert(minutosHoraSalida )
 
                 //  alert(minHoraASctual +' - '+ vMinSalida +' - '+ horaSalida)
 
@@ -471,7 +470,7 @@ alert(minutosHoraSalida )
     setConfigTime() {
       this.fillPapeletasalida.tHoraSalida = new Date(2016, 9, 10, 8, 0);
       this.fillPapeletasalida.tHoraRetorno = new Date(2016, 9, 10, 17, 0);
-      this.fillPapeletasalida.cFecha= new Date();
+   
     },
 
     getlistVendedorxUsu() {

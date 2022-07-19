@@ -39,7 +39,7 @@ class PapeletaSalidaController extends Controller
             $PapeletaSalida->horasalida = substr($request->tHoraSalida, 0, 8);
             $PapeletaSalida->horaretorno = substr($request->tHoraRetorno, 0, 8);
             $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;
-            $PapeletaSalida->estadopapeletasalida_id = '1';
+            $PapeletaSalida->estadopapeletasalida_id = '3';
             $PapeletaSalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
             $PapeletaSalida->save();
 
@@ -66,12 +66,8 @@ class PapeletaSalidaController extends Controller
                 $clientsPapeletaSalida->direccion = NULL;
                 $clientsPapeletaSalida->save();
             }
-        /*     DB::commit();
-            return response()->json(['message' => 'Grabado', 'icon' => 'success'], 200);
-        } catch (\Throwable $e) {
-            DB::rollback();
-            return response()->json(['message' => 'Error al grabar', 'icon' => 'error'], 200);
-        } */
+            return response()->json(['message' => 'Papeleta dse Salida grabado', 'icon' => 'success'], 200);
+
     }
 
     public function listPapeleByVendedor(Request $request)

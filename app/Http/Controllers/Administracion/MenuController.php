@@ -79,10 +79,11 @@ class MenuController extends Controller
 
         ///// SOLO  ENTRADA  //////////
         if ($request->nIdTipo == 1) {
+           
             $detalleMenu = new DetalleMenu();
             $detalleMenu->menu_id = $menu->id;
             $detalleMenu->cant_entrada = $request->numEntrada;
-            $detalleMenu->plato_entrada_id = $request->numEntrada;
+            $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
             $detalleMenu->observacionEntrada = $request->cObsEntrada;
             $detalleMenu->cant_segundo = 0;
             $detalleMenu->plato_segundo_id = 1;

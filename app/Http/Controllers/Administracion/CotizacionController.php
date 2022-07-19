@@ -59,10 +59,10 @@ class CotizacionController extends Controller
 
         $Cotizacion = Cotizacion::where('codigo',$request->item)->first();
 
-        $searchProd = DetalleCotizacion::where('producto_id', $request->nIdprod)
+     /*    $searchProd = DetalleCotizacion::where('producto_id', $request->nIdprod)
             ->where('cotizacion_id', $Cotizacion->id)->exists();
 
-        if ($searchProd != 1) {
+        if ($searchProd != 1) { */
             $detcotizacion =  new DetalleCotizacion;
             $detcotizacion->cotizacion_id = $Cotizacion->id;
             $detcotizacion->cantidad = $request->cCantidad;
@@ -70,7 +70,7 @@ class CotizacionController extends Controller
             $detcotizacion->producto_id = $request->nIdprod;
             $detcotizacion->punit = $request->cPUnit;
             $detcotizacion->save();
-        }
+        //}
     }
 
     public function dellTempEditCotizacion(Request $request)

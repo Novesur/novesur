@@ -466,7 +466,7 @@ export default {
         cargaListMenus() {
             var url = "/administracion/Menu/ListMenubyDate";
             axios.get(url).then((response) => {
-console.log(response.data)
+
 
                  this.listeMenusxFecha = response.data;
             });
