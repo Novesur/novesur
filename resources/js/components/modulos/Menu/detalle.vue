@@ -13,13 +13,13 @@
       <div class="card">
         <div class="card-header">
           <div class="card-tools">
+            <button
+              class="btn btn-success btn-sm"
+              @click.prevent="getExcelDetalleMenu"
+            >
+              <span><i class="fas fa-file-excel"></i> Listado</span>
+            </button>
 
-             <button
-                      class="btn  btn-success btn-sm "
-                      @click.prevent="getExcelDetalleMenu"
-                    >
-                    <span><i class="fas fa-file-excel"></i> EXCEL</span>
-                    </button>
           </div>
         </div>
         <div class="card-body">
@@ -34,17 +34,18 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Rango de Fechas</label>
+                          <label class="col-md-3 col-form-label"
+                            >Rango de Fechas</label
+                          >
                           <div class="col-md-9">
-
-                                         <el-date-picker
-                                v-model="fillBsqDetalleMenu.cSelectDate"
-                                type="daterange"
-                                range-separator="A"
-                                start-placeholder="Fecha Inicial"
-                                end-placeholder="Fecha Final"
-                              >
-                              </el-date-picker>
+                            <el-date-picker
+                              v-model="fillBsqDetalleMenu.cSelectDate"
+                              type="daterange"
+                              range-separator="A"
+                              start-placeholder="Fecha Inicial"
+                              end-placeholder="Fecha Final"
+                            >
+                            </el-date-picker>
                           </div>
                         </div>
                       </div>
@@ -55,10 +56,16 @@
               <div class="card-footer">
                 <div class="row">
                   <div class="col-md-4 offset-4">
-                    <button class="btn btn-flat btn-info btnWidth" @click.prevent="getListMenubyDate">
+                    <button
+                      class="btn btn-flat btn-info btnWidth"
+                      @click.prevent="getListMenubyDate"
+                    >
                       Buscar
                     </button>
-                    <button class="btn btn-flat btn-default btnWidth" @click.prevent="limpiarCriteriosBsq">
+                    <button
+                      class="btn btn-flat btn-default btnWidth"
+                      @click.prevent="limpiarCriteriosBsq"
+                    >
                       Limpiar
                     </button>
                   </div>
@@ -71,46 +78,51 @@
               </div>
               <div class="card-body table-responsive">
                 <table
-                  class="table table-hover table-head-fixed text-nowrap projects"
+                  class="
+                    table table-hover table-head-fixed
+                    text-nowrap
+                    projects
+                  "
                 >
                   <thead>
                     <tr>
-                        <th>Fecha</th>
-                        <th>Vendedor</th>
-                        <th>cant. Entrada</th>
-                        <th>Entrada</th>
-                        <th>Observación_Entrada</th>
-                        <th>cant. Segundo</th>
-                        <th>Segundo</th>
-                        <th>Observación_Segundo</th>
-                        <th>cant. Extra</th>
-                        <th>Extra</th>
-                        <th>Observación_Extra</th>
-                        <th>Tipo de Menu</th>
+                      <th>Fecha</th>
+                      <th>Personal</th>
+                      <th>cant. Entrada</th>
+                      <th>Entrada</th>
+                      <th>Observación_Entrada</th>
+                      <th>cant. Segundo</th>
+                      <th>Segundo</th>
+                      <th>Observación_Segundo</th>
+                      <th>cant. Extra</th>
+                      <th>Extra</th>
+                      <th>Observación_Extra</th>
+                      <th>Tipo de Menu</th>
 
-                        <th>Acción</th>
+                      <th>Acción</th>
                     </tr>
                   </thead>
                   <tbody>
-                                                <tr v-for="(item,index) in listeMenuDetallexFecha" :key="index">
-                                                        <td>{{ item.menu.fecha | moment("DD - MM - Y") }}</td>
-                                                        <td>{{ item.menu.user.fullname }}</td>
-                                                        <td v-text="item.cant_entrada"></td>
-                                                        <td v-text="item.plato_entrada.nombre"></td>
-                                                         <td v-text="item.observacionEntrada"></td>
-                                                        <td v-text="item.cant_segundo"></td>
-                                                        <td v-text="item.plato_segundo.nombre"></td>
-                                                         <td v-text="item.observacionSegundo"></td>
-                                                        <td v-text="item.cant_extra"></td>
-                                                        <td v-text="item.plato_extra.nombre"></td>
-                                                        <td v-text="item.observacionExtra"></td>
-                                                        <td v-text="item.menu.tipomenu.nombre"></td>
-
-
+                    <tr
+                      v-for="(item, index) in listeMenuDetallexFecha"
+                      :key="index"
+                    >
+                      <td>{{ item.menu.fecha | moment("DD - MM - Y") }}</td>
+                      <td>{{ item.menu.user.fullname }}</td>
+                      <td v-text="item.cant_entrada"></td>
+                      <td v-text="item.plato_entrada.nombre"></td>
+                      <td v-text="item.observacionEntrada"></td>
+                      <td v-text="item.cant_segundo"></td>
+                      <td v-text="item.plato_segundo.nombre"></td>
+                      <td v-text="item.observacionSegundo"></td>
+                      <td v-text="item.cant_extra"></td>
+                      <td v-text="item.plato_extra.nombre"></td>
+                      <td v-text="item.observacionExtra"></td>
+                      <td v-text="item.menu.tipomenu.nombre"></td>
                     </tr>
                   </tbody>
                 </table>
-         <!--        <div class="card-footer">
+                <!--        <div class="card-footer">
                   <ul class="pagination pagination-sm m-0 float-right">
                     <li class="page-item" v-if="pageNumber>0">
                       <a href="#" class="page-link" @click.prevent="prevPage">Ant</a>
@@ -135,73 +147,79 @@
 <script>
 import FileSaver from "file-saver";
 export default {
-    data(){
-        return{
-            fillBsqDetalleMenu:{
-                cSelectDate:'',
-
-            },
-             listeMenuDetallexFecha:[],
-            pageNumber:0,
-            perPage : 10,
-        }
+  data() {
+    return {
+      fillBsqDetalleMenu: {
+        cSelectDate: "",
+      },
+      listeMenuDetallexFecha: [],
+      pageNumber: 0,
+      perPage: 10,
+    };
+  },
+  computed: {
+    pageCount() {
+      let a = this.listMaterial.length,
+        b = this.perPage;
+      return Math.ceil(a / b);
     },
-    computed:{
-        pageCount(){
-            let a = this.listMaterial.length,
-            b = this.perPage;
-            return Math.ceil(a/b);
-        },
-        listMaterialPaginated(){
-            let inicio = this.pageNumber * this.perPage,
-            fin = inicio + this.perPage;
-            return this.listMaterial.slice(inicio,fin);
-        },
-        pagesList(){
-
-               let a = this.listMaterial.length,
-            b = this.perPage;
-            let PageCount = Math.ceil(a/b);
-            let count = 0,
-            pagesArray = [];
-
-            while(count < PageCount){
-                pagesArray.push(count);
-                count++;
-            }
-        return pagesArray;
-
-        }
+    listMaterialPaginated() {
+      let inicio = this.pageNumber * this.perPage,
+        fin = inicio + this.perPage;
+      return this.listMaterial.slice(inicio, fin);
     },
-    methods:{
-        limpiarCriteriosBsq(){
-            this.fillBsqDetalleMenu.cSelectDate = '';
-            this.listeMenuDetallexFecha=[]
-        },
-        limpiarBandejaMaterial(){
-            this.listMaterial = [];
-        },
-        getListMenubyDate(){
-            var url = '/administracion/Menu/ListMenuDetallebyDate'
-            axios.get(url,{
-                params:{
-                    dFechainicio: !this.fillBsqDetalleMenu.cSelectDate ? "" : this.fillBsqDetalleMenu.cSelectDate[0],
-                   dFechafin: !this.fillBsqDetalleMenu.cSelectDate ? "" : this.fillBsqDetalleMenu.cSelectDate[1],
-                }
-            }).then(response=>{
-                console.log(response.data)
-                this.listeMenuDetallexFecha = response.data;
-            })
+    pagesList() {
+      let a = this.listMaterial.length,
+        b = this.perPage;
+      let PageCount = Math.ceil(a / b);
+      let count = 0,
+        pagesArray = [];
 
-        },
+      while (count < PageCount) {
+        pagesArray.push(count);
+        count++;
+      }
+      return pagesArray;
+    },
+  },
+  methods: {
+    limpiarCriteriosBsq() {
+      this.fillBsqDetalleMenu.cSelectDate = "";
+      this.listeMenuDetallexFecha = [];
+    },
+    limpiarBandejaMaterial() {
+      this.listMaterial = [];
+    },
+    getListMenubyDate() {
+      var url = "/administracion/Menu/ListMenuDetallebyDate";
+      axios
+        .get(url, {
+          params: {
+            dFechainicio: !this.fillBsqDetalleMenu.cSelectDate
+              ? ""
+              : this.fillBsqDetalleMenu.cSelectDate[0],
+            dFechafin: !this.fillBsqDetalleMenu.cSelectDate
+              ? ""
+              : this.fillBsqDetalleMenu.cSelectDate[1],
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.listeMenuDetallexFecha = response.data;
+        });
+    },
 
-            getExcelDetalleMenu(){
-          var url = "/operacion/Menu/export";
+    getExcelDetalleMenu() {
+      var url = "/operacion/Menu/export";
       axios
         .post(
           url,
           {
-            params: { listeMenuDetallexFecha: JSON.stringify(this.listeMenuDetallexFecha) },
+            params: {
+              listeMenuDetallexFecha: JSON.stringify(
+                this.listeMenuDetallexFecha
+              ),
+            },
           },
           { responseType: "blob" }
         )
@@ -209,19 +227,20 @@ export default {
           FileSaver.saveAs(response.data, "DetalleMenu.xlsx");
         });
     },
-        nextPage(){
-            this.pageNumber++;
-        },
-        prevPage(){
-            this.pageNumber--;
-        },
-        selectPage(page){
-            this.pageNumber = page;
-        },
-        inicializarPaginacion(){
-          this.pageNumber = 0;
-        }
-    }
+
+    nextPage() {
+      this.pageNumber++;
+    },
+    prevPage() {
+      this.pageNumber--;
+    },
+    selectPage(page) {
+      this.pageNumber = page;
+    },
+    inicializarPaginacion() {
+      this.pageNumber = 0;
+    },
+  },
 };
 </script>
 

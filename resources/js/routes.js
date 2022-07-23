@@ -636,6 +636,15 @@ export default new Router({
 
         },
 
+        {
+            path: '/menu/reporteTotal',
+            name: 'menu.reporteTotal',
+            component: require('./components/modulos/menu/reporteTotal').default,
+
+        },
+
+
+
 
 
 //// ORDEN  DE PRODUCCION  /////////

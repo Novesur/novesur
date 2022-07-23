@@ -360,6 +360,17 @@
                                 </template>
                             </li>
 
+
+                            <li class="nav-item">
+                                <template v-if="listPermisos.includes('menu.reporteTotal')">
+                                    <router-link class="nav-link" :to="'/menu/reporteTotal'">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Reporte de Totales</p>
+                                    </router-link>
+                                </template>
+                            </li>
+
+
                             <li class="nav-item">
                                 <template v-if="listPermisos.includes('menu.reporteFechas')">
                                     <router-link class="nav-link" :to="'/menu/list'">

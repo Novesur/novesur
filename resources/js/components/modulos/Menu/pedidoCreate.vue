@@ -10,7 +10,6 @@
 
     <div class="content container-fluid">
       <div class="card">
-
         <div class="card-body">
           <div class="container-fluid">
             <div class="card card-info">
@@ -21,16 +20,17 @@
               <div class="card-body">
                 <form role="form">
                   <div class="row">
-                          <div class="col-md-12 " >
+                    <div class="col-md-12">
                       <div class="form-group row">
-                        <label class="col-md-1 col-form-label">Elija el Plato Entrada</label>
+                        <label class="col-md-1 col-form-label"
+                          >Elija el Plato Entrada</label
+                        >
                         <div class="col-md-10">
-                           <el-select
+                          <el-select
                             v-model="fillCrearPedidoMenu.nidPlatoEntrada"
                             placeholder="Seleccione una Tipo"
                             filterable
                             style="width: 70%"
-
                           >
                             <el-option
                               v-for="item in listPlatoEntrada"
@@ -40,31 +40,31 @@
                             >
                             </el-option>
                           </el-select>
-                        <span>
-                          <button
-                      class="btn btn-info "
-                      @click.prevent="setGrabarPedidoEntrada"
-                    >
-                      Registrar
-                    </button>
-                        </span>
+                          <span>
+                            <button
+                              class="btn btn-info"
+                              @click.prevent="setGrabarPedidoEntrada"
+                            >
+                              Registrar
+                            </button>
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-
-                          <div class="row">
-                          <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
                       <div class="form-group row">
-                        <label class="col-md-1 col-form-label">Elija el Plato Segundo</label>
+                        <label class="col-md-1 col-form-label"
+                          >Elija el Plato Segundo</label
+                        >
                         <div class="col-md-10">
-                           <el-select
+                          <el-select
                             v-model="fillCrearPedidoMenu.nidPlatoSegundo"
                             placeholder="Seleccione una Tipo"
                             filterable
                             style="width: 70%"
-
                           >
                             <el-option
                               v-for="item in listPlatoSegundo"
@@ -74,33 +74,31 @@
                             >
                             </el-option>
                           </el-select>
-                              <span>
-                          <button
-                      class="btn btn-info "
-                      @click.prevent="setGrabarPedidoSegundo"
-                    >
-                      Registrar
-                    </button>
-                        </span>
+                          <span>
+                            <button
+                              class="btn btn-info"
+                              @click.prevent="setGrabarPedidoSegundo"
+                            >
+                              Registrar
+                            </button>
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-
-
-
-                          <div class="row">
-                          <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
                       <div class="form-group row">
-                        <label class="col-md-1 col-form-label">Elija el Plato Extra</label>
+                        <label class="col-md-1 col-form-label"
+                          >Elija el Plato Extra</label
+                        >
                         <div class="col-md-10">
-                           <el-select
+                          <el-select
                             v-model="fillCrearPedidoMenu.nidPlatoExtra"
                             placeholder="Seleccione una Tipo"
                             filterable
                             style="width: 70%"
-
                           >
                             <el-option
                               v-for="item in listPlatoExtra"
@@ -110,14 +108,14 @@
                             >
                             </el-option>
                           </el-select>
-                              <span>
-                          <button
-                      class="btn btn-info "
-                      @click.prevent="setGrabarPedidoExtra"
-                    >
-                      Registrar
-                    </button>
-                        </span>
+                          <span>
+                            <button
+                              class="btn btn-info"
+                              @click.prevent="setGrabarPedidoExtra"
+                            >
+                              Registrar
+                            </button>
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -128,24 +126,21 @@
                       <div class="form-group row">
                         <label class="col-md-1 col-form-label">Fecha</label>
                         <div class="col-md-8">
-                    <el-date-picker
-                              v-model="fillCrearPedidoMenu.dFecha"
-                              type="date"
-                              value-format="yyyy-MM-dd"
-                              :style="{ width: '180px', height: '38px' }"
-                            >
-                            </el-date-picker>
+                          <el-date-picker
+                            v-model="fillCrearPedidoMenu.dFecha"
+                            type="date"
+                            value-format="yyyy-MM-dd"
+                            :style="{ width: '180px', height: '38px' }"
+                          >
+                          </el-date-picker>
                         </div>
                       </div>
                     </div>
                   </div>
-
                 </form>
               </div>
 
-
-
-       <!--        <div class="card-footer">
+              <!--        <div class="card-footer">
                 <div class="row">
                   <div class="col-md-4 offset-4">
                     <button
@@ -166,114 +161,125 @@
             </div>
           </div>
 
-<div class="container-fluid">
-
-<div class="row">
-
-  <div class="col">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col">
                 <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Menu Entrada</h3>
-              </div>
-              <div class="card-body table-responsive">
-                <table
-                  class="table table-hover table-head-fixed text-nowrap projects"
-                >
-                  <thead>
-                    <tr>
-
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in listPedidoEntrada"
-                      :key="index"
+                  <div class="card-header">
+                    <h3 class="card-title">Menu Entrada</h3>
+                  </div>
+                  <div class="card-body table-responsive">
+                    <table
+                      class="
+                        table table-hover table-head-fixed
+                        text-nowrap
+                        projects
+                      "
                     >
-                      <td v-text="item.plato_entrada.nombre"></td>
-                      <td>
-                        <router-link class="btn btn-info btn-sm" :to="{name:'marca.editar', params:{id: item.id}}">
-                          <i class="fas fa-pencil-alt"></i>Editar
-                        </router-link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      <thead>
+                        <tr></tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(item, index) in listPedidoEntrada"
+                          :key="index"
+                        >
+                          <template v-if="item.plato_entrada" !="null">
+                            <td v-text="item.plato_entrada.nombre"></td>
 
+                            <td>
+                              <button
+                                class="btn btn-danger btn-sm"
+                                @click.prevent="DeletePedidoEntrada(item.id)"
+                              >
+                                <i class="fas fa-trash"></i>Eliminar
+                              </button>
+                            </td>
+                          </template>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card card-info">
+                  <div class="card-header">
+                    <h3 class="card-title">Menu Segundo</h3>
+                  </div>
+                  <div class="card-body table-responsive">
+                    <table
+                      class="
+                        table table-hover table-head-fixed
+                        text-nowrap
+                        projects
+                      "
+                    >
+                      <thead></thead>
+                      <tbody>
+                        <tr
+                          v-for="(item, index) in listPedidoSegundo"
+                          :key="index"
+                        >
+                          <template v-if="item.plato_segundo" !="null">
+                            <td v-text="item.plato_segundo.nombre"></td>
+
+                            <td>
+                              <button
+                                class="btn btn-danger btn-sm"
+                                @click.prevent="DeletePedidoSegundo(item.id)"
+                              >
+                                <i class="fas fa-trash"></i>Eliminar
+                              </button>
+                            </td>
+                          </template>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card card-info">
+                  <div class="card-header">
+                    <h3 class="card-title">Menu Extra</h3>
+                  </div>
+                  <div class="card-body table-responsive">
+                    <table
+                      class="
+                        table table-hover table-head-fixed
+                        text-nowrap
+                        projects
+                      "
+                    >
+                      <thead></thead>
+                      <tbody>
+                        <tr
+                          v-for="(item, index) in listPedidoExtra"
+                          :key="index"
+                        >
+                          <template v-if="item.plato_extra" !="null">
+                            <td v-text="item.plato_extra.nombre"></td>
+
+                            <td>
+                              <button
+                                class="btn btn-danger btn-sm"
+                                @click.prevent="DeletePedidoExtra(item.id)"
+                              >
+                                <i class="fas fa-trash"></i>Eliminar
+                              </button>
+                            </td>
+                          </template>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
-  </div>
-
-
-
-                  <div class="col">
-                <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Menu Segundo</h3>
-              </div>
-              <div class="card-body table-responsive">
-                <table
-                  class="table table-hover table-head-fixed text-nowrap projects"
-                >
-                  <thead>
-                
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in listPedidoSegundo"
-                      :key="index"
-                    >
-                       <td v-text="item.plato_segundo.nombre"></td>
-                      <td>
-                        <router-link class="btn btn-info btn-sm" :to="{name:'marca.editar', params:{id: item.id}}">
-                          <i class="fas fa-pencil-alt"></i>Editar
-                        </router-link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div>
-            </div>
-  </div>
-
-
-                  <div class="col">
-                <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Menu Extra</h3>
-              </div>
-              <div class="card-body table-responsive">
-                <table
-                  class="table table-hover table-head-fixed text-nowrap projects"
-                >
-                  <thead>
-              
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in listPedidoExtra"
-                      :key="index"
-                    >
-                       <td v-text="item.plato_extra.nombre"></td>
-                      <td>
-                        <router-link class="btn btn-info btn-sm" :to="{name:'marca.editar', params:{id: item.id}}">
-                          <i class="fas fa-pencil-alt"></i>Editar
-                        </router-link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div>
-            </div>
-  </div>
-
-
-
-
-</div>
-</div>
+          </div>
         </div>
       </div>
     </div>
@@ -315,19 +321,16 @@ export default {
     return {
       fillCrearPedidoMenu: {
         nidPlatoEntrada: "",
-        nidPlatoSegundo:"",
-        nidPlatoExtra:"",
-        dFecha:"",
-
-
-
+        nidPlatoSegundo: "",
+        nidPlatoExtra: "",
+        dFecha: "",
       },
-      listPlatoEntrada:[],
-      listPlatoSegundo:[],
-       listPlatoExtra:[],
-       listPedidoEntrada:[],
-       listPedidoSegundo:[],
-       listPedidoExtra:[],
+      listPlatoEntrada: [],
+      listPlatoSegundo: [],
+      listPlatoExtra: [],
+      listPedidoEntrada: [],
+      listPedidoSegundo: [],
+      listPedidoExtra: [],
 
       modalShow: false,
       mostrarModal: {
@@ -341,36 +344,31 @@ export default {
       mensajeError: [],
     };
   },
-  mounted(){
-      this. getListarPlatoEntrada()
-      this.getListarPlatoSegundo()
-      this.getListarPlatoExtra()
-      this.getListarPedidoEntrada()
-      this.getListarPedidoSegundo()
-      this.getListarPedidoExtra();
+  mounted() {
+    this.getListarPlatoEntrada();
+    this.getListarPlatoSegundo();
+    this.getListarPlatoExtra();
+    this.getListarPedidoEntrada();
+    this.getListarPedidoSegundo();
+    this.getListarPedidoExtra();
 
-//Carga la fecha Actual
-  this.fillCrearPedidoMenu.dFecha = new Date();
+    //Carga la fecha Actual
+    this.fillCrearPedidoMenu.dFecha = new Date();
   },
   methods: {
-
-
-
-
     abrirModal() {
       this.modalShow = !this.modalShow;
     },
     limpiarPlato() {
       this.fillCrearPedidoMenu.cNombre = "";
-
     },
 
-setGrabarPedidoEntrada(){
-    var url = "/administracion/PedidoEntrada/create";
+    setGrabarPedidoEntrada() {
+      var url = "/administracion/PedidoEntrada/create";
       axios
         .post(url, {
           nidPlato: this.fillCrearPedidoMenu.nidPlatoEntrada,
-          dFecha : this.fillCrearPedidoMenu.dFecha
+          dFecha: this.fillCrearPedidoMenu.dFecha,
         })
         .then((response) => {
           Swal.fire({
@@ -381,17 +379,16 @@ setGrabarPedidoEntrada(){
             timer: 2000,
           });
 
-        this.getListarPedidoEntrada()
+          this.getListarPedidoEntrada();
         });
-},
+    },
 
-setGrabarPedidoSegundo(){
-
-       var url = "/administracion/PedidoSegundo/create";
+    setGrabarPedidoSegundo() {
+      var url = "/administracion/PedidoSegundo/create";
       axios
         .post(url, {
           nidPlato: this.fillCrearPedidoMenu.nidPlatoSegundo,
-          dFecha : this.fillCrearPedidoMenu.dFecha
+          dFecha: this.fillCrearPedidoMenu.dFecha,
         })
         .then((response) => {
           Swal.fire({
@@ -402,18 +399,16 @@ setGrabarPedidoSegundo(){
             timer: 2000,
           });
 
-          this.getListarPedidoSegundo()
+          this.getListarPedidoSegundo();
         });
+    },
 
-},
-
-setGrabarPedidoExtra(){
-
-       var url = "/administracion/PedidoExtra/create";
+    setGrabarPedidoExtra() {
+      var url = "/administracion/PedidoExtra/create";
       axios
         .post(url, {
           nidPlato: this.fillCrearPedidoMenu.nidPlatoExtra,
-          dFecha : this.fillCrearPedidoMenu.dFecha
+          dFecha: this.fillCrearPedidoMenu.dFecha,
         })
         .then((response) => {
           Swal.fire({
@@ -424,16 +419,9 @@ setGrabarPedidoExtra(){
             timer: 2000,
           });
 
-       this.getListarPedidoExtra()
+          this.getListarPedidoExtra();
         });
-
-},
-
-
-
-
-
-
+    },
 
     setRegistrarDetallePlato() {
       if (this.validarMenu()) {
@@ -443,8 +431,7 @@ setGrabarPedidoExtra(){
       this.setGuardarDetallePlato();
     },
 
-
-       getListarPlatoEntrada() {
+    getListarPlatoEntrada() {
       var url = "/administracion/plato/listEntrada";
       axios.get(url).then((response) => {
         this.listPlatoEntrada = response.data;
@@ -452,52 +439,127 @@ setGrabarPedidoExtra(){
       });
     },
 
-       getListarPedidoEntrada() {
-          var url = "/administracion/PedidoEntrada/list";
+    getListarPedidoEntrada() {
+      var url = "/administracion/PedidoEntrada/list";
       axios
         .get(url, {
-
-
           params: {
-            
-         dFecha : this.fillCrearPedidoMenu.dFecha
+            dFecha: this.fillCrearPedidoMenu.dFecha,
           },
         })
         .then((response) => {
-       
           this.listPedidoEntrada = response.data;
         });
     },
 
-           getListarPlatoSegundo() {
+    DeletePedidoEntrada(id) {
+      Swal.fire({
+        title: "Desea anular el plato del menu Entrada?",
+        text: "Si desea recuperarlo consulte con el administrador",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, Anulalo",
+        cancelButtonText: "No, cancelo!",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url = "/administracion/PedidoEntrada/delete";
+          axios
+            .post(url, {
+              id,
+            })
+            .then(() => {
+              this.getListarPedidoEntrada();
+            });
+          swalWithBootstrapButtons.fire(
+            "Anulado!",
+            "El Plato fue Anulado.",
+            "success"
+          );
+        }
+      });
+    },
+
+    DeletePedidoSegundo(id) {
+      Swal.fire({
+        title: "Desea anular el plato del menu Segundo?",
+        text: "Si desea recuperarlo consulte con el administrador",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, Anulalo",
+        cancelButtonText: "No, cancelo!",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url = "/administracion/PedidoSegundo/delete";
+          axios
+            .post(url, {
+              id,
+            })
+            .then(() => {
+              this.getListarPedidoSegundo();
+            });
+          swalWithBootstrapButtons.fire(
+            "Anulado!",
+            "El Plato fue Anulado.",
+            "success"
+          );
+        }
+      });
+    },
+
+    DeletePedidoExtra(id) {
+      Swal.fire({
+        title: "Desea anular el plato del menu Extra?",
+        text: "Si desea recuperarlo consulte con el administrador",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, Anulalo",
+        cancelButtonText: "No, cancelo!",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url = "/administracion/PedidoExtra/delete";
+          axios
+            .post(url, {
+              id,
+            })
+            .then(() => {
+              this.getListarPedidoExtra();
+            });
+          swalWithBootstrapButtons.fire(
+            "Anulado!",
+            "El Plato fue Anulado.",
+            "success"
+          );
+        }
+      });
+    },
+
+    getListarPlatoSegundo() {
       var url = "/administracion/plato/listSegundo";
       axios.get(url).then((response) => {
-
         this.listPlatoSegundo = response.data;
         this.fillCrearPedidoMenu.nidPlatoSegundo = this.listPlatoSegundo[0].id;
       });
     },
 
-      getListarPedidoSegundo() {
-          var url = "/administracion/PedidoSegundo/list";
+    getListarPedidoSegundo() {
+      var url = "/administracion/PedidoSegundo/list";
       axios
         .get(url, {
           params: {
-         dFecha : this.fillCrearPedidoMenu.dFecha
+            dFecha: this.fillCrearPedidoMenu.dFecha,
           },
         })
         .then((response) => {
-          console.log(response.data)
           this.listPedidoSegundo = response.data;
-       /*    this.fillBsqCotizacion.nIdVendedor = this.listVendedorUser[0].id;
+          /*    this.fillBsqCotizacion.nIdVendedor = this.listVendedorUser[0].id;
           this.getlistCliente(); */
         });
     },
 
-
-
-
-            getListarPlatoExtra() {
+    getListarPlatoExtra() {
       var url = "/administracion/plato/listExtra";
       axios.get(url).then((response) => {
         this.listPlatoExtra = response.data;
@@ -505,24 +567,20 @@ setGrabarPedidoExtra(){
       });
     },
 
-        getListarPedidoExtra() {
-          var url = "/administracion/PedidoExtra/list";
+    getListarPedidoExtra() {
+      var url = "/administracion/PedidoExtra/list";
       axios
         .get(url, {
           params: {
-         dFecha : this.fillCrearPedidoMenu.dFecha
+            dFecha: this.fillCrearPedidoMenu.dFecha,
           },
         })
         .then((response) => {
-          console.log(response.data)
           this.listPedidoExtra = response.data;
-       /*    this.fillBsqCotizacion.nIdVendedor = this.listVendedorUser[0].id;
+          /*    this.fillBsqCotizacion.nIdVendedor = this.listVendedorUser[0].id;
           this.getlistCliente(); */
         });
     },
-
-
-
 
     setGuardarDetallePlato() {
       var url = "/administracion/Plato/CreateDetallePlato";
@@ -530,7 +588,7 @@ setGrabarPedidoExtra(){
         .post(url, {
           nidPlato: this.fillCrearPedidoMenu.nidPlato,
 
-          dFecha : this.fillCrearPedidoMenu.dFecha
+          dFecha: this.fillCrearPedidoMenu.dFecha,
         })
         .then((response) => {
           Swal.fire({
@@ -551,10 +609,9 @@ setGrabarPedidoExtra(){
         this.mensajeError.push("El Campo Plato es un campo obligatorio");
       }
 
-         if (!this.fillCrearPedidoMenu.dFecha) {
+      if (!this.fillCrearPedidoMenu.dFecha) {
         this.mensajeError.push("El Campo Fecha es un campo obligatorio");
       }
-
 
       if (this.mensajeError.length) {
         this.error = 1;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administracion;
 use App\DetalleMenu;
 use App\DetallePlato;
 use App\Exports\DetalleMenuExport;
+use App\Exports\ReporteTotalExport;
 use App\Http\Controllers\Controller;
 use App\Menu;
 use App\TipoMenu;
@@ -12,6 +13,7 @@ use App\TipoPlato;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
 {
@@ -79,7 +81,7 @@ class MenuController extends Controller
 
         ///// SOLO  ENTRADA  //////////
         if ($request->nIdTipo == 1) {
-           
+
             $detalleMenu = new DetalleMenu();
             $detalleMenu->menu_id = $menu->id;
             $detalleMenu->cant_entrada = $request->numEntrada;
@@ -95,72 +97,71 @@ class MenuController extends Controller
         }
 
 
-            ///// SOLO  SEGUNDA  //////////
-            if ($request->nIdTipo == 2) {
-                $detalleMenu = new DetalleMenu();
-                $detalleMenu->menu_id = $menu->id;
-                $detalleMenu->cant_entrada = 0;
-                $detalleMenu->plato_entrada_id = 1;
-                $detalleMenu->observacionEntrada = NULL;
-                $detalleMenu->cant_segundo = $request->numSegundo;
-                $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
-                $detalleMenu->observacionSegundo = $request->cObsSegundo;
-                $detalleMenu->cant_extra = 0;
-                $detalleMenu->plato_extra_id = 1;
-                $detalleMenu->observacionExtra = NULL;
-                $detalleMenu->save();
-            }
+        ///// SOLO  SEGUNDA  //////////
+        if ($request->nIdTipo == 2) {
+            $detalleMenu = new DetalleMenu();
+            $detalleMenu->menu_id = $menu->id;
+            $detalleMenu->cant_entrada = 0;
+            $detalleMenu->plato_entrada_id = 1;
+            $detalleMenu->observacionEntrada = NULL;
+            $detalleMenu->cant_segundo = $request->numSegundo;
+            $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
+            $detalleMenu->observacionSegundo = $request->cObsSegundo;
+            $detalleMenu->cant_extra = 0;
+            $detalleMenu->plato_extra_id = 1;
+            $detalleMenu->observacionExtra = NULL;
+            $detalleMenu->save();
+        }
 
-            ////// MENU COMPLETO //////////////
-            if ($request->nIdTipo == 3) {
-                $detalleMenu = new DetalleMenu();
-                $detalleMenu->menu_id = $menu->id;
-                $detalleMenu->cant_entrada = $request->numEntrada;
-                $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
-                $detalleMenu->observacionEntrada = $request->cObsEntrada;
-                $detalleMenu->cant_segundo = $request->numSegundo;
-                $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
-                $detalleMenu->observacionSegundo = $request->cObsSegundo;
-                $detalleMenu->cant_extra = 0;
-                $detalleMenu->plato_extra_id = 1;
-                $detalleMenu->observacionExtra = NULL;
-                $detalleMenu->save();
-            }
+        ////// MENU COMPLETO //////////////
+        if ($request->nIdTipo == 3) {
+            $detalleMenu = new DetalleMenu();
+            $detalleMenu->menu_id = $menu->id;
+            $detalleMenu->cant_entrada = $request->numEntrada;
+            $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
+            $detalleMenu->observacionEntrada = $request->cObsEntrada;
+            $detalleMenu->cant_segundo = $request->numSegundo;
+            $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
+            $detalleMenu->observacionSegundo = $request->cObsSegundo;
+            $detalleMenu->cant_extra = 0;
+            $detalleMenu->plato_extra_id = 1;
+            $detalleMenu->observacionExtra = NULL;
+            $detalleMenu->save();
+        }
 
 
-            /////  SOLO  EXTRA  ////////
-            if ($request->nIdTipo == 4) {
-                $detalleMenu = new DetalleMenu();
-                $detalleMenu->menu_id = $menu->id;
-                $detalleMenu->cant_entrada = 0;
-                $detalleMenu->plato_entrada_id = 1;
-                $detalleMenu->observacionEntrada = NULL;
-                $detalleMenu->cant_segundo = 0;
-                $detalleMenu->plato_segundo_id = 1;
-                $detalleMenu->observacionSegundo = NULL;
-                $detalleMenu->cant_extra = $request->numExtra;
-                $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
-                $detalleMenu->observacionExtra = $request->cObsExtra;
-                $detalleMenu->save();
-            }
+        /////  SOLO  EXTRA  ////////
+        if ($request->nIdTipo == 4) {
+            $detalleMenu = new DetalleMenu();
+            $detalleMenu->menu_id = $menu->id;
+            $detalleMenu->cant_entrada = 0;
+            $detalleMenu->plato_entrada_id = 1;
+            $detalleMenu->observacionEntrada = NULL;
+            $detalleMenu->cant_segundo = 0;
+            $detalleMenu->plato_segundo_id = 1;
+            $detalleMenu->observacionSegundo = NULL;
+            $detalleMenu->cant_extra = $request->numExtra;
+            $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
+            $detalleMenu->observacionExtra = $request->cObsExtra;
+            $detalleMenu->save();
+        }
 
-            ///////  EXTRA  CON  ENTRADA ///////
+        ///////  EXTRA  CON  ENTRADA ///////
 
-            if ($request->nIdTipo == 5) {
-                $detalleMenu = new DetalleMenu();
-                $detalleMenu->menu_id = $menu->id;
-                $detalleMenu->cant_entrada = $request->numEntrada;
-                $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
-                $detalleMenu->observacionEntrada = $request->cObsEntrada;
-                $detalleMenu->cant_segundo = 0;
-                $detalleMenu->plato_segundo_id = 1;
-                $detalleMenu->observacionSegundo = NULL;
-                $detalleMenu->cant_extra = $request->numExtra;
-                $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
-                $detalleMenu->observacionExtra = $request->cObsExtra;
-                $detalleMenu->save();
-            }
-
+        if ($request->nIdTipo == 5) {
+            $detalleMenu = new DetalleMenu();
+            $detalleMenu->menu_id = $menu->id;
+            $detalleMenu->cant_entrada = $request->numEntrada;
+            $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
+            $detalleMenu->observacionEntrada = $request->cObsEntrada;
+            $detalleMenu->cant_segundo = 0;
+            $detalleMenu->plato_segundo_id = 1;
+            $detalleMenu->observacionSegundo = NULL;
+            $detalleMenu->cant_extra = $request->numExtra;
+            $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
+            $detalleMenu->observacionExtra = $request->cObsExtra;
+            $detalleMenu->save();
+        }
     }
     public function ListMenuEntrada(Request $request)
     {
@@ -193,7 +194,7 @@ class MenuController extends Controller
     {
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
-        $dato = DetalleMenu::with('menu', 'menu.user','menu.tipomenu', 'plato_entrada', 'plato_segundo', 'plato_extra')->whereHas('menu', function (Builder $query) use ($fecha) {
+        $dato = DetalleMenu::with('menu', 'menu.user', 'menu.tipomenu', 'plato_entrada', 'plato_segundo', 'plato_extra')->whereHas('menu', function (Builder $query) use ($fecha) {
             $query->where('fecha', $fecha);
         })->get();
         return $dato;
@@ -210,23 +211,47 @@ class MenuController extends Controller
     {
         $fechainicio = substr($request->dFechainicio, 0, -14);
         $fechafin = substr($request->dFechafin, 0, -14);
-        $dato = DetalleMenu::with('menu', 'menu.user','menu.tipomenu', 'plato_entrada', 'plato_segundo', 'plato_extra')->whereHas('menu', function (Builder $query) use ($fechainicio, $fechafin) {
+        $dato = DetalleMenu::with('menu', 'menu.user', 'menu.tipomenu', 'plato_entrada', 'plato_segundo', 'plato_extra')->whereHas('menu', function (Builder $query) use ($fechainicio, $fechafin) {
             $query->whereBetween('fecha', [$fechainicio, $fechafin]);
         })->get();
         return $dato;
     }
 
-    public function setAnular(Request $request)
+    public function setAnularMenu(Request $request)
     {
         $menu = Menu::find($request->item);
         $menu->delete();
-
     }
 
     public function export(Request $request)
     {
-
         $listeMenuDetallexFecha = json_decode($request->params['listeMenuDetallexFecha']);
         return (new DetalleMenuExport)->setGenerarExcel($listeMenuDetallexFecha)->download('invoices.xlsx');
     }
+
+    public function ListMenuTotal(Request $request){
+
+        $dFechainicio   =   substr($request->dFechainicio, 0, -14);
+        $dFechafin      =   substr($request->dFechafin, 0, -14);
+
+
+        $dFechainicio   =   ($dFechainicio   ==  NULL) ? ($dFechainicio   =   '') :   $dFechainicio;
+        $dFechafin      =   ($dFechafin   ==  NULL) ? ($dFechafin   =   '') :   $dFechafin;
+
+            $dato = DB::connection('mysql')->select('call sp_Reporte_Menu (?,?)', [
+
+                $dFechainicio,
+                $dFechafin
+            ]);
+
+            return $dato;
+}
+
+public function exportTotal(Request $request){
+
+    $listeMenuDetalleTotalFecha = json_decode($request->params['listeMenuDetalleTotalFecha']);
+    return (new ReporteTotalExport)->setGenerarExcel($listeMenuDetalleTotalFecha)->download('invoices.xlsx');
+
+}
+
 }

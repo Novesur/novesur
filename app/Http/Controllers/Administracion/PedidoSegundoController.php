@@ -31,4 +31,9 @@ class PedidoSegundoController extends Controller
         $dato = PedidoSegundo::with('plato_segundo')->where('fecha', $formatreq)->get();
             return $dato;
     }
+
+    public function delete(Request $request){
+        PedidoSegundo::find($request->id)->delete();
+
+    }
 }

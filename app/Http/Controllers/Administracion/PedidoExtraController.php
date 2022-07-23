@@ -31,4 +31,9 @@ class PedidoExtraController extends Controller
         $dato = PedidoExtra::with('plato_extra')->where('fecha', $formatreq)->get();
             return $dato;
     }
+
+    public function delete(Request $request){
+        PedidoExtra::find($request->id)->delete();
+
+    }
 }

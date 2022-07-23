@@ -39,12 +39,12 @@ class PapeletaSalidaController extends Controller
             $PapeletaSalida->horasalida = substr($request->tHoraSalida, 0, 8);
             $PapeletaSalida->horaretorno = substr($request->tHoraRetorno, 0, 8);
             $PapeletaSalida->motivopapeletasalida_id = $request->nIdMotivo;
-            $PapeletaSalida->estadopapeletasalida_id = '3';
+            $PapeletaSalida->estadopapeletasalida_id = '2';
             $PapeletaSalida->fundamento = nl2br(htmlentities(mb_strtoupper($request->cReferencia)));
             $PapeletaSalida->save();
 
 
-            if ($request->nIdMotivo == 3) {
+            if ($request->nIdMotivo == 2) {
                 $clientPapeletaSalida = Session::get('clients');
 
                 $allclients = $clientPapeletaSalida->map(function ($PS) use ($PapeletaSalida) {

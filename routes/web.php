@@ -374,10 +374,14 @@ Route::get('/administracion/Menu/ListMenuExtra', 'Administracion\MenuController@
 Route::post('/administracion/Menu/createMenu', 'Administracion\MenuController@createMenu');
 Route::get('/administracion/Menu/ListMenuExtra', 'Administracion\MenuController@ListMenuExtra');
 Route::get('/administracion/Menu/ListMenubyDate', 'Administracion\MenuController@ListMenubyDate');
-Route::post('/administracion/menu/setAnularMenu', 'Administracion\MenuController@setAnular');
+Route::post('/administracion/menu/setAnularMenu', 'Administracion\MenuController@setAnularMenu');
 Route::get('/administracion/Menu/ListMenuDetallebyDate', 'Administracion\MenuController@ListMenuDetallebyDate');
 Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
-Route::post('/operacion/Menu/export', 'Administracion\MenuController@export');
+Route::get('/administracion/Menu/ListMenuTotal', 'Administracion\MenuController@ListMenuTotal');
+Route::post('/operacion/Menu/exportTotal', 'Administracion\MenuController@exportTotal');
+
+
+
 
 
 /// Platos Menu
@@ -392,11 +396,20 @@ Route::get('/administracion/Plato/getListarPExtra', 'Administracion\PlatoControl
 Route::get('/administracion/plato/listEntrada', 'Administracion\PlatoController@listEntrada');
 Route::get('/administracion/plato/listSegundo', 'Administracion\PlatoController@listSegundo');
 Route::get('/administracion/plato/listExtra', 'Administracion\PlatoController@listExtra');
+Route::post('/administracion/Plato/getDataPlato', 'Administracion\PlatoController@getDataPlato');
+Route::post('/administracion/Plato/EditPlatoEntrada', 'Administracion\PlatoController@EditPlatoEntrada');
+Route::post('/administracion/Plato/DeletePlatoEntrada', 'Administracion\PlatoController@DeletePlatoEntrada');
+Route::post('/administracion/Plato/EditPlatoSegundo', 'Administracion\PlatoController@EditPlatoSegundo');
+Route::post('/administracion/Plato/DeletePlatoSegundo', 'Administracion\PlatoController@DeletePlatoSegundo');
+Route::post('/administracion/Plato/EditExtra', 'Administracion\PlatoController@EditExtra');
+Route::post('/administracion/Plato/DeletePlatoExtra', 'Administracion\PlatoController@DeletePlatoExtra');
+
 
 //// Pedido Entrada
 Route::post('/administracion/PedidoEntrada/create', 'Administracion\PedidoEntradaController@create');
 Route::get('/administracion/PedidoEntrada/list', 'Administracion\PedidoEntradaController@list');
 Route::get('/administracion/PedidoEntrada/listNow', 'Administracion\PedidoEntradaController@listNow');
+Route::post('/administracion/PedidoEntrada/delete', 'Administracion\PedidoEntradaController@delete');
 
 
 
@@ -405,25 +418,14 @@ Route::get('/administracion/PedidoEntrada/listNow', 'Administracion\PedidoEntrad
 Route::post('/administracion/PedidoSegundo/create', 'Administracion\PedidoSegundoController@create');
 Route::get('/administracion/PedidoSegundo/list', 'Administracion\PedidoSegundoController@list');
 Route::get('/administracion/PedidoSegundo/listNow', 'Administracion\PedidoSegundoController@listNow');
+Route::post('/administracion/PedidoSegundo/delete', 'Administracion\PedidoSegundoController@delete');
 
 
 /// Pedido Extra
 Route::post('/administracion/PedidoExtra/create', 'Administracion\PedidoExtraController@create');
 Route::get('/administracion/PedidoExtra/list', 'Administracion\PedidoExtraController@list');
 Route::get('/administracion/PedidoExtra/listNow', 'Administracion\PedidoExtraController@listNow');
-
-
-/// Orden de Produccion
-
-
-
-
-
-
-
-
-
-
+Route::post('/administracion/PedidoExtra/delete', 'Administracion\PedidoExtraController@delete');
 
 
 

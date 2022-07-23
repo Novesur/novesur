@@ -28,8 +28,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="(item, index) in listMenuEntrada" :key="index">
-                                                    <th v-text="index + 1"></th>
+
+                                                   <template v-if="item.plato_entrada != null">
+                                                   <th v-text="index + 1"></th>
                                                     <td v-text="item.plato_entrada.nombre"></td>
+                                                   </template>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -116,11 +119,13 @@
                                                     placeholder="Seleccione una Tipo" :style="{ width: '350px' }"
                                                     clearable>
                                                     <v-row align="right">
-                                                        <el-option v-for="item in this.listMenuEntrada"
-                                                            :key="item.plato_entrada.nombre.id"
+                                                        <el-option  v-for="item in this.listMenuEntrada"
+
+                                                            :key ="item.plato_entrada.nombre.id"
                                                             :label="item.plato_entrada.nombre"
                                                             :value="item.plato_entrada.id"
                                                             :disabled="EstadoMenuEntrada">
+
                                                         </el-option>
                                                     </v-row>
                                                 </el-select>
@@ -200,7 +205,7 @@
                                                     clearable>
                                                     <v-row align="right">
                                                         <el-option v-for="item in this.listMenuExtra" :key="item.plato_extra.nombre.id"
-                                                            :label="item.plato_extra.nombre" :value="item.plato_extra.nombre.id"
+                                                            :label="item.plato_extra.nombre" :value="item.plato_extra.id"
                                                             :disabled="EstadoMenuExtra">
                                                         </el-option>
                                                     </v-row>
@@ -458,7 +463,7 @@ export default {
         this.getlistTipoMenu();
         this.getlistSegundo();
         this.getlistExtra();
-       /*  this.cargaFechaActual();*/
+
         this.cargaListMenus();
     },
 
@@ -623,7 +628,6 @@ export default {
             axios
                 .get(url)
                 .then((response) => {
-                    console.log(response.data)
                     this.listMenuEntrada = response.data;
                 });
 

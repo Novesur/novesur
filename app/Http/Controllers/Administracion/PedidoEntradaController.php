@@ -21,8 +21,10 @@ class PedidoEntradaController extends Controller
     public function list(Request $request){
 
         $date = Carbon::parse($request->dFecha)->format('Y-m-d');
+      
 
         $dato = PedidoEntrada::with('plato_entrada')->where('fecha', $date)->get();
+      
             return $dato;
     }
 
@@ -30,5 +32,11 @@ class PedidoEntradaController extends Controller
         $formatreq = date("Y-m-d");
         $dato = PedidoEntrada::with('plato_entrada')->where('fecha', $formatreq)->get();
             return $dato;
+    }
+
+    public function delete(Request $request){
+        PedidoEntrada::find($request->id)->delete();
+        
+
     }
 }

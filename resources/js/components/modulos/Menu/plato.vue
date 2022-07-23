@@ -10,12 +10,11 @@
 
     <div class="content container-fluid">
       <div class="card">
-
         <div class="card-body">
           <div class="container-fluid">
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title"> Registrar Plato Entrada</h3>
+                <h3 class="card-title">Registrar Plato Entrada</h3>
               </div>
 
               <div class="card-body">
@@ -34,118 +33,112 @@
                       </div>
                     </div>
                   </div>
-
-
-
                 </form>
               </div>
-              <div class="card-footer  ">
-                  <div class="btn-group offset-4" >
-
-                    <button
-                      class="btn btn-flat btn-info btnWidth float-left"
-                      @click.prevent="setValidarPEntrada"
-                      style="margin-right: 5px"
-                    >
-                      Registrar
-                    </button>
-                        <button
-                      class="btn btn-flat btn-success btnWidth"
-                      @click.prevent="setBuscarPEntrada"
-                      style="margin-right: 5px"
-                    >
-                      Buscar
-                    </button>
-                    <button
-                      class="btn btn-flat btn-default btnWidth float-right"
-                      @click.prevent="limpiarPEntrada"
-                    >
-                      Limpiar
-                    </button>
-
+              <div class="card-footer">
+                <div class="btn-group offset-4">
+                  <button
+                    class="btn btn-flat btn-info btnWidth float-left"
+                    @click.prevent="setValidarPEntrada((tipo = 'reg'))"
+                    style="margin-right: 5px"
+                  >
+                    Registrar
+                  </button>
+                  <button
+                    class="btn btn-flat btn-success btnWidth"
+                    @click.prevent="setBuscarPEntrada"
+                    style="margin-right: 5px"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                    class="btn btn-flat btn-default btnWidth float-right"
+                    @click.prevent="limpiarPEntrada"
+                  >
+                    Limpiar
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-              <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Listado de Platos de Entrada</h3>
-              </div>
-              <div class="card-body table-responsive">
-                <table
-                  class="table table-hover table-head-fixed text-nowrap projects"
-                >
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in listPEntradaPaginated"
-                      :key="index"
-                    >
-                      <td v-text="item.nombre"></td>
-                      <td>
-                        <router-link class="btn btn-info btn-sm" :to="{name:'marca.editar', params:{id: item.id}}">
-                          <i class="fas fa-pencil-alt"></i>Editar
-                        </router-link>
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Listado de Platos de Entrada</h3>
+            </div>
+            <div class="card-body table-responsive">
+              <table
+                class="table table-hover table-head-fixed text-nowrap projects"
+              >
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(item, index) in listPEntradaPaginated"
+                    :key="index"
+                  >
+                    <td v-text="item.nombre"></td>
+                    <td>
+                      <button
+                        class="btn btn-info btn-sm"
+                        @click.prevent="abrirModalmenu(item.id, (tipo = 'ent'))"
+                      >
+                        <i class="fas fa-pencil-alt"></i>Editar
+                      </button>
 
-                            <button
-                          class="btn btn-danger btn-sm"
-                          @click.prevent="setConfirmaDeleteUsuario(item.id)"
-                        >
-                          <i class="fas fa-trash"></i>Eliminar
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="card-footer clearfix">
-                  <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item" v-if="pageNumber > 0">
-                      <a href="#" class="page-link" @click.prevent="prevPage"
-                        >Ant</a
+                      <button
+                        class="btn btn-danger btn-sm"
+                        @click.prevent="DeletePlatoEntrada(item.id)"
                       >
-                    </li>
-                    <li
-                      class="page-item"
-                      v-for="(page, index) in pagesListPEntrada"
-                      :key="index"
-                      :class="[page == pageNumber ? 'active' : '']"
+                        <i class="fas fa-trash"></i>Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item" v-if="pageNumber > 0">
+                    <a href="#" class="page-link" @click.prevent="prevPage"
+                      >Ant</a
                     >
-                      <a
-                        href="#"
-                        class="page-link"
-                        @click.prevent="selectPage(page)"
-                        >{{ page + 1 }}</a
-                      >
-                    </li>
-                    <li class="page-item" v-if="pageNumber < pageCount - 1">
-                      <a href="#" class="page-link" @click.prevent="nextPage"
-                        >Post</a
-                      >
-                    </li>
-                  </ul>
-                </div>
+                  </li>
+                  <li
+                    class="page-item"
+                    v-for="(page, index) in pagesListPEntrada"
+                    :key="index"
+                    :class="[page == pageNumber ? 'active' : '']"
+                  >
+                    <a
+                      href="#"
+                      class="page-link"
+                      @click.prevent="selectPage(page)"
+                      >{{ page + 1 }}</a
+                    >
+                  </li>
+                  <li class="page-item" v-if="pageNumber < pageCount - 1">
+                    <a href="#" class="page-link" @click.prevent="nextPage"
+                      >Post</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
+          </div>
         </div>
-
-
       </div>
 
+      <!--   Menu Segundo -->
 
-    <!--   Menu Segundo -->
-
-         <div class="card">
-
+      <div class="card">
         <div class="card-body">
           <div class="container-fluid">
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title"> Registrar Plato Segundo</h3>
+                <h3 class="card-title">Registrar Plato Segundo</h3>
               </div>
 
               <div class="card-body">
@@ -163,115 +156,115 @@
                         </div>
                       </div>
                     </div>
-
-
                   </div>
-
-
-
                 </form>
               </div>
               <div class="card-footer">
-                <div class="btn-group offset-4" >
-
-                    <button
-                      class="btn btn-flat btn-info btnWidth float-left"
-                      @click.prevent="setValidarPSegundo"
-                      style="margin-right: 5px"
-                    >
-                      Registrar
-                    </button>
-                        <button
-                      class="btn btn-flat btn-success btnWidth"
-                      @click.prevent="setBuscarPSegundo"
-                      style="margin-right: 5px"
-                    >
-                      Buscar
-                    </button>
-                    <button
-                      class="btn btn-flat btn-default btnWidth float-right"
-                      @click.prevent="limpiarPEntrada"
-                    >
-                      Limpiar
-                    </button>
-
+                <div class="btn-group offset-4">
+                  <button
+                    class="btn btn-flat btn-info btnWidth float-left"
+                    @click.prevent="setValidarPSegundo"
+                    style="margin-right: 5px"
+                  >
+                    Registrar
+                  </button>
+                  <button
+                    class="btn btn-flat btn-success btnWidth"
+                    @click.prevent="setBuscarPSegundo"
+                    style="margin-right: 5px"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                    class="btn btn-flat btn-default btnWidth float-right"
+                    @click.prevent="limpiarPEntrada"
+                  >
+                    Limpiar
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-              <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Bandeja de Entrada</h3>
-              </div>
-              <div class="card-body table-responsive">
-                <table
-                  class="table table-hover table-head-fixed text-nowrap projects"
-                >
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in listarPSegundoPaginated"
-                      :key="index"
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Bandeja de Entrada</h3>
+            </div>
+            <div class="card-body table-responsive">
+              <table
+                class="table table-hover table-head-fixed text-nowrap projects"
+              >
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(item, index) in listarPSegundoPaginated"
+                    :key="index"
+                  >
+                    <td v-text="item.nombre"></td>
+                    <td>
+                      <button
+                        class="btn btn-info btn-sm"
+                        @click.prevent="abrirModalmenu(item.id, (tipo = 'seg'))"
+                      >
+                        <i class="fas fa-pencil-alt"></i>Editar
+                      </button>
+
+                      <button
+                        class="btn btn-danger btn-sm"
+                        @click.prevent="DeletePlatoSegundo(item.id)"
+                      >
+                        <i class="fas fa-trash"></i>Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item" v-if="pageNumber > 0">
+                    <a href="#" class="page-link" @click.prevent="prevPage"
+                      >Ant</a
                     >
-                      <td v-text="item.nombre"></td>
-                      <td>
-                        <router-link class="btn btn-info btn-sm" :to="{name:'marca.editar', params:{id: item.id}}">
-                          <i class="fas fa-pencil-alt"></i>Editar
-                        </router-link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="card-footer clearfix">
-                  <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item" v-if="pageNumber > 0">
-                      <a href="#" class="page-link" @click.prevent="prevPage"
-                        >Ant</a
-                      >
-                    </li>
-                    <li
-                      class="page-item"
-                      v-for="(page, index) in  pagesListPSegundo"
-                      :key="index"
-                      :class="[page == pageNumber ? 'active' : '']"
+                  </li>
+                  <li
+                    class="page-item"
+                    v-for="(page, index) in pagesListPSegundo"
+                    :key="index"
+                    :class="[page == pageNumber ? 'active' : '']"
+                  >
+                    <a
+                      href="#"
+                      class="page-link"
+                      @click.prevent="selectPage(page)"
+                      >{{ page + 1 }}</a
                     >
-                      <a
-                        href="#"
-                        class="page-link"
-                        @click.prevent="selectPage(page)"
-                        >{{ page + 1 }}</a
-                      >
-                    </li>
-                    <li class="page-item" v-if="pageNumber < pageCount - 1">
-                      <a href="#" class="page-link" @click.prevent="nextPage"
-                        >Post</a
-                      >
-                    </li>
-                  </ul>
-                </div>
+                  </li>
+                  <li class="page-item" v-if="pageNumber < pageCount - 1">
+                    <a href="#" class="page-link" @click.prevent="nextPage"
+                      >Post</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
-
+          </div>
         </div>
       </div>
-    <!--   Fin del Menu Segundo -->
+      <!--   Fin del Menu Segundo -->
 
+      <!--   Menu Extra -->
 
-     <!--   Menu Extra -->
-
-         <div class="card">
-
+      <div class="card">
         <div class="card-body">
           <div class="container-fluid">
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title"> Registrar Plato Extra</h3>
+                <h3 class="card-title">Registrar Plato Extra</h3>
               </div>
 
               <div class="card-body">
@@ -289,110 +282,141 @@
                         </div>
                       </div>
                     </div>
-
-
                   </div>
-
-
-
                 </form>
               </div>
               <div class="card-footer">
-                <div class="btn-group offset-4" >
-
-                    <button
-                      class="btn btn-flat btn-info btnWidth float-left"
-                      @click.prevent="setValidarPExtra"
-                      style="margin-right: 5px"
-                    >
-                      Registrar
-                    </button>
-                        <button
-                      class="btn btn-flat btn-success btnWidth"
-                      @click.prevent="setBuscarPExtra"
-                      style="margin-right: 5px"
-                    >
-                      Buscar
-                    </button>
-                    <button
-                      class="btn btn-flat btn-default btnWidth float-right"
-                      @click.prevent="limpiarPEntrada"
-                    >
-                      Limpiar
-                    </button>
-
+                <div class="btn-group offset-4">
+                  <button
+                    class="btn btn-flat btn-info btnWidth float-left"
+                    @click.prevent="setValidarPExtra((tipo = 'reg'))"
+                    style="margin-right: 5px"
+                  >
+                    Registrar
+                  </button>
+                  <button
+                    class="btn btn-flat btn-success btnWidth"
+                    @click.prevent="setBuscarPExtra"
+                    style="margin-right: 5px"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                    class="btn btn-flat btn-default btnWidth float-right"
+                    @click.prevent="limpiarPEntrada"
+                  >
+                    Limpiar
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-              <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Bandeja de Entrada</h3>
-              </div>
-              <div class="card-body table-responsive">
-                <table
-                  class="table table-hover table-head-fixed text-nowrap projects"
-                >
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in listarPExtraPaginated"
-                      :key="index"
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Bandeja de Entrada</h3>
+            </div>
+            <div class="card-body table-responsive">
+              <table
+                class="table table-hover table-head-fixed text-nowrap projects"
+              >
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(item, index) in listarPExtraPaginated"
+                    :key="index"
+                  >
+                    <td v-text="item.nombre"></td>
+                    <td>
+                      <button
+                        class="btn btn-info btn-sm"
+                        @click.prevent="abrirModalmenu(item.id, (tipo = 'ext'))"
+                      >
+                        <i class="fas fa-pencil-alt"></i>Editar
+                      </button>
+
+                      <button
+                        class="btn btn-danger btn-sm"
+                        @click.prevent="DeletePlatoExtra(item.id)"
+                      >
+                        <i class="fas fa-trash"></i>Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item" v-if="pageNumber > 0">
+                    <a href="#" class="page-link" @click.prevent="prevPage"
+                      >Ant</a
                     >
-                      <td v-text="item.nombre"></td>
-                      <td>
-                        <router-link class="btn btn-info btn-sm" :to="{name:'marca.editar', params:{id: item.id}}">
-                          <i class="fas fa-pencil-alt"></i>Editar
-                        </router-link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="card-footer clearfix">
-                  <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item" v-if="pageNumber > 0">
-                      <a href="#" class="page-link" @click.prevent="prevPage"
-                        >Ant</a
-                      >
-                    </li>
-                    <li
-                      class="page-item"
-                      v-for="(page, index) in pagesListPExtra"
-                      :key="index"
-                      :class="[page == pageNumber ? 'active' : '']"
+                  </li>
+                  <li
+                    class="page-item"
+                    v-for="(page, index) in pagesListPExtra"
+                    :key="index"
+                    :class="[page == pageNumber ? 'active' : '']"
+                  >
+                    <a
+                      href="#"
+                      class="page-link"
+                      @click.prevent="selectPage(page)"
+                      >{{ page + 1 }}</a
                     >
-                      <a
-                        href="#"
-                        class="page-link"
-                        @click.prevent="selectPage(page)"
-                        >{{ page + 1 }}</a
-                      >
-                    </li>
-                    <li class="page-item" v-if="pageNumber < pageCountPExtra - 1">
-                      <a href="#" class="page-link" @click.prevent="nextPage"
-                        >Post</a
-                      >
-                    </li>
-                  </ul>
-                </div>
+                  </li>
+                  <li class="page-item" v-if="pageNumber < pageCountPExtra - 1">
+                    <a href="#" class="page-link" @click.prevent="nextPage"
+                      >Post</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
+          </div>
         </div>
       </div>
-    <!--   Fin del Menu Extra -->
-
+      <!--   Fin del Menu Extra -->
     </div>
     <div
+      class="modal fade"
+      :class="{ show: modalValidateShow }"
+      :style="modalValidateShow ? mostrarModal : ocultarModal"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Sistemas Novesur</h5>
+            <button class="close" @click="abrirModalValidacion"></button>
+          </div>
+          <div class="modal-body">
+            <div
+              class="callout callout-danger"
+              style="padding: 5px"
+              v-for="(item, index) in mensajeError"
+              :key="index"
+              v-text="item"
+            ></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" @click="abrirModalValidacion">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--   <div
       class="modal fade"
       :class="{ show: modalShow }"
       :style="modalShow ? mostrarModal : ocultarModal"
     >
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog" role="document"  >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Sistemas Novesur</h5>
@@ -407,14 +431,14 @@
               v-text="item"
             ></div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" >
             <button class="btn btn-secondary" @click="abrirModal">
               Cerrar
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div
       class="modal fade"
@@ -424,30 +448,57 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Sistemas Novesur</h5>
-            <button class="close" @click="abrirModal"></button>
+            <h5 class="modal-title">EDITAR MENU</h5>
+            <button class="close" @click="abrirModalmenu(id, tipo)"></button>
           </div>
           <div class="modal-body">
-            <div
-              class="callout callout-danger"
-              style="padding: 5px"
-              v-for="(item, index) in mensajeError"
-              :key="index"
-              v-text="item"
-            ></div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Nombre</label>
+              <div class="col-md-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="fillCrearPlato.cNomPlato"
+                />
+              </div>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" @click="abrirModal">
+          <!-- SI EL TIPO DE MENU ES PRIMERO  -->
+          <div class="modal-footer" v-if="tipo == 'ent'">
+            <button class="btn btn-primary" @click="EditEntrada()">
+              Editar Entrada
+            </button>
+
+            <button class="btn btn-secondary" @click="abrirModalmenu(id, tipo)">
               Cerrar
             </button>
           </div>
+          <!-- FIN DEL IF -->
+
+          <!-- SI EL TIPO DE MENU ES SEGUNDO  -->
+          <div class="modal-footer" v-if="tipo == 'seg'">
+            <button class="btn btn-primary" @click="EditSegundo()">
+              Editar Segundo
+            </button>
+            <button class="btn btn-secondary" @click="abrirModalmenu(id, tipo)">
+              Cerrar
+            </button>
+          </div>
+          <!-- FIN DEL IF -->
+
+          <!-- SI EL TIPO DE MENU ES EXTRA  -->
+          <div class="modal-footer" v-if="tipo == 'ext'">
+            <button class="btn btn-primary" @click="EditExtra()">
+              Editar Extra
+            </button>
+            <button class="btn btn-secondary" @click="abrirModalmenu(id, tipo)">
+              Cerrar
+            </button>
+          </div>
+          <!-- FIN DEL IF -->
         </div>
       </div>
     </div>
-
-
-
-
   </div>
 </template>
 
@@ -457,17 +508,20 @@ export default {
     return {
       fillCrearPlato: {
         cNomEntrada: "",
-        cNomSegundo:"",
-        cNomExtra:""
-
+        cNomSegundo: "",
+        cNomExtra: "",
+        cNomPlato: "",
       },
-      listPEntrada:[],
-      listPSegundo:[],
-      listPExtra:[],
-      pageNumber:0,
-      perPage : 10,
+      listPEntrada: [],
+      listPSegundo: [],
+      listPExtra: [],
+      pageNumber: 0,
+      perPage: 10,
+      tipo: "",
+      id: "",
 
       modalShow: false,
+      modalValidateShow: false,
       mostrarModal: {
         display: "block",
         background: "#0000006b",
@@ -479,108 +533,244 @@ export default {
       mensajeError: [],
     };
   },
-      computed:{
-        pageCount(){
-            let a = this.listPEntrada.length,
-            b = this.perPage;
-            return Math.ceil(a/b);
-        },
-        pageCountPSegundo(){
-            let a = this.listPSegundo.length,
-            b = this.perPage;
-            return Math.ceil(a/b);
-        },
-          pageCountPExtra(){
-            let a = this.listPExtra.length,
-            b = this.perPage;
-            return Math.ceil(a/b);
-        },
-        listPEntradaPaginated(){
-            let inicio = this.pageNumber * this.perPage,
-            fin = inicio + this.perPage;
-            return this.listPEntrada.slice(inicio,fin);
-        },
-        listarPSegundoPaginated(){
-            let inicio = this.pageNumber * this.perPage,
-            fin = inicio + this.perPage;
-            return this.listPSegundo.slice(inicio,fin);
-        },
-          listarPExtraPaginated(){
-            let inicio = this.pageNumber * this.perPage,
-            fin = inicio + this.perPage;
-            return this.listPExtra.slice(inicio,fin);
-        },
-        pagesListPEntrada(){
-
-               let a = this.listPEntrada.length,
-            b = this.perPage;
-            let PageCount = Math.ceil(a/b);
-            let count = 0,
-            pagesArray = [];
-
-            while(count < PageCount){
-                pagesArray.push(count);
-                count++;
-            }
-        return pagesArray;
-
-        },
-
-               pagesListPSegundo(){
-
-               let a = this.listPSegundo.length,
-            b = this.perPage;
-            let PageCount = Math.ceil(a/b);
-            let count = 0,
-            pagesArray = [];
-
-            while(count < PageCount){
-                pagesArray.push(count);
-                count++;
-            }
-        return pagesArray;
-
-        },
-
-                  pagesListPExtra(){
-
-               let a = this.listPExtra.length,
-            b = this.perPage;
-            let PageCount = Math.ceil(a/b);
-            let count = 0,
-            pagesArray = [];
-
-            while(count < PageCount){
-                pagesArray.push(count);
-                count++;
-            }
-        return pagesArray;
-
-        }
+  computed: {
+    pageCount() {
+      let a = this.listPEntrada.length,
+        b = this.perPage;
+      return Math.ceil(a / b);
     },
-  mounted(){
+    pageCountPSegundo() {
+      let a = this.listPSegundo.length,
+        b = this.perPage;
+      return Math.ceil(a / b);
+    },
+    pageCountPExtra() {
+      let a = this.listPExtra.length,
+        b = this.perPage;
+      return Math.ceil(a / b);
+    },
+    listPEntradaPaginated() {
+      let inicio = this.pageNumber * this.perPage,
+        fin = inicio + this.perPage;
+      return this.listPEntrada.slice(inicio, fin);
+    },
+    listarPSegundoPaginated() {
+      let inicio = this.pageNumber * this.perPage,
+        fin = inicio + this.perPage;
+      return this.listPSegundo.slice(inicio, fin);
+    },
+    listarPExtraPaginated() {
+      let inicio = this.pageNumber * this.perPage,
+        fin = inicio + this.perPage;
+      return this.listPExtra.slice(inicio, fin);
+    },
+    pagesListPEntrada() {
+      let a = this.listPEntrada.length,
+        b = this.perPage;
+      let PageCount = Math.ceil(a / b);
+      let count = 0,
+        pagesArray = [];
 
-/*    this.setBuscarPEntrada();
+      while (count < PageCount) {
+        pagesArray.push(count);
+        count++;
+      }
+      return pagesArray;
+    },
+
+    pagesListPSegundo() {
+      let a = this.listPSegundo.length,
+        b = this.perPage;
+      let PageCount = Math.ceil(a / b);
+      let count = 0,
+        pagesArray = [];
+
+      while (count < PageCount) {
+        pagesArray.push(count);
+        count++;
+      }
+      return pagesArray;
+    },
+
+    pagesListPExtra() {
+      let a = this.listPExtra.length,
+        b = this.perPage;
+      let PageCount = Math.ceil(a / b);
+      let count = 0,
+        pagesArray = [];
+
+      while (count < PageCount) {
+        pagesArray.push(count);
+        count++;
+      }
+      return pagesArray;
+    },
+  },
+  mounted() {
+    /*    this.setBuscarPEntrada();
    this.setBuscarPSegundo();
    this.setBuscarPExtra(); */
-//Carga la fecha Actual
-/*  this.fillCrearPlato.dFecha = new Date(); */
+    //Carga la fecha Actual
+    /*  this.fillCrearPlato.dFecha = new Date(); */
   },
   methods: {
     abrirModal() {
       this.modalShow = !this.modalShow;
     },
+    abrirModalValidacion() {
+      this.modalValidateShow = !this.modalValidateShow;
+    },
+
+    abrirModalmenu(item, tipo) {
+      this.modalShow = !this.modalShow;
+
+      var url = "/administracion/Plato/getDataPlato";
+      axios
+        .post(url, {
+          item,
+          tipo,
+        })
+        .then((response) => {
+          this.fillCrearPlato.cNomPlato = response.data.nombre;
+          localStorage.Codigo = item;
+        });
+    },
+    EditEntrada() {
+      var url = "/administracion/Plato/EditPlatoEntrada";
+      axios
+        .post(url, {
+          item: localStorage.Codigo,
+          cNomPlato: this.fillCrearPlato.cNomPlato,
+        })
+        .then(() => {
+          this.fillCrearPlato.cNomPlato = "";
+          this.setBuscarPEntrada();
+          this.modalShow = !this.modalShow;
+          localStorage.removeItem(Codigo);
+        });
+    },
+
+    EditSegundo() {
+      var url = "/administracion/Plato/EditPlatoSegundo";
+      axios
+        .post(url, {
+          item: localStorage.Codigo,
+          cNomPlato: this.fillCrearPlato.cNomPlato,
+        })
+        .then(() => {
+          this.fillCrearPlato.cNomPlato = "";
+          this.setBuscarPSegundo();
+          this.modalShow = !this.modalShow;
+          localStorage.removeItem(Codigo);
+        });
+    },
+    EditExtra() {
+      var url = "/administracion/Plato/EditExtra";
+      axios
+        .post(url, {
+          item: localStorage.Codigo,
+          cNomPlato: this.fillCrearPlato.cNomPlato,
+        })
+        .then(() => {
+          this.fillCrearPlato.cNomPlato = "";
+          this.setBuscarPExtra();
+          this.modalShow = !this.modalShow;
+          localStorage.removeItem(Codigo);
+        });
+    },
+
+    DeletePlatoEntrada(item) {
+      Swal.fire({
+        title: "Desea anular el plato de Entrada?",
+        text: "Si elimina este plato tambien eliminara los menus que esten con este plato posteriormente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, Anulalo",
+        cancelButtonText: "No, cancelo!",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url = "/administracion/Plato/DeletePlatoEntrada";
+          axios
+            .post(url, {
+              item,
+            })
+            .then(() => {
+              this.setBuscarPEntrada();
+            });
+          swalWithBootstrapButtons.fire(
+            "Anulado!",
+            "El Plato fue Anulado.",
+            "success"
+          );
+        }
+      });
+    },
+
+    DeletePlatoExtra(item) {
+      Swal.fire({
+        title: "Desea anular el plato de Extra?",
+        text: "Si elimina este plato tambien eliminara los menus que esten con este plato posteriormente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, Anulalo",
+        cancelButtonText: "No, cancelo!",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url = "/administracion/Plato/DeletePlatoExtra";
+          axios
+            .post(url, {
+              item,
+            })
+            .then(() => {
+              this.setBuscarPExtra();
+            });
+          swalWithBootstrapButtons.fire(
+            "Anulado!",
+            "El Plato fue Anulado.",
+            "success"
+          );
+        }
+      });
+    },
+
+    DeletePlatoSegundo(item) {
+      Swal.fire({
+        title: "Desea anular el plato Segundo?",
+        text: "Si elimina este plato tambien eliminara los menus que esten con este plato posteriormente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, Anulalo",
+        cancelButtonText: "No, cancelo!",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var url = "/administracion/Plato/DeletePlatoSegundo";
+          axios
+            .post(url, {
+              item,
+            })
+            .then(() => {
+              this.setBuscarPSegundo();
+            });
+          swalWithBootstrapButtons.fire(
+            "Anulado!",
+            "El Plato fue Anulado.",
+            "success"
+          );
+        }
+      });
+    },
+
     limpiarPEntrada() {
       this.fillCrearPlato.cNomEntrada = "";
-
     },
-        limpiarPSegundo() {
+    limpiarPSegundo() {
       this.fillCrearPlato.cNomSegundo = "";
-
     },
-        limpiarPExtra() {
+    limpiarPExtra() {
       this.fillCrearPlato.cNomExtra = "";
-
     },
 
     setGuardarPEntrada() {
@@ -597,21 +787,20 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-          this.fillCrearPlato.cNomEntrada=''
+          this.fillCrearPlato.cNomEntrada = "";
           this.setBuscarPEntrada();
-          
         });
     },
-   setValidarPEntrada() {
-      if (this.validarRegistrarPEntrada()) {
-        this.modalShow = true;
+    setValidarPEntrada(tipo) {
+      if (this.validarRegistrarPEntrada(tipo)) {
+        this.modalValidateShow = true;
+
         return;
       }
       this.setGuardarPEntrada();
     },
 
-
-/* setGuardarPSegundo(){
+    /* setGuardarPSegundo(){
     var url = "/administracion/Plato/CrearPlatoSegundo";
       axios
         .post(url, {
@@ -630,7 +819,7 @@ export default {
         });
 }, */
 
-   setValidarPSegundo() {
+    setValidarPSegundo() {
       if (this.validarRegistrarPSegundo()) {
         this.modalShow = true;
         return;
@@ -638,17 +827,15 @@ export default {
       this.setGuardarPSegundo();
     },
 
-       setValidarPExtra() {
-      if (this.validarRegistrarPExtra()) {
+    setValidarPExtra(tipo) {
+      if (this.validarRegistrarPExtra(tipo)) {
         this.modalShow = true;
         return;
       }
       this.setGuardarPExtra();
     },
 
-
-
-    validarRegistrarPEntrada() {
+    validarRegistrarPEntrada(tipo) {
       this.error = 0;
       this.mensajeError = [];
       if (!this.fillCrearPlato.cNomEntrada) {
@@ -672,7 +859,7 @@ export default {
       return this.error;
     },
 
-    validarRegistrarPExtra() {
+    validarRegistrarPExtra(tipo) {
       this.error = 0;
       this.mensajeError = [];
       if (!this.fillCrearPlato.cNomExtra) {
@@ -684,49 +871,48 @@ export default {
       return this.error;
     },
 
-
-
-    setBuscarPEntrada(){
-
-      var url = '/administracion/Plato/getListarPEntrada'
-            axios.get(url,{
-                params:{
-                    'cNombre' : this.fillCrearPlato.cNomEntrada,
-                }
-            }).then(response=>{
-              this.inicializarPaginacion();
-               this.listPEntrada =  response.data;
-            })
-
+    setBuscarPEntrada() {
+      var url = "/administracion/Plato/getListarPEntrada";
+      axios
+        .get(url, {
+          params: {
+            cNombre: this.fillCrearPlato.cNomEntrada,
+          },
+        })
+        .then((response) => {
+          this.inicializarPaginacion();
+          this.listPEntrada = response.data;
+        });
     },
 
-    setBuscarPSegundo(){
-            var url = '/administracion/Plato/getListarPSegundo'
-            axios.get(url,{
-                params:{
-                    'cNombre' : this.fillCrearPlato.cNomSegundo,
-                }
-            }).then(response=>{
-              this.inicializarPaginacion();
-               this.listPSegundo =  response.data;
-            })
-
+    setBuscarPSegundo() {
+      var url = "/administracion/Plato/getListarPSegundo";
+      axios
+        .get(url, {
+          params: {
+            cNombre: this.fillCrearPlato.cNomSegundo,
+          },
+        })
+        .then((response) => {
+          this.inicializarPaginacion();
+          this.listPSegundo = response.data;
+        });
     },
 
-    setBuscarPExtra(){
-          var url = '/administracion/Plato/getListarPExtra'
-            axios.get(url,{
-                params:{
-                    'cNombre' : this.fillCrearPlato.cNomExtra,
-                }
-            }).then(response=>{
-              this.inicializarPaginacion();
-               this.listPExtra =  response.data;
-            })
-      
+    setBuscarPExtra() {
+      var url = "/administracion/Plato/getListarPExtra";
+      axios
+        .get(url, {
+          params: {
+            cNombre: this.fillCrearPlato.cNomExtra,
+          },
+        })
+        .then((response) => {
+          this.inicializarPaginacion();
+          this.listPExtra = response.data;
+        });
     },
-    setGuardarPSegundo(){
-
+    setGuardarPSegundo() {
       var url = "/administracion/Plato/CrearPlatoSegundo";
       axios
         .post(url, {
@@ -740,13 +926,12 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-          this.fillCrearPlato.cNomSegundo=''
-        this.setBuscarPSegundo();
+          this.fillCrearPlato.cNomSegundo = "";
+          this.setBuscarPSegundo();
         });
     },
 
-    setGuardarPExtra(){
-
+    setGuardarPExtra() {
       var url = "/administracion/Plato/CrearPlatoExtra";
       axios
         .post(url, {
@@ -760,24 +945,23 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-          this.fillCrearPlato.cNomExtra=''
+          this.fillCrearPlato.cNomExtra = "";
           this.setBuscarPExtra();
           //this.$router.push("/proveedor");
         });
     },
-      nextPage(){
-            this.pageNumber++;
-        },
-        prevPage(){
-            this.pageNumber--;
-        },
-        selectPage(page){
-            this.pageNumber = page;
-        },
-        inicializarPaginacion(){
-          this.pageNumber = 0;
-        }
-
+    nextPage() {
+      this.pageNumber++;
+    },
+    prevPage() {
+      this.pageNumber--;
+    },
+    selectPage(page) {
+      this.pageNumber = page;
+    },
+    inicializarPaginacion() {
+      this.pageNumber = 0;
+    },
   },
 };
 </script>
