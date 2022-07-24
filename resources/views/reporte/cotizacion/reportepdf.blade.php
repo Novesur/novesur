@@ -178,10 +178,10 @@
         </td>
           <td align="center" style="font-size: 10px">{{$data->cantidad}}</td>
           <td align="center" style="font-size: 10px">{{$data->producto->codigo}}</td>
-          <td align="center" style="font-size: 9px">  {{$data->producto->familia->nombre .' '. $data->producto->subfamilia->nombre .', MODELO '. $data->producto->modelotipo->nombre .', MATERIAL '. $data->producto->material->nombre .', MARCA '. $data->producto->marca->nombre.', - '. $data->producto->homologacion->nombre}}</td>
+          <td align="center" style="font-size: 10px">  {{$data->producto->familia->nombre .' '. $data->producto->subfamilia->nombre .', MODELO '. $data->producto->modelotipo->nombre .', MATERIAL '. $data->producto->material->nombre .', MARCA '. $data->producto->marca->nombre.', - '. $data->producto->homologacion->nombre}}</td>
           <td align="center" style="font-size: 10px">S/. {{number_format($data->punit,2)  }}</td>
 
-          <td align="right" style="font-size: 10px">S/. {{number_format($data->cantidad * $data->punit,2)}}</td>
+          <td align="right" style="font-size: 9px">S/. {{number_format($data->cantidad * $data->punit,2)}}</td>
 
         </tr>
         @endforeach @endif
@@ -197,7 +197,7 @@
         <tr>
           <td colspan="4" rowspan="3" align="center">&nbsp;</td>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 10px"><strong>SUBTOTAL</strong></td>
-          <td align="right" style="font-size: 10px">S/. {{number_format($subtotal,2)}}</td>
+          <td align="right" style="font-size: 9px">S/. {{number_format($subtotal,2)}}</td>
         </tr>
 
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 10px"><strong>IGV 18%</strong></td>
@@ -205,7 +205,7 @@
         </tr>
         <tr>
           <td align="center" style="background-color: rgba(238, 229, 229, 0.719);font-size: 10px"><strong>TOTAL GENERAL</strong></td>
-          <td align="right" style="background-color: rgba(238, 229, 229, 0.719,font-size:0.8em);font-size: 10px"font-size: 10px">S/. {{number_format($total,2)}}</td>
+          <td align="right" style="background-color: rgba(238, 229, 229, 0.719,font-size:0.8em);font-size: 9px">S/. {{number_format($total,2)}}</td>
         </tr>
 
 </table>

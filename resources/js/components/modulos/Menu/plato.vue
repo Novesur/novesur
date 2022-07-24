@@ -821,7 +821,7 @@ export default {
 
     setValidarPSegundo() {
       if (this.validarRegistrarPSegundo()) {
-        this.modalShow = true;
+        this.modalValidateShow = true;
         return;
       }
       this.setGuardarPSegundo();
@@ -829,7 +829,7 @@ export default {
 
     setValidarPExtra(tipo) {
       if (this.validarRegistrarPExtra(tipo)) {
-        this.modalShow = true;
+        this.modalValidateShow = true;
         return;
       }
       this.setGuardarPExtra();
