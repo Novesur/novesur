@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
+
 class MenuController extends Controller
 {
     public function ListTipoMenuCrear()

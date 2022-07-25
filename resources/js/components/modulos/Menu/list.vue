@@ -320,7 +320,7 @@
 
 
                                                         <button class="btn btn-info btn-sm"
-                                                            @click.prevent="abrirAnularMenu(item.id)">
+                                                            @click.prevent="abrirAnularMenu(item.menu.id)">
                                                             <i class="far fa-calendar-check"></i> Anular
                                                         </button>
                                                     </tr>
@@ -556,7 +556,7 @@ export default {
                     var url = "/administracion/menu/setAnularMenu";
                     axios
                         .post(url, {
-                            item: item,
+                            item,
                         })
                         .then((response) => {
                             this.cargaListMenus();
