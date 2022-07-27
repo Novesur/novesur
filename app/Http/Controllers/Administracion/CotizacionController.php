@@ -27,23 +27,28 @@ class CotizacionController extends Controller
     {
 
         $product = Producto::where(['id' => $request->nIdprod])->with('familia', 'marca', 'material', 'modelotipo', 'subfamilia', 'homologacion')->first();
+
         $products = Session::get('products');
         $products = ($products != null) ? collect($products) : collect([]);
-       // $exists = $products->firstWhere("producto_id", $product->id);
+        // $exists = $products->firstWhere("producto_id", $product->id);
         /*      if (!empty($exists)) :
             // return response()->json(['message' => "Ya fue agregado anteriormente"], 422);
             return response()->json(['datos' => $products, 'message' => 'Ya fue agregado anteriormente', 'icon' => 'error'], 200);
 
         else : */
-        $articulo = $product;
-        $unidmed = UnidMedida::where(['id' => $request->nIdUnidMed])->first();
-        $tempcotizacion = new TempCotizacion;
-        $tempcotizacion->fill(['cantidad' => $request->cCantidad, 'unidmedida_id' => $request->nIdUnidMed, 'codigo' => $product->codigo, 'producto_id' => $request->nIdprod, 'punit' => $request->cPUnit, 'total' => $request->cTotal, 'productoFamilia' => $articulo->familia->nombre, 'productoSubfamilia' => $articulo->subfamilia->nombre, 'productoModelotipo' => $articulo->modelotipo->nombre, 'productoMarca' => $articulo->marca->nombre, 'unidmedNombre' => $unidmed->nombre, 'material' => $product->material->nombre, 'homologacion' => $product->homologacion->nombre]);
-        $products->push($tempcotizacion);
-        Session::put('products', $products);
+        if ($product->precioSugerido <= $request->cPUnit) {
+            $articulo = $product;
+            $unidmed = UnidMedida::where(['id' => $request->nIdUnidMed])->first();
+            $tempcotizacion = new TempCotizacion;
+            $tempcotizacion->fill(['cantidad' => $request->cCantidad, 'unidmedida_id' => $request->nIdUnidMed, 'codigo' => $product->codigo, 'producto_id' => $request->nIdprod, 'punit' => $request->cPUnit, 'total' => $request->cTotal, 'productoFamilia' => $articulo->familia->nombre, 'productoSubfamilia' => $articulo->subfamilia->nombre, 'productoModelotipo' => $articulo->modelotipo->nombre, 'productoMarca' => $articulo->marca->nombre, 'unidmedNombre' => $unidmed->nombre, 'material' => $product->material->nombre, 'homologacion' => $product->homologacion->nombre]);
+            $products->push($tempcotizacion);
+            Session::put('products', $products);
+            return response()->json(['datos' => $products, 'message' => NULL]);
+        } else {
+            return response()->json(['datos' => $products, 'message' => 'El precio no puede ser menor que' . ' ' . $product->precioSugerido, 'icon' => 'error'], 200);
+        }
 
         //return response()->json("Grabado");
-        return response()->json(['datos' => $products, 'message' => NULL]);
 
         /*  endif; */
     }
@@ -57,19 +62,19 @@ class CotizacionController extends Controller
         $datos = json_encode($datos);
         var_dump($datos); */
 
-        $Cotizacion = Cotizacion::where('codigo',$request->item)->first();
+        $Cotizacion = Cotizacion::where('codigo', $request->item)->first();
 
-     /*    $searchProd = DetalleCotizacion::where('producto_id', $request->nIdprod)
+        /*    $searchProd = DetalleCotizacion::where('producto_id', $request->nIdprod)
             ->where('cotizacion_id', $Cotizacion->id)->exists();
 
         if ($searchProd != 1) { */
-            $detcotizacion =  new DetalleCotizacion;
-            $detcotizacion->cotizacion_id = $Cotizacion->id;
-            $detcotizacion->cantidad = $request->cCantidad;
-            $detcotizacion->unidmedida_id = $request->nIdUnidMed;
-            $detcotizacion->producto_id = $request->nIdprod;
-            $detcotizacion->punit = $request->cPUnit;
-            $detcotizacion->save();
+        $detcotizacion =  new DetalleCotizacion;
+        $detcotizacion->cotizacion_id = $Cotizacion->id;
+        $detcotizacion->cantidad = $request->cCantidad;
+        $detcotizacion->unidmedida_id = $request->nIdUnidMed;
+        $detcotizacion->producto_id = $request->nIdprod;
+        $detcotizacion->punit = $request->cPUnit;
+        $detcotizacion->save();
         //}
     }
 
@@ -90,11 +95,11 @@ class CotizacionController extends Controller
         $yearMaxID = date("Y");
         $maxidCoti = Cotizacion::whereRaw('id = (select max(`id`) from cotizacion)')->first();
 
-        if (!$maxidCoti){
-            $maxidCoti = '001' .'-'. $yearMaxID ;
-        }else{
+        if (!$maxidCoti) {
+            $maxidCoti = '001' . '-' . $yearMaxID;
+        } else {
 
-            $maxidCoti = sprintf('%04d',$maxidCoti->id +1).'-'. $yearMaxID;
+            $maxidCoti = sprintf('%04d', $maxidCoti->id + 1) . '-' . $yearMaxID;
         }
 
         DB::beginTransaction();
@@ -118,7 +123,7 @@ class CotizacionController extends Controller
                 $cotizacion->transporte =  $request->cTransporte;
                 $cotizacion->consignado =  $request->Cconsignado;
                 $cotizacion->observacion = $request->cObservacion;
-                $cotizacion->codigo =$maxidCoti;
+                $cotizacion->codigo = $maxidCoti;
                 $cotizacion->fechacotiupdate =  $formatreq;
                 $cotizacion->save();
 
@@ -149,7 +154,7 @@ class CotizacionController extends Controller
     {
 
         $cotizacion = Cotizacion::where('codigo', $request->ncodCotizacion)->first();
-       // $cotizacion->fecha = date("Y-m-d");
+        // $cotizacion->fecha = date("Y-m-d");
         $cotizacion->fecha = $cotizacion->fecha;
         $cotizacion->cliente_id =  $cotizacion->cliente_id;
         $cotizacion->user_id =  $cotizacion->user_id;
@@ -209,7 +214,7 @@ class CotizacionController extends Controller
         $nIdtEstadoCoti2 =   $request->nIdtEstadoCoti2;
         $dFechaInicio   =   $request->dFechainicio;
         $dFechaFin      =   $request->dFechafin;
-        $anioactual = substr($dFechaInicio,0,-6);
+        $anioactual = substr($dFechaInicio, 0, -6);
 
         //dd(substr($dFechaInicio,0,-6));
 
@@ -221,7 +226,7 @@ class CotizacionController extends Controller
 
 
 
-        if ($anioactual == '2022' or $anioactual ==''){
+        if ($anioactual == '2022' or $anioactual == '') {
 
             $dato = DB::connection('mysql')->select('call sp_ReporteCotizacion (?,?,?,?,?)', [
                 $nIdVendedor,
@@ -233,7 +238,7 @@ class CotizacionController extends Controller
             return $dato;
         }
 
-        if ($anioactual == '2021'){
+        if ($anioactual == '2021') {
 
             $dato = DB::connection('mysql2')->select('call sp_ReporteCotizacion (?,?,?,?,?)', [
                 $nIdVendedor,
@@ -244,8 +249,6 @@ class CotizacionController extends Controller
             ]);
             return $dato;
         }
-
-
     }
 
     public function ReporteVentasFechaEstado(Request $request)
@@ -262,11 +265,11 @@ class CotizacionController extends Controller
         $dFechaFin      =   ($dFechaFin   ==  NULL) ? ($dFechaFin   =   '') :   $dFechaFin;
 
 
-        $anioactual = substr($dFechaInicio,0,-6);
+        $anioactual = substr($dFechaInicio, 0, -6);
 
 
 
-        if ($anioactual == '2022' or $anioactual ==''){
+        if ($anioactual == '2022' or $anioactual == '') {
             $dato = DB::connection('mysql')->select('call sp_ReporteVentasFechaEstado (?,?,?)', [
                 $nIdtEstadoCoti2,
                 $dFechaInicio,
@@ -275,7 +278,7 @@ class CotizacionController extends Controller
             return $dato;
         }
 
-        if ($anioactual == '2021' or $anioactual ==''){
+        if ($anioactual == '2021' or $anioactual == '') {
             $dato = DB::connection('mysql2')->select('call sp_ReporteVentasFechaEstado (?,?,?)', [
                 $nIdtEstadoCoti2,
                 $dFechaInicio,
@@ -283,7 +286,6 @@ class CotizacionController extends Controller
             ]);
             return $dato;
         }
-
     }
 
     public function ListCotizacionbyId(Request $request)
@@ -296,7 +298,7 @@ class CotizacionController extends Controller
     {
 
         $cotizacion = Cotizacion::where('codigo', $request->itemid)->first();
-        $cotizacion->fecha =  $cotizacion->fecha ;
+        $cotizacion->fecha =  $cotizacion->fecha;
         $cotizacion->cliente_id =  $cotizacion->cliente_id;
         $cotizacion->user_id =  $cotizacion->user_id;
         $cotizacion->estadopedido_id =   $request->nIdtEstadoCoti;
@@ -332,9 +334,9 @@ class CotizacionController extends Controller
         $valor = $request->get("params")['item'];
         $fecha = $request->get("params")['fecha'];
 
-        $anioactual = substr($fecha,0,-6);
+        $anioactual = substr($fecha, 0, -6);
 
-        if ($anioactual == '2022' or $anioactual ==''){
+        if ($anioactual == '2022' or $anioactual == '') {
 
             $coti = Cotizacion::on('mysql')->with('cliente', 'user', 'tipopago', 'estadopedido', 'pago', 'garantia')->where('codigo', $valor)->first();
             $detcoti = DetalleCotizacion::with('unidmedida', 'producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('cotizacion_id', $coti->id)->get();
@@ -347,10 +349,9 @@ class CotizacionController extends Controller
                 'detcoti' => $detcoti,
             ]);
             return $pdf->download('invoice.pdf');
-
         }
 
-        if ($anioactual == '2021' or $anioactual ==''){
+        if ($anioactual == '2021' or $anioactual == '') {
 
             $coti = Cotizacion::on('mysql2')->with('cliente', 'user', 'tipopago', 'estadopedido', 'pago', 'garantia')->where('codigo', $valor)->first();
             $detcoti = DetalleCotizacion::with('unidmedida', 'producto', 'producto.marca', 'producto.familia', 'producto.material', 'producto.modelotipo', 'producto.subfamilia')->where('cotizacion_id', $coti->id)->get();
@@ -363,20 +364,17 @@ class CotizacionController extends Controller
                 'detcoti' => $detcoti,
             ]);
             return $pdf->download('invoice.pdf');
-
         }
-
-
     }
 
     public function listCotizacionList(Request $request)
     {
 
-        if($request->cSelectAnios == '2022'){
+        if ($request->cSelectAnios == '2022') {
             $dato = DetalleCotizacion::on('mysql')->with('cotizacion', 'cotizacion.cliente', 'cotizacion.estadopedido', 'cotizacion.user')->where('producto_id', $request->nIdprod)->get();
             return $dato;
         }
-        if($request->cSelectAnios == '2021'){
+        if ($request->cSelectAnios == '2021') {
             $dato = DetalleCotizacion::on('mysql2')->with('cotizacion', 'cotizacion.cliente', 'cotizacion.estadopedido', 'cotizacion.user')->where('producto_id', $request->nIdprod)->get();
             return $dato;
         }
@@ -386,52 +384,51 @@ class CotizacionController extends Controller
 
     {
 
-        $anioSelect =  substr($request->fecha1,0,-6);
+        $anioSelect =  substr($request->fecha1, 0, -6);
 
-if($anioSelect == '2022'){
+        if ($anioSelect == '2022') {
 
-    $dato = Cotizacion::on('mysql')->with('cliente', 'estadopedido', 'user', 'detalle')
-    ->whereBetween('fecha', [$request->fecha1, $request->fecha2])->get();
+            $dato = Cotizacion::on('mysql')->with('cliente', 'estadopedido', 'user', 'detalle')
+                ->whereBetween('fecha', [$request->fecha1, $request->fecha2])->get();
 
-    return collect($dato)->map(function ($item, $key) {
+            return collect($dato)->map(function ($item, $key) {
 
 
-        if ($item->detalle) {
-            //$item['detalle_sum'] = collect($item->detalle)->sum('punit') ;  // Para sumar los campos
+                if ($item->detalle) {
+                    //$item['detalle_sum'] = collect($item->detalle)->sum('punit') ;  // Para sumar los campos
 
-            $item['detalle_sum'] = collect($item->detalle)->sum(function ($detalle) {
-                return floatval($detalle['punit']) * $detalle['cantidad'] * 1.18;   // Para calcular los campos
-            });
-        } else {
-            $item['detalle_sum'] = 0;
+                    $item['detalle_sum'] = collect($item->detalle)->sum(function ($detalle) {
+                        return floatval($detalle['punit']) * $detalle['cantidad'] * 1.18;   // Para calcular los campos
+                    });
+                } else {
+                    $item['detalle_sum'] = 0;
+                }
+
+                return $item;
+            })->all();
         }
 
-        return $item;
-    })->all();
-}
+        if ($anioSelect == '2021') {
 
-if($anioSelect == '2021'){
+            $dato = Cotizacion::on('mysql2')->with('cliente', 'estadopedido', 'user', 'detalle')
+                ->whereBetween('fecha', [$request->fecha1, $request->fecha2])->get();
 
-    $dato = Cotizacion::on('mysql2')->with('cliente', 'estadopedido', 'user', 'detalle')
-    ->whereBetween('fecha', [$request->fecha1, $request->fecha2])->get();
-
-    return collect($dato)->map(function ($item, $key) {
+            return collect($dato)->map(function ($item, $key) {
 
 
-        if ($item->detalle) {
-            //$item['detalle_sum'] = collect($item->detalle)->sum('punit') ;  // Para sumar los campos
+                if ($item->detalle) {
+                    //$item['detalle_sum'] = collect($item->detalle)->sum('punit') ;  // Para sumar los campos
 
-            $item['detalle_sum'] = collect($item->detalle)->sum(function ($detalle) {
-                return floatval($detalle['punit']) * $detalle['cantidad'] * 1.18;   // Para calcular los campos
-            });
-        } else {
-            $item['detalle_sum'] = 0;
+                    $item['detalle_sum'] = collect($item->detalle)->sum(function ($detalle) {
+                        return floatval($detalle['punit']) * $detalle['cantidad'] * 1.18;   // Para calcular los campos
+                    });
+                } else {
+                    $item['detalle_sum'] = 0;
+                }
+
+                return $item;
+            })->all();
         }
-
-        return $item;
-    })->all();
-}
-
     }
 
 
@@ -439,7 +436,7 @@ if($anioSelect == '2021'){
     public function listCotizacionListByVendedor(Request $request)
     {
 
-    /*     $dato = Cotizacion::on('mysql')->with('cliente', 'estadopedido', 'user', 'detalle')
+        /*     $dato = Cotizacion::on('mysql')->with('cliente', 'estadopedido', 'user', 'detalle')
         ->whereBetween('fecha', [$request->fecha1, $request->fecha2])->get();
 
         return collect($dato)->map(function ($item, $key) {
@@ -479,7 +476,8 @@ if($anioSelect == '2021'){
         })->all();
     }
 
-    public function SumaTotalCotizacion(Request $request){
+    public function SumaTotalCotizacion(Request $request)
+    {
         $dato = DetalleCotizacion::where('cotizacion_id', $request->id)->orderBy('id')->get();
         return $dato;
     }
@@ -499,9 +497,9 @@ if($anioSelect == '2021'){
         $listCotizacion = json_decode($request->params['listCotizacion']);
         $codprod = $listCotizacion[0]->producto_id;
 
-        $producto = Producto::with('familia', 'marca', 'material', 'modelotipo', 'subfamilia', 'homologacion', 'estado')->where('id',$codprod)->first();
+        $producto = Producto::with('familia', 'marca', 'material', 'modelotipo', 'subfamilia', 'homologacion', 'estado')->where('id', $codprod)->first();
 
-        return (new CotizacionProductExport)->setGenerarExcel($listCotizacion , $producto)->download('invoices.xlsx');
+        return (new CotizacionProductExport)->setGenerarExcel($listCotizacion, $producto)->download('invoices.xlsx');
     }
 
 
@@ -510,7 +508,7 @@ if($anioSelect == '2021'){
 
         // dd($request->params['listProductos']);
         $listPaginacion = json_decode($request->params['listPaginacion']);
-       /*  $codprod = $listCotizacion[0]->producto_id;
+        /*  $codprod = $listCotizacion[0]->producto_id;
 
         $producto = Producto::with('familia', 'marca', 'material', 'modelotipo', 'subfamilia', 'homologacion', 'estado')->where('id',$codprod)->first(); */
 
@@ -520,28 +518,25 @@ if($anioSelect == '2021'){
 
 
 
-    public function exportFechaCotizacion(Request $request){
+    public function exportFechaCotizacion(Request $request)
+    {
 
-               $listCotizacionByDate = json_decode($request->params['listCotizacionByDate']);
-               return (new CotizacionFechaExport)->setGenerarExcel($listCotizacionByDate)->download('invoices.xlsx');
-
+        $listCotizacionByDate = json_decode($request->params['listCotizacionByDate']);
+        return (new CotizacionFechaExport)->setGenerarExcel($listCotizacionByDate)->download('invoices.xlsx');
     }
 
-    public function exportVendedor(Request $request){
+    public function exportVendedor(Request $request)
+    {
 
 
 
         $listCotizacionByDate = json_decode($request->params['listCotizacionByDate']);
         return (new CotizacionVendedorExport)->setGenerarExcel($listCotizacionByDate)->download('invoices.xlsx');
+    }
 
-}
-
-        public function buscaEstado(Request $request){
-        $dato=Cotizacion::with('estadopedido')->where('id', $request->item)->first();
+    public function buscaEstado(Request $request)
+    {
+        $dato = Cotizacion::with('estadopedido')->where('id', $request->item)->first();
         return $dato;
-        }
-
-
-
-
+    }
 }

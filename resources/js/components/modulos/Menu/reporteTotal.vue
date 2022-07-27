@@ -88,7 +88,8 @@
                     <tr>
                       <th>Fecha</th>
                       <th>Personal</th>
-                      <th>Cantidad</th>
+                      <th>TipoMenu</th>
+                      <th>Total</th>
 
                     </tr>
                   </thead>
@@ -99,7 +100,8 @@
                     >
                        <td>{{ item.fecha | moment("DD - MM - Y") }}</td>
                       <td>{{ item.personal }}</td>
-                      <td v-text="item.cantidad"></td>
+                      <td v-text="item.tipomenu"></td>
+                       <td v-text="item.total"></td>
 
                     </tr>
                   </tbody>

@@ -85,13 +85,10 @@ class MenuController extends Controller
 
             $detalleMenu = new DetalleMenu();
             $detalleMenu->menu_id = $menu->id;
-            $detalleMenu->cant_entrada = $request->numEntrada;
             $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
             $detalleMenu->observacionEntrada = $request->cObsEntrada;
-            $detalleMenu->cant_segundo = 0;
             $detalleMenu->plato_segundo_id = 1;
             $detalleMenu->observacionSegundo = NULL;
-            $detalleMenu->cant_extra = 0;
             $detalleMenu->plato_extra_id = 1;
             $detalleMenu->observacionExtra = NULL;
             $detalleMenu->save();
@@ -102,13 +99,10 @@ class MenuController extends Controller
         if ($request->nIdTipo == 2) {
             $detalleMenu = new DetalleMenu();
             $detalleMenu->menu_id = $menu->id;
-            $detalleMenu->cant_entrada = 0;
             $detalleMenu->plato_entrada_id = 1;
             $detalleMenu->observacionEntrada = NULL;
-            $detalleMenu->cant_segundo = $request->numSegundo;
             $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
             $detalleMenu->observacionSegundo = $request->cObsSegundo;
-            $detalleMenu->cant_extra = 0;
             $detalleMenu->plato_extra_id = 1;
             $detalleMenu->observacionExtra = NULL;
             $detalleMenu->save();
@@ -118,13 +112,10 @@ class MenuController extends Controller
         if ($request->nIdTipo == 3) {
             $detalleMenu = new DetalleMenu();
             $detalleMenu->menu_id = $menu->id;
-            $detalleMenu->cant_entrada = $request->numEntrada;
             $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
             $detalleMenu->observacionEntrada = $request->cObsEntrada;
-            $detalleMenu->cant_segundo = $request->numSegundo;
             $detalleMenu->plato_segundo_id = $request->nIdTipoSegundo;
             $detalleMenu->observacionSegundo = $request->cObsSegundo;
-            $detalleMenu->cant_extra = 0;
             $detalleMenu->plato_extra_id = 1;
             $detalleMenu->observacionExtra = NULL;
             $detalleMenu->save();
@@ -135,13 +126,10 @@ class MenuController extends Controller
         if ($request->nIdTipo == 4) {
             $detalleMenu = new DetalleMenu();
             $detalleMenu->menu_id = $menu->id;
-            $detalleMenu->cant_entrada = 0;
             $detalleMenu->plato_entrada_id = 1;
             $detalleMenu->observacionEntrada = NULL;
-            $detalleMenu->cant_segundo = 0;
             $detalleMenu->plato_segundo_id = 1;
             $detalleMenu->observacionSegundo = NULL;
-            $detalleMenu->cant_extra = $request->numExtra;
             $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
             $detalleMenu->observacionExtra = $request->cObsExtra;
             $detalleMenu->save();
@@ -152,13 +140,10 @@ class MenuController extends Controller
         if ($request->nIdTipo == 5) {
             $detalleMenu = new DetalleMenu();
             $detalleMenu->menu_id = $menu->id;
-            $detalleMenu->cant_entrada = $request->numEntrada;
             $detalleMenu->plato_entrada_id = $request->nIdTipoEntrada;
             $detalleMenu->observacionEntrada = $request->cObsEntrada;
-            $detalleMenu->cant_segundo = 0;
             $detalleMenu->plato_segundo_id = 1;
             $detalleMenu->observacionSegundo = NULL;
-            $detalleMenu->cant_extra = $request->numExtra;
             $detalleMenu->plato_extra_id = $request->nIdTipoExtra;
             $detalleMenu->observacionExtra = $request->cObsExtra;
             $detalleMenu->save();

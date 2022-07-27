@@ -111,10 +111,10 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label class="col-md-1 col-form-label">ENTRADA</label>
 
-                                         <div class="col-md-3">
+                                         <div class="col-md-6">
                                                 <el-select v-model="fillBsqPedidoMenu.nIdTipoEntrada" filterable
                                                     placeholder="Seleccione una Tipo" :style="{ width: '350px' }"
                                                     clearable>
@@ -131,19 +131,13 @@
                                                 </el-select>
                                             </div>
 
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <el-input-number v-model="fillBsqPedidoMenu.numEntrada" :min="1"
-                                                        :max="10"></el-input-number>
-                                                </div>
-                                            </div>
+
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                    
+                                        <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-md-1 col-form-label">Observación Entrada</label>
-                                                <div class="col-md-6">
+                                                <label class="col-md-2 col-form-label">Observación Entrada</label>
+                                                <div class="col-md-10">
                                                     <input type="text" class="form-control"
                                                         v-model="fillBsqPedidoMenu.cObsEntrada" style="width: 90%" />
 
@@ -151,10 +145,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    
                                     </div>
 
                                     <div class="col-md-12">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label class="col-md-1 col-form-label">SEGUNDO</label>
 
                                             <div class="col-md-3">
@@ -170,16 +165,11 @@
                                                 </el-select>
                                             </div>
 
-                                            <div class="col-md-5">
-                                                <div class="form-group row">
-                                                    <el-input-number v-model="fillBsqPedidoMenu.numSegundo" :min="1"
-                                                        :max="10"></el-input-number>
-                                                </div>
-                                            </div>
+                                        
                                         </div>
 
 
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <div class="col-md-12">
                                                 <div class="form-group row">
                                                     <label class="col-md-1 col-form-label">Observación Segundo</label>
@@ -196,7 +186,7 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <div class="row">
+                                        <div class="form-group row">
                                             <label class="col-md-1 col-form-label">EXTRA</label>
 
                                             <div class="col-md-3">
@@ -212,12 +202,7 @@
                                                 </el-select>
                                             </div>
 
-                                            <div class="col-md-5">
-                                                <div class="form-group row">
-                                                    <el-input-number v-model="fillBsqPedidoMenu.numExtra" :min="1"
-                                                        :max="10"></el-input-number>
-                                                </div>
-                                            </div>
+                                       
 
 
 
@@ -239,25 +224,6 @@
                                         </div>
                                     </div>
 
-                                    <!--            <div class="col-md-12">
-                    <div class="row">
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label"
-                          >OBSERVACION</label
-                        >
-                        <div class="col-md-6">
-                          <div class="col-md-12">
-                            <input
-                              type="text"
-                              class="form control"
-                              style="width: 410px"
-                              v-model="fillBsqPedidoMenu.cObservacion"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
 
                                     <div class="card-footer">
                                         <div class="row">
@@ -288,13 +254,13 @@
                                                     <tr>
                                                         <th>Fecha</th>
                                                         <th>Vendedor</th>
-                                                        <th>cant. Entrada</th>
+                                                        
                                                         <th>Entrada</th>
                                                         <th>Observación_Entrada</th>
-                                                        <th>cant. Segundo</th>
+                                                        
                                                         <th>Segundo</th>
                                                         <th>Observación_Segundo</th>
-                                                        <th>cant. Extra</th>
+                                                      
                                                         <th>Extra</th>
                                                         <th>Observación_Extra</th>
                                                         <th>Tipo de Menu</th>
@@ -307,13 +273,10 @@
                                                             {{ item.menu.fecha | moment("DD - MM - Y") }}
                                                         </td>
                                                         <td>{{ item.menu.user.fullname }}</td>
-                                                        <td v-text="item.cant_entrada"></td>
                                                         <td v-text="item.plato_entrada.nombre"></td>
                                                          <td v-text="item.observacionEntrada"></td>
-                                                        <td v-text="item.cant_segundo"></td>
                                                         <td v-text="item.plato_segundo.nombre"></td>
                                                          <td v-text="item.observacionSegundo"></td>
-                                                        <td v-text="item.cant_extra"></td>
                                                         <td v-text="item.plato_extra.nombre"></td>
                                                         <td v-text="item.observacionExtra"></td>
                                                         <td v-text="item.menu.tipomenu.nombre"></td>
@@ -375,9 +338,9 @@ export default {
                 cMotivoRechazo: "",
                 nIdUser: sessionStorage.getItem("iduser"),
                 cObservacion: "",
-                numEntrada: '',
-                numSegundo: '',
-                numExtra: '',
+               
+                
+              
                 cObsEntrada: "",
                 cObsSegundo: "",
                 cObsExtra: "",
@@ -603,9 +566,6 @@ export default {
 
         limpiarCriteriosBsq() {
             this.fillBsqPedidoMenu.nIdTipo = 3;
-            this.fillBsqPedidoMenu.numEntrada = 1;
-            this.fillBsqPedidoMenu.numSegundo = 1;
-            this.fillBsqPedidoMenu.numExtra = 1;
             this.fillBsqPedidoMenu.nIdTipoEntrada = "";
             this.fillBsqPedidoMenu.nIdTipoSegundo = "";
             this.fillBsqPedidoMenu.nIdTipoExtra = "";
@@ -722,18 +682,15 @@ export default {
         },
 
         getGuardarMenu() {
-            var url = "/administracion/Menu/createMenu";
+            var url = "/administracion/Menu/createMenu"; 
             axios
                 .post(url, {
                     nIdTipo: this.fillBsqPedidoMenu.nIdTipo,
                     nIdUser: this.fillBsqPedidoMenu.nIdUser,
-                    numEntrada: this.fillBsqPedidoMenu.numEntrada,
                     nIdTipoEntrada: this.fillBsqPedidoMenu.nIdTipoEntrada,
                     cObsEntrada: this.fillBsqPedidoMenu.cObsEntrada,
-                    numSegundo: this.fillBsqPedidoMenu.numSegundo,
                     nIdTipoSegundo: this.fillBsqPedidoMenu.nIdTipoSegundo,
                     cObsSegundo: this.fillBsqPedidoMenu.cObsSegundo,
-                    numExtra: this.fillBsqPedidoMenu.numExtra,
                     nIdTipoExtra: this.fillBsqPedidoMenu.nIdTipoExtra,
                     cObsExtra: this.fillBsqPedidoMenu.cObsExtra,
 

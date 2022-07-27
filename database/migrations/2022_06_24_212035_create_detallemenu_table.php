@@ -17,15 +17,12 @@ class CreateDetallemenuTable extends Migration
             $table->id();
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('menu');
-            $table->integer('cant_entrada')->required();
             $table->unsignedBigInteger('plato_entrada_id');
             $table->foreign('plato_entrada_id')->references('id')->on('plato_entrada');
             $table->string('observacionEntrada',150)->nullable();
-            $table->integer('cant_segundo')->required();
             $table->unsignedBigInteger('plato_segundo_id');
             $table->foreign('plato_segundo_id')->references('id')->on('plato_segundo');
             $table->string('observacionSegundo',150)->nullable();
-            $table->integer('cant_extra')->required();
             $table->unsignedBigInteger('plato_extra_id');
             $table->foreign('plato_extra_id')->references('id')->on('plato_extra');
             $table->string('observacionExtra',150)->nullable();

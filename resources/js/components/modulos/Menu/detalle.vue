@@ -88,18 +88,14 @@
                     <tr>
                       <th>Fecha</th>
                       <th>Personal</th>
-                      <th>cant. Entrada</th>
                       <th>Entrada</th>
                       <th>Observación_Entrada</th>
-                      <th>cant. Segundo</th>
                       <th>Segundo</th>
                       <th>Observación_Segundo</th>
-                      <th>cant. Extra</th>
                       <th>Extra</th>
                       <th>Observación_Extra</th>
                       <th>Tipo de Menu</th>
 
-                      <th>Acción</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -109,13 +105,10 @@
                     >
                       <td>{{ item.menu.fecha | moment("DD - MM - Y") }}</td>
                       <td>{{ item.menu.user.fullname }}</td>
-                      <td v-text="item.cant_entrada"></td>
                       <td v-text="item.plato_entrada.nombre"></td>
                       <td v-text="item.observacionEntrada"></td>
-                      <td v-text="item.cant_segundo"></td>
                       <td v-text="item.plato_segundo.nombre"></td>
                       <td v-text="item.observacionSegundo"></td>
-                      <td v-text="item.cant_extra"></td>
                       <td v-text="item.plato_extra.nombre"></td>
                       <td v-text="item.observacionExtra"></td>
                       <td v-text="item.menu.tipomenu.nombre"></td>

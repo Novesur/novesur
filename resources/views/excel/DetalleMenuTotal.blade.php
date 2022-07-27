@@ -12,7 +12,8 @@
         <tr>
             <th>Fecha</th>
             <th>Personal</th>
-            <th>Cantidad</th>
+            <th>TipoMenu</th>
+            <th>Total</th>
         </tr>
         </thead>
         <tbody>
@@ -21,7 +22,8 @@
             <tr>
                 <td>{{ date('d-m-Y', strtotime($data->fecha)) }}</td>
                 <td>{{$data->personal}} </td>
-                <td>{{strtoupper($data->cantidad)}} </td>
+                <td>{{strtoupper($data->tipomenu)}} </td>
+                <td>{{$data->total}} </td>
             </tr>
             @endforeach
         </tbody>

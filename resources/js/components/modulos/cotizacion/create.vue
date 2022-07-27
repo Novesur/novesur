@@ -2,12 +2,9 @@
   <div class="content-header">
     <div class="container-fluid">
       <div class="float-right">
-
-
-                <router-link class="btn btn-info btn-sm" :to="'/cliente/index'">
-              <i class="fas fa-angle-double-left"></i> Regresar
-            </router-link>
-
+        <router-link class="btn btn-info btn-sm" :to="'/cliente/index'">
+          <i class="fas fa-angle-double-left"></i> Regresar
+        </router-link>
       </div>
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -87,8 +84,6 @@
                     </div>
                   </div>
 
-
-
                   <div class="form-group row">
                     <label class="col-md-2 col-form-label">EMAIL</label>
                     <div class="col-md-8">
@@ -100,8 +95,6 @@
                       />
                     </div>
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -226,11 +219,10 @@
                             >DESCRIPCION DEL PAGO</label
                           >
                           <div class="col-md-4">
-                             <el-select
+                            <el-select
                               v-model="fillregistrarCotizacion.nIdDescripPago"
                               placeholder="Select"
                               style="width: 70%"
-
                             >
                               <el-option
                                 v-for="item in listDescripPago"
@@ -241,7 +233,6 @@
                               </el-option>
                             </el-select>
                           </div>
-
                         </div>
 
                         <div class="form-group row">
@@ -251,7 +242,7 @@
                               type="text"
                               class="form-control"
                               v-model="fillregistrarCotizacion.cFlete"
-                              maxlength = "20"
+                              maxlength="20"
                             />
                           </div>
                         </div>
@@ -269,13 +260,12 @@
                           </div>
                         </div>
 
-
                         <div class="form-group row">
                           <label class="col-md-2 col-form-label"
                             >GARANTIA</label
                           >
-                        <div class="col-md-4">
-                             <el-select
+                          <div class="col-md-4">
+                            <el-select
                               v-model="fillregistrarCotizacion.nIdGarantia"
                               placeholder="Select"
                               style="width: 70%"
@@ -291,22 +281,21 @@
                           </div>
                         </div>
 
-                         <div class="form-group row">
+                        <div class="form-group row">
                           <label class="col-md-2 col-form-label"
                             >OBSERVACIÓN</label
                           >
-                        <div class="col-md-8">
-                          <input
+                          <div class="col-md-8">
+                            <input
                               type="text"
                               class="form-control"
                               v-model="fillregistrarCotizacion.cObservacion"
-                              :maxlength= "255"
+                              :maxlength="255"
                             />
                           </div>
                         </div>
 
-
-                              <div class="form-group row">
+                        <div class="form-group row">
                           <label class="col-md-2 col-form-label"
                             >PUNTO DE LLEGADA CONSIGNADO :</label
                           >
@@ -315,12 +304,12 @@
                               type="text"
                               class="form-control"
                               v-model="fillregistrarCotizacion.cPuntoLlegada"
-                              :maxlength= "100"
+                              :maxlength="100"
                             />
                           </div>
                         </div>
 
-                            <div class="form-group row">
+                        <div class="form-group row">
                           <label class="col-md-2 col-form-label"
                             >EMP. DE TRANSPORTE</label
                           >
@@ -333,7 +322,7 @@
                           </div>
                         </div>
 
-                                 <div class="form-group row">
+                        <div class="form-group row">
                           <label class="col-md-2 col-form-label"
                             >CONSIGNADO</label
                           >
@@ -345,9 +334,6 @@
                             />
                           </div>
                         </div>
-
-
-
                       </div>
                     </div>
                   </div>
@@ -409,35 +395,31 @@
                           style="width: 90%"
                           filterable
                           placeholder="Select"
-                        @change="setBuscaPrecioXProducto()"
-
+                          @change="setBuscaPrecioXProducto()"
                         >
-
-                            <v-row   align="right" >
-                          <el-option
-                            v-for="item in listProd"
-                            :key="item.id"
-
-                            :label="
-                              item.codigo +
-                              ' - ' +
-                              item.familia.nombre +
-                              ' , ' +
-                              item.subfamilia.nombre +
-                              ' , Modelo: ' +
-                              item.modelotipo.nombre +
-                              ' , Marca : ' +
-                              item.marca.nombre +
-                              ' , Material : ' +
-                              item.material.nombre +
-                              ' ,' +
-                              item.homologacion.nombre
-                            "
-                            :value="item.id"
-                          >
-                          </el-option>
-                            </v-row>
-
+                          <v-row align="right">
+                            <el-option
+                              v-for="item in listProd"
+                              :key="item.id"
+                              :label="
+                                item.codigo +
+                                ' - ' +
+                                item.familia.nombre +
+                                ' , ' +
+                                item.subfamilia.nombre +
+                                ' , Modelo: ' +
+                                item.modelotipo.nombre +
+                                ' , Marca : ' +
+                                item.marca.nombre +
+                                ' , Material : ' +
+                                item.material.nombre +
+                                ' ,' +
+                                item.homologacion.nombre
+                              "
+                              :value="item.id"
+                            >
+                            </el-option>
+                          </v-row>
                         </el-select>
                       </div>
                     </div>
@@ -501,7 +483,11 @@
 
                   <div class="card-body table-responsive">
                     <table
-                      class="table table-hover table-head-fixed text-nowrap projects"
+                      class="
+                        table table-hover table-head-fixed
+                        text-nowrap
+                        projects
+                      "
                     >
                       <thead>
                         <tr>
@@ -619,8 +605,8 @@ export default {
       fillregistrarCotizacion: {
         nIdCliente: this.$attrs.id,
         nIdUsuario: "",
-        nIdDescripPago:"",
-        nIdGarantia:"",
+        nIdDescripPago: "",
+        nIdGarantia: "",
         cNomClient: "",
         cDirClient: "",
         cRucClient: "",
@@ -645,17 +631,17 @@ export default {
         cGarantia: "",
         cTotal: "",
         cEstado: "",
-        cPuntoLlegada:"",
-        cTransporte:"",
+        cPuntoLlegada: "",
+        cTransporte: "",
         Cconsignado: "",
-        cObservacion :""
+        cObservacion: "",
       },
 
       listUnidMed: [],
       listTipoPago: [],
       listProd: [],
-      listDescripPago:[],
-      listGarantia:[],
+      listDescripPago: [],
+      listGarantia: [],
       listarProductosPaginated: [],
 
       modalShow: false,
@@ -682,28 +668,22 @@ export default {
   },
 
   methods: {
+    getlistDescricionPago() {
+      var url = "/administracion/pago/index";
+      axios.get(url).then((response) => {
+        this.listDescripPago = response.data;
+        this.fillregistrarCotizacion.nIdDescripPago =
+          this.listDescripPago[0].id;
+      });
+    },
 
-      getlistDescricionPago(){
-     var url = "/administracion/pago/index";
-      axios
-        .get(url)
-        .then((response) => {
-          this.listDescripPago = response.data;
-              this.fillregistrarCotizacion.nIdDescripPago = this.listDescripPago[0].id;
-        });
-},
-
-      getListGarantia(){
-     var url = "/administracion/garantia/index";
-      axios
-        .get(url)
-        .then((response) => {
-          this.listGarantia = response.data;
-              this.fillregistrarCotizacion.nIdGarantia = this.listGarantia[0].id;
-        });
-},
-
-
+    getListGarantia() {
+      var url = "/administracion/garantia/index";
+      axios.get(url).then((response) => {
+        this.listGarantia = response.data;
+        this.fillregistrarCotizacion.nIdGarantia = this.listGarantia[0].id;
+      });
+    },
 
     abrirModal() {
       this.modalShow = !this.modalShow;
@@ -817,8 +797,6 @@ export default {
         this.mensajeError.push("El Campo Documento es un campo obligatorio");
       }
 
-
-
       if (!this.fillregistrarCotizacion.cCantidad) {
         this.mensajeError.push("El Campo Cantidad es un campo obligatorio");
       }
@@ -852,10 +830,7 @@ export default {
           cTotal: this.fillregistrarCotizacion.cTotal,
         })
         .then((response) => {
-          this.listarProductosPaginated = response.data.datos;
-          this.limpiaItems();
-
-          if (response.data.message == "Ya fue agregado anteriormente") {
+          if (response.data.icon == "error") {
             Swal.fire({
               position: "center",
               icon: response.data.icon,
@@ -863,7 +838,20 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
+          } else {
+            this.listarProductosPaginated = response.data.datos;
+            this.limpiaItems();
           }
+
+          /*          if (response.data.message == "Ya fue agregado anteriormente") {
+            Swal.fire({
+              position: "center",
+              icon: response.data.icon,
+              title: response.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } */
         });
     },
     setGrabarCotizacion() {
@@ -876,16 +864,16 @@ export default {
           cValidez: this.fillregistrarCotizacion.cValidez,
           cEntrega: this.fillregistrarCotizacion.cEntrega,
           nIdTipoPago: this.fillregistrarCotizacion.nIdTipoPago,
-          nIdDescripPago : this.fillregistrarCotizacion.nIdDescripPago,
+          nIdDescripPago: this.fillregistrarCotizacion.nIdDescripPago,
           cFPago: this.fillregistrarCotizacion.cFPago,
           cFlete: this.fillregistrarCotizacion.cFlete,
           Docu: this.fillregistrarCotizacion.Docu,
           nIdGarantia: this.fillregistrarCotizacion.nIdGarantia,
           cGarantia: this.fillregistrarCotizacion.cGarantia,
-         cPuntoLlegada: this.fillregistrarCotizacion.cPuntoLlegada,
+          cPuntoLlegada: this.fillregistrarCotizacion.cPuntoLlegada,
           cTransporte: this.fillregistrarCotizacion.cTransporte,
-          Cconsignado : this.fillregistrarCotizacion.Cconsignado,
-          cObservacion : this.fillregistrarCotizacion.cObservacion
+          Cconsignado: this.fillregistrarCotizacion.Cconsignado,
+          cObservacion: this.fillregistrarCotizacion.cObservacion,
         })
         .then((response) => {
           Swal.fire({
@@ -896,7 +884,7 @@ export default {
             timer: 3000,
           });
           this.eliminarTempitemCoti();
-          this.fillregistrarCotizacion.nIdprod=''
+          this.fillregistrarCotizacion.nIdprod = "";
         });
     },
 
@@ -934,7 +922,7 @@ export default {
         })
         .then((response) => {
           this.listarProductosPaginated = response.data.datos;
-       // this.fillregistrarCotizacion.nIdprod = '';
+          // this.fillregistrarCotizacion.nIdprod = '';
 
           //console.log(item);
         });
@@ -946,16 +934,18 @@ export default {
       this.fillregistrarCotizacion.cFlete = "NOVESUR";
     },
 
-    setBuscaPrecioXProducto(){
-     var url = "/administracion/producto/getListarProductoById";
-     axios.get(url,{params:{
-          nIdProducto:this.fillregistrarCotizacion.nIdprod
+    setBuscaPrecioXProducto() {
+      var url = "/administracion/producto/getListarProductoById";
+      axios
+        .get(url, {
+          params: {
+            nIdProducto: this.fillregistrarCotizacion.nIdprod,
           },
-     }).then((response)=>{
-         this.fillregistrarCotizacion.cPUnit = response.data.precioSugerido;
-
-     })
-    }
+        })
+        .then((response) => {
+          this.fillregistrarCotizacion.cPUnit = response.data.precioSugerido;
+        });
+    },
   },
 };
 </script>
