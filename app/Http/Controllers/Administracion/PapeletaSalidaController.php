@@ -28,6 +28,7 @@ class PapeletaSalidaController extends Controller
     public function create(Request $request)
     {
 
+       // dd($request);
 
      /*    DB::beginTransaction();
         try { */
@@ -44,7 +45,7 @@ class PapeletaSalidaController extends Controller
             $PapeletaSalida->save();
 
 
-            if ($request->nIdMotivo == 2) {
+            if ($request->nIdMotivo == 3) {
                 $clientPapeletaSalida = Session::get('clients');
 
                 $allclients = $clientPapeletaSalida->map(function ($PS) use ($PapeletaSalida) {
