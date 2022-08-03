@@ -138,7 +138,7 @@ class PapeletaSalidaController extends Controller
 
     public function setDarBajaPapeletaSalida(Request $request)
     {
-      
+
         $papeletaS = Papeletasalida::find($request->item);
         $papeletaS->delete();
     }
@@ -201,7 +201,7 @@ class PapeletaSalidaController extends Controller
 
             $dato = ClientsPapeletaSalida::with('papeletasalida', 'cliente', 'papeletasalida.user', 'papeletasalida.motivopapeletasalida')
                 ->whereHas('papeletasalida', function (Builder $query) use ($fecha1, $fecha2) {
-                    $query->whereBetween('fecha', [$fecha1, $fecha2])->where('estadopapeletasalida_id', 3);
+                    $query->whereBetween('fecha', [$fecha1, $fecha2])->where('estadopapeletasalida_id', 2);
                 })->get();
             return (new PapeletaExport)->setGenerarExcel($dato)->download('invoices.xlsx');
         }
@@ -222,7 +222,7 @@ class PapeletaSalidaController extends Controller
           $papeletasalida = Papeletasalida::find($request->idpapeleta);
           if ($papeletasalida) {
               $papeletasalida->observacion = mb_strtoupper($request->valormotivo);
-              $papeletasalida->save(); 
+              $papeletasalida->save();
           }
       }
 
