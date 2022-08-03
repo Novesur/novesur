@@ -27,6 +27,7 @@ class CreatePapeletasalidaTable extends Migration
             $table->string('fundamento',150)->required();
             $table->string('observacion',250)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

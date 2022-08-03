@@ -663,7 +663,7 @@ export default {
       activeName: "first",
       EstadoBotonEditar: true,
       txtrechazo: {
-        margin: 15,
+        margin: 20,
       },
       listDetPapeletaSalida: [],
       listModalVendedorAdmin: [],
